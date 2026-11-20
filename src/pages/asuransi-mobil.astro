@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ChatSample from "../components/ChatSample.astro";
-import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
 import ProductHero from "../components/ProductHero.astro";
 import { waLink } from "../data/config";
@@ -258,7 +257,12 @@ const exclusions = [
       </div>
     </section>
 
-    <About message={quoteMessage} />
+    <section class="bg-paper px-5 py-12 md:py-16">
+      <div class="mx-auto max-w-4xl">
+        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Konsultasi gratis. Kalau Anda akhirnya beli lewat saya, komisi dibayar perusahaan asuransi dan premi Anda tidak bertambah. Pembayaran lewat link resmi, bukan ke saya.</p>
+        <a href="/#tentang" class="mt-2 inline-flex min-h-11 items-center text-[0.875rem] font-bold text-wa-deep underline decoration-wa-deep/40 underline-offset-4 hover:decoration-wa-deep">Tentang Aditya</a>
+      </div>
+    </section>
 
     <section id="faq" class="border-y border-line bg-white px-5 py-16 md:py-24">
       <div class="mx-auto grid max-w-6xl gap-7 md:grid-cols-[0.65fr_1.35fr] md:gap-14">
