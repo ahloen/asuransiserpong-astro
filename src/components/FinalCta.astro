@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  eyebrow = "Langkah pertama sederhana",
+  eyebrow,
   title = "Sebelum puncak hujan Des–Feb, pastikan banjir sudah masuk polis Anda.",
   message = MESSAGES.penutup,
   ctaLabel = "Tanya Aditya via WA",
@@ -22,7 +22,7 @@ const {
   <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 -left-20 -z-10 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl"></div>
   <div class="mx-auto max-w-2xl text-center">
   <img src="/avatar-aditya.jpg" alt="Potret Aditya, mitra pemasar asuransi di Serpong" width="72" height="72" loading="lazy" class="mx-auto mb-5 h-[72px] w-[72px] rounded-full object-cover object-[50%_20%] ring-4 ring-wa/60" />
-    <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa uppercase">{eyebrow}</p>
+    {eyebrow && <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa uppercase">{eyebrow}</p>}
     <h2 class="mt-3 font-display text-[1.75rem] leading-[1.15] font-bold tracking-[-0.028em] text-balance md:text-[2.625rem] md:leading-[1.1]">{title}</h2>
     <WaButton message={message} class="mt-8 w-full md:w-auto md:px-10">{ctaLabel}</WaButton>
     <p class="mx-auto mt-2.5 max-w-md text-[0.8125rem] font-medium text-white/65">{RESPONSE_TIME}</p>
