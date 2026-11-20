@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
 import ProductHero from "../components/ProductHero.astro";
 import WaButton from "../components/WaButton.astro";
@@ -34,14 +33,14 @@ const risks = [
 ];
 const steps = [
   { title: "Kirim detail perjalanan", text: "Informasikan negara tujuan, tanggal keberangkatan dan kepulangan, serta jumlah peserta melalui WhatsApp." },
-  { title: "Pilih rekomendasi paket", text: "Aditya akan mengirimkan pilihan paket resmi beserta rincian manfaat dan preminya." },
+  { title: "Pilih rekomendasi paket", text: "Saya kirim pilihan paket resmi beserta rincian manfaat dan preminya." },
   { title: "Terima e-policy", text: "Setelah pembayaran dan proses penerbitan selesai, polis elektronik dapat digunakan sebagai dokumen perjalanan atau pengajuan visa sesuai persyaratan." },
 ];
 const faqs = [
   { question: "Kapan waktu paling tepat membeli asuransi perjalanan?", answer: "Sebaiknya segera setelah memesan tiket atau akomodasi, sebelum keberangkatan. Periksa tanggal mulai dan ketentuan jaminan pembatalan pada polis; perlindungan tidak otomatis berlaku untuk semua penyebab pembatalan." },
   { question: "Apakah paket internasional memenuhi syarat visa Schengen?", answer: "Jangan mengandalkan angka limit rupiah saja. Kesesuaian dengan persyaratan visa bergantung pada kurs, wilayah pertanggungan, masa berlaku, dokumen polis, dan ketentuan kedutaan. Minta konfirmasi atas dokumen polis sebelum membeli atau mengajukan visa." },
   { question: "Bagaimana jika saya bepergian bersama anak?", answer: "Manfaat keluarga dan ketentuan untuk anak berbeda menurut produk. Periksa definisi anak, usia peserta, jumlah peserta, dan limit di penawaran serta polis sebelum membeli." },
-  { question: "Bagaimana cara klaim saat berada di luar negeri?", answer: "Untuk rawat inap darurat, hubungi layanan bantuan medis yang tercantum di sertifikat polis untuk meminta arahan dan fasilitas cashless jika tersedia. Untuk klaim lain, simpan bukti pembayaran dan dokumen pendukung dari maskapai atau penyedia layanan. Laporkan sesegera mungkin dalam tenggat yang ditentukan produk; Aditya dapat membantu menjelaskan prosesnya." },
+  { question: "Bagaimana cara klaim saat berada di luar negeri?", answer: "Untuk rawat inap darurat, hubungi layanan bantuan medis yang tercantum di sertifikat polis untuk meminta arahan dan fasilitas cashless jika tersedia. Untuk klaim lain, simpan bukti pembayaran dan dokumen pendukung dari maskapai atau penyedia layanan. Laporkan sesegera mungkin dalam tenggat yang ditentukan produk. Saya bantu menjelaskan prosesnya." },
 ];
 ---
 
@@ -149,7 +148,12 @@ const faqs = [
 
     <section class="border-y border-line bg-[#efece4] px-5 py-16 md:py-24"><div class="mx-auto max-w-6xl"><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Cara kerja</p><h2 class="mt-3 max-w-2xl font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] md:text-[2.75rem]">Tiga langkah sebelum berangkat.</h2><div class="mt-8 grid gap-4 md:grid-cols-3">{steps.map((step, i) => <article class="rounded-3xl border border-line bg-white p-6"><span class="grid h-10 w-10 place-items-center rounded-full bg-ink text-[0.875rem] font-extrabold text-white">0{i + 1}</span><h3 class="mt-4 font-display text-[1.125rem] font-bold">{step.title}</h3><p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">{step.text}</p></article>)}</div></div></section>
 
-      <About message={message} />
+    <section class="bg-paper px-5 py-12 md:py-16">
+      <div class="mx-auto max-w-4xl">
+        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Konsultasi gratis. Kalau Anda akhirnya beli lewat saya, komisi dibayar perusahaan asuransi dan premi Anda tidak bertambah. Pembayaran lewat link resmi, bukan ke saya.</p>
+        <a href="/#tentang" class="mt-2 inline-flex min-h-11 items-center text-[0.875rem] font-bold text-wa-deep underline decoration-wa-deep/40 underline-offset-4 hover:decoration-wa-deep">Tentang Aditya</a>
+      </div>
+    </section>
 
     <section id="faq" class="px-5 py-16 md:py-24"><div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-14"><div><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Yang sering ditanyakan</p><h2 class="mt-3 font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">FAQ asuransi perjalanan</h2><p class="mt-4 text-[0.9rem] leading-[1.7] text-muted">Jawaban umum untuk membantu Anda. Penawaran dan polis resmi tetap menjadi acuan.</p><WaButton message={MESSAGES.travelVisa} class="mt-5 w-full">Cek kebutuhan visa via WhatsApp</WaButton></div><div class="grid content-start gap-3">{faqs.map((faq) => <details class="group rounded-2xl border border-line bg-white p-5 open:border-wa-deep/30"><summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] leading-[1.45] font-bold marker:hidden [&::-webkit-details-marker]:hidden">{faq.question}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" /></summary><p class="pt-3 pr-7 text-[0.9375rem] leading-[1.7] text-muted">{faq.answer}</p></details>)}</div></div></section>
 
