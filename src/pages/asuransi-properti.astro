@@ -8,28 +8,13 @@ import {
   Building2,
   ChevronDown,
   CloudRain,
-  Flame,
   House,
-  TriangleAlert,
 } from "lucide-astro";
 
 const consultationMessage = "Halo Aditya, saya ingin cek estimasi premi asuransi properti. Jenis bangunan dan area lokasinya bisa saya kirim setelah ini.";
+const rumahMessage = "Halo Aditya, saya ingin cek premi asuransi rumah tinggal. Alamat atau area, luas bangunan, dan tahun bangun bisa saya kirim setelah ini.";
+const rukoMessage = "Halo Aditya, saya ingin cek asuransi ruko atau tempat usaha dan menjadwalkan survei. Alamat dan fungsi bangunan bisa saya kirim setelah ini.";
 const estimateMessage = consultationMessage;
-
-const coverages = [
-  { name: "Kebakaran (Fire)", standard: "Umumnya dijamin*", allRisks: "Cek wording polis" },
-  { name: "Petir (Lightning)", standard: "Umumnya dijamin*", allRisks: "Cek wording polis" },
-  { name: "Ledakan (Explosion)", standard: "Umumnya dijamin*", allRisks: "Cek wording polis" },
-  { name: "Kejatuhan pesawat terbang", standard: "Umumnya dijamin*", allRisks: "Cek wording polis" },
-  { name: "Asap (Smoke)", standard: "Umumnya dijamin*", allRisks: "Cek wording polis" },
-  { name: "Kebocoran pipa & kerusakan air", standard: "Cek wording polis", allRisks: "Cek wording polis" },
-  { name: "Kerusuhan & huru-hara (RSMDCC)", standard: "Perluasan dapat tersedia", allRisks: "Cek wording polis" },
-  { name: "Banjir, badai & genangan air", standard: "Perluasan dapat tersedia", allRisks: "Cek wording polis" },
-  { name: "Gempa bumi & tsunami", standard: "Perluasan/klausul khusus", allRisks: "Perluasan/klausul khusus" },
-  { name: "Tanggung jawab hukum pihak ketiga", standard: "Perluasan dapat tersedia", allRisks: "Cek wording polis" },
-];
-const featuredCoverages = [coverages[0], coverages[5], coverages[7]];
-const otherCoverages = coverages.filter((item) => !featuredCoverages.includes(item));
 
 const faqs = [
   {
@@ -38,15 +23,19 @@ const faqs = [
   },
   {
     question: "Bagaimana kalau ruko saya berada di area rawan banjir?",
-    answer: "Perluasan banjir dapat diminta pada paket Standard, atau Anda dapat mempertimbangkan Property All Risks (PAR). Cakupan banjir, syarat penerimaan lokasi, biaya sendiri, dan pengecualian perlu dipastikan di penawaran serta polis.",
+    answer: "Kirim alamat dan foto rukonya. Saya cek apakah banjir bisa ditambahkan, berapa tambahan premi, dan apa syarat dari asuransinya.",
   },
   {
     question: "Bagaimana proses klaim kalau terjadi kebakaran?",
-    answer: "Segera hubungi saya dan perusahaan asuransi setelah kejadian, lalu ikuti instruksi pengamanan lokasi. Surveyor perusahaan asuransi akan memeriksa kerugian. Saya bantu mendampingi secara online dan memberi arahan dokumen yang perlu disiapkan; keputusan klaim mengikuti pemeriksaan dan ketentuan polis.",
+    answer: "Utamakan keselamatan dan hubungi pemadam kebakaran (113). Setelah situasi aman, hubungi perusahaan asuransi, lalu chat saya. Foto kondisi bangunan sebelum membersihkan apa pun. Surveyor asuransi akan memeriksa kerugian, dan saya bantu mendampingi lewat WhatsApp dengan arahan dokumen yang perlu disiapkan. Keputusan klaim mengikuti pemeriksaan dan ketentuan polis.",
   },
   {
     question: "Apakah rumah perlu disurvei sebelum diasuransikan?",
     answer: "Untuk rumah tinggal, proses awal biasanya bisa dilakukan online melalui WhatsApp tanpa survei awal. Perusahaan asuransi dapat meminta foto, dokumen, atau survei tambahan berdasarkan kondisi dan lokasi properti. Ruko dan tempat usaha umumnya memerlukan survei lokasi lebih dulu.",
+  },
+  {
+    question: "Rumah saya KPR dan sudah ada asuransi dari bank. Perlu dicek lagi?",
+    answer: "Kirim polisnya. Saya cek apa saja yang dijamin dan apakah banjir ikut.",
   },
 ];
 
@@ -59,8 +48,8 @@ const priceItems = [
 ---
 
 <BaseLayout
-      title="Asuransi Properti Serpong: Rumah & Ruko | AsuransiSerpong"
-      description="Pahami pilihan asuransi rumah dan ruko, nilai bangunan, banjir, dan perluasan properti. Konsultasi serta estimasi premi bersama Aditya."
+      title="Asuransi Rumah & Ruko BSD, Gading Serpong, Alam Sutera | Aditya"
+      description="Asuransi rumah dan ruko dihitung dari biaya bangun, bukan harga tanah. Cek FLEXAS, PAR, dan jaminan banjir bersama Aditya. BSD, Gading Serpong, Alam Sutera."
   stickyMessage={consultationMessage}
   faqs={faqs}
 >
@@ -68,10 +57,14 @@ const priceItems = [
     <ProductHero
       product="Asuransi Properti"
       eyebrow="Asuransi properti · BSD · Gading Serpong · Alam Sutera"
-      titleLead="Asuransi rumah atau ruko,"
-      titleAccent="mulai dari mana?"
-      lead="Saya bantu pilih antara FLEXAS dan Property All Risks (PAR), perkirakan premi dari nilai bangunan (bukan harga tanah), dan cek apakah banjir atau isi bangunan perlu perlindungan tambahan."
-      message={consultationMessage}
+      titleLead="Asuransi rumah dan ruko"
+      titleAccent="dihitung dari biaya bangun, bukan harga tanah."
+      lead="Saya bantu hitung nilai bangunannya, pilih perlindungan yang pas, dan cek apakah banjir bisa ditambahkan."
+      message={rumahMessage}
+      ctaLabel="Rumah tinggal, cek premi"
+      secondaryMessage={rukoMessage}
+      secondaryLabel="Ruko atau usaha, jadwalkan survei"
+      helperLine="Punya polis dari bank untuk KPR? Kirim saja, saya cek apa yang dijamin dan apakah banjir ikut."
       checks={["Konsultasi gratis, tidak harus beli", "Aditya tinggal di Serpong"]}
       stackChecks
       background="property"
@@ -80,7 +73,7 @@ const priceItems = [
         eyebrow: "Yang bisa Anda tanyakan",
         title: "Mulai dari kebutuhan properti Anda",
         items: [
-          { icon: Flame, label: "Pilihan perlindungan untuk rumah, ruko, atau usaha" },
+          { icon: House, label: "Pilihan perlindungan untuk rumah, ruko, atau usaha" },
           { icon: Building2, label: "Perkiraan premi sesuai kondisi properti" },
           { icon: CloudRain, label: "Cek isi polis yang sudah Anda punya" },
         ],
@@ -89,14 +82,9 @@ const priceItems = [
     />
 
     <section aria-label="Contoh biaya asuransi rumah" class="border-b border-line bg-white px-5 py-8 md:py-10">
-      <div class="mx-auto flex max-w-6xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-        <div class="max-w-3xl">
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Gambaran biaya</p>
-          <h2 class="mt-2 font-display text-[1.35rem] leading-tight font-bold md:text-[1.7rem]">Contoh premi rumah: Rp500.000 per tahun</h2>
-          <p class="mt-2 text-[0.9375rem] leading-[1.65] text-muted">Ilustrasi rumah tinggal dengan nilai bangunan Rp1 miliar dan estimasi rate 0,05% per tahun. Bukan penawaran; perluasan banjir, gempa, isi bangunan, biaya polis, dan materai belum tentu termasuk. Premi final mengikuti penilaian risiko dan penawaran.</p>
-          <a href="#biaya" class="mt-2 inline-flex min-h-11 items-center gap-2 text-[0.875rem] font-bold text-wa-deep hover:text-ink">Lihat rincian simulasi <ArrowRight class="h-4 w-4" /></a>
-        </div>
-        <WaButton message={estimateMessage} class="w-full shrink-0 sm:w-auto">Tanya estimasi properti saya</WaButton>
+      <div class="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Contoh: bangunan Rp1 miliar, premi dasar sekitar Rp500.000 per tahun. Banjir, gempa, dan isi rumah dihitung terpisah.</p>
+        <a href="#biaya" class="inline-flex min-h-11 shrink-0 items-center gap-2 text-[0.875rem] font-bold text-wa-deep hover:text-ink">Lihat rincian <ArrowRight class="h-4 w-4" /></a>
       </div>
     </section>
 
@@ -104,24 +92,24 @@ const priceItems = [
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
           <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Kenapa perlu perlindungan?</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Korsleting, cuaca ekstrem, dan biaya bangun ulang.</h2>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Tiga hal yang sering terlewat</h2>
           <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Rumah dan ruko di Alam Sutera, BSD, dan Gading Serpong dapat terdampak risiko yang biaya pemulihannya tidak kecil.</p>
         </div>
         <div class="mt-8 grid gap-4 md:grid-cols-3">
           <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
-            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-[#fff0e8] text-[#a44b20]"><Flame class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Korsleting listrik</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Salah satu pemicu kebakaran yang perlu diwaspadai di permukiman padat maupun area komersial.</p>
-          </article>
-          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
             <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><CloudRain class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Cuaca ekstrem</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Hujan deras, angin kencang, dan banjir dapat merusak bangunan serta barang di dalamnya.</p>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Banjir tidak ikut otomatis.</h3>
+            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Polis dasar kebakaran tidak menjamin banjir. Perluasannya harus diminta.</p>
           </article>
           <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
-            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-[#fff3dc] text-[#8a5a19]"><TriangleAlert class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Biaya bangun ulang</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Nilainya bisa mencapai ratusan juta hingga miliaran rupiah dan menghabiskan tabungan bertahun-tahun.</p>
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Building2 class="h-5 w-5" /></span>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Nilai bangunan dihitung terlalu rendah.</h3>
+            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Kalau nilai pertanggungan di bawah biaya bangun, klaim bisa dikurangi secara proporsional sesuai polis.</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><House class="h-5 w-5" /></span>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Bangunan berubah.</h3>
+            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Renovasi, tambah lantai, atau ganti fungsi bangunan sebaiknya diinformasikan ke asuransi, karena bisa mengubah nilai dan risikonya.</p>
           </article>
         </div>
         <div class="mt-5 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-[0.875rem] leading-[1.65] text-wa-deep md:p-5">
@@ -136,62 +124,22 @@ const priceItems = [
         <div class="max-w-3xl">
           <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Bandingkan manfaat</p>
           <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Pilih perlindungan sesuai risiko properti Anda.</h2>
-          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Gambaran umum FLEXAS (Standard) dan Property All Risks (PAR), bukan daftar manfaat yang dijamin oleh semua produk. Cakupan, sublimit, perluasan, dan pengecualian perlu diperiksa di wording polis.</p>
         </div>
-
-        <div class="mt-8 overflow-hidden rounded-3xl border border-line bg-white">
-          <div class="hidden lg:block">
-            <table class="w-full border-collapse text-left text-[0.8125rem] lg:text-[0.875rem]">
-              <caption class="sr-only">Perbandingan manfaat asuransi properti Standard FLEXAS dan Property All Risks</caption>
-              <thead class="bg-ink text-white">
-                <tr><th scope="col" class="w-[42%] px-5 py-4 font-bold">Fitur perlindungan</th><th scope="col" class="px-5 py-4 font-bold">Standard (FLEXAS)</th><th scope="col" class="px-5 py-4 font-bold">All Risks (PAR)</th></tr>
-              </thead>
-              <tbody class="divide-y divide-line text-muted">
-                {coverages.map((item) => (
-                  <tr>
-                    <th scope="row" class="px-5 py-3.5 font-semibold text-ink">{item.name}</th>
-                    <td class="px-5 py-3.5">{item.standard}</td>
-                    <td class="px-5 py-3.5">{item.allRisks}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div class="grid gap-2.5 p-3 lg:hidden">
-            {featuredCoverages.map((item) => (
-              <article class="rounded-2xl border border-line bg-paper p-4">
-                <h3 class="font-display text-[0.875rem] font-bold leading-[1.45]">{item.name}</h3>
-                <dl class="mt-3 grid grid-cols-2 gap-2">
-                  <div class="rounded-xl bg-white p-3">
-                    <dt class="text-[0.6875rem] font-bold text-muted">Standard (FLEXAS)</dt>
-                    <dd class="mt-1 text-[0.75rem] leading-[1.5] text-ink">{item.standard}</dd>
-                  </div>
-                  <div class="rounded-xl bg-white p-3">
-                    <dt class="text-[0.6875rem] font-bold text-muted">All Risks (PAR)</dt>
-                    <dd class="mt-1 text-[0.75rem] leading-[1.5] text-ink">{item.allRisks}</dd>
-                  </div>
-                </dl>
-              </article>
-            ))}
-            <details class="group rounded-2xl border border-line bg-paper">
-              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[0.875rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
-                Lihat {otherCoverages.length} manfaat lainnya <ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
-              </summary>
-              <div class="grid gap-2.5 px-3 pb-3">
-                {otherCoverages.map((item) => (
-                  <article class="rounded-2xl border border-line bg-white p-4">
-                    <h3 class="font-display text-[0.875rem] font-bold leading-[1.45]">{item.name}</h3>
-                    <dl class="mt-3 grid grid-cols-2 gap-2">
-                      <div class="rounded-xl bg-paper p-3"><dt class="text-[0.6875rem] font-bold text-muted">Standard (FLEXAS)</dt><dd class="mt-1 text-[0.75rem] leading-[1.5] text-ink">{item.standard}</dd></div>
-                      <div class="rounded-xl bg-paper p-3"><dt class="text-[0.6875rem] font-bold text-muted">All Risks (PAR)</dt><dd class="mt-1 text-[0.75rem] leading-[1.5] text-ink">{item.allRisks}</dd></div>
-                    </dl>
-                  </article>
-                ))}
-              </div>
-            </details>
-          </div>
-          <p class="border-t border-line px-4 py-3 text-[0.9375rem] leading-[1.6] text-muted lg:px-5">*Manfaat FLEXAS umumnya mengacu pada risiko dasar yang disebut dalam polis. Label di tabel adalah panduan awal, bukan konfirmasi jaminan. Perluasan mungkin memerlukan premi atau klausul tambahan. Istilah “All Risks” bukan berarti semua sebab kerugian otomatis dijamin.</p>
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <h3 class="font-display text-[1.25rem] font-bold">FLEXAS</h3>
+            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-muted">Menjamin risiko yang disebut satu per satu di polis: kebakaran, petir, ledakan, pesawat jatuh, asap. Banjir dan risiko lain harus ditambah.</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <h3 class="font-display text-[1.25rem] font-bold">PAR (Property All Risks)</h3>
+            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-muted">Menjamin kerusakan fisik dari sebab apa pun, kecuali yang dikecualikan di polis. Cakupan lebih luas, premi biasanya lebih tinggi.</p>
+          </article>
+          <article class="rounded-3xl border border-wa-deep/20 bg-wa-soft p-5 md:p-6">
+            <h3 class="font-display text-[1.25rem] font-bold">Mana yang cocok?</h3>
+            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-ink/80">Kirim jenis bangunan dan alamatnya. Saya jelaskan mana yang masuk akal.</p>
+          </article>
         </div>
+        <p class="mt-4 text-[0.9375rem] leading-[1.6] text-muted">Cakupan, sublimit, perluasan, dan pengecualian mengikuti wording polis. &ldquo;All Risks&rdquo; tidak berarti semua penyebab otomatis dijamin.</p>
         <WaButton message={consultationMessage} class="mt-5 w-full sm:w-auto">Tanya pilihan perlindungan</WaButton>
       </div>
     </section>
@@ -245,7 +193,7 @@ const priceItems = [
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
           <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Cara kerja</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.8rem]">Tiga langkah untuk mulai melindungi properti.</h2>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.8rem]">Tiga langkah, dari chat sampai polis terbit.</h2>
         </div>
         <div class="mt-8 grid gap-3 md:grid-cols-3">
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
