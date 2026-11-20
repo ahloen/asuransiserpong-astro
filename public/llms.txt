@@ -1,0 +1,37 @@
+# AsuransiSerpong
+
+> AsuransiSerpong menyediakan informasi dan konsultasi asuransi untuk warga Serpong, BSD City, Gading Serpong, dan Alam Sutera. Pengunjung dapat berkonsultasi dengan Aditya melalui WhatsApp mengenai pilihan perlindungan dan hal-hal yang perlu diperiksa pada polis.
+
+## Topik Utama
+
+- Asuransi mobil: Comprehensive (All Risk), TLO, perluasan banjir, biaya sendiri, pilihan bengkel, dan proses klaim.
+- Asuransi properti: perlindungan rumah dan ruko, nilai bangunan, isi rumah, serta risiko seperti banjir dan gempa.
+- Asuransi perjalanan: manfaat perjalanan domestik dan internasional, perlindungan keluarga, dan dokumen asuransi untuk visa.
+- Asuransi bisnis: pilihan perlindungan untuk armada, properti, karyawan, pengiriman, dan proyek.
+- Panduan polis dan nomor kontak darurat beberapa perusahaan asuransi.
+
+## Layanan dan Halaman Penting
+
+- [Beranda](https://asuransiserpong.com/): Profil layanan dan cara menghubungi Aditya.
+- [Asuransi Mobil](https://asuransiserpong.com/asuransi-mobil/): Informasi pilihan All Risk dan TLO, perluasan, serta hal yang perlu diperiksa sebelum memilih polis.
+- [Asuransi Properti](https://asuransiserpong.com/asuransi-properti/): Informasi perlindungan rumah dan properti.
+- [Asuransi Perjalanan](https://asuransiserpong.com/asuransi-travel/): Informasi perlindungan perjalanan domestik dan internasional.
+- [Asuransi Bisnis](https://asuransiserpong.com/asuransi-bisnis/): Pilihan perlindungan untuk kebutuhan usaha.
+- [Semua artikel](https://asuransiserpong.com/blog/): Panduan praktis seputar asuransi.
+- [Artikel asuransi mobil](https://asuransiserpong.com/blog/kategori/mobil/): Panduan polis, banjir, dan perbandingan penawaran mobil.
+- [Artikel asuransi properti](https://asuransiserpong.com/blog/kategori/properti/): Panduan perlindungan rumah dan properti.
+- [Artikel asuransi perjalanan](https://asuransiserpong.com/blog/kategori/travel/): Panduan asuransi perjalanan.
+- [Artikel asuransi bisnis](https://asuransiserpong.com/blog/kategori/bisnis/): Panduan asuransi untuk kebutuhan bisnis.
+- [Asuransi mobil dan banjir di BSD/Serpong](https://asuransiserpong.com/blog/asuransi-mobil-banjir-bsd-gading-serpong/): Cara memeriksa jaminan banjir dan ketentuan polis.
+- [Mengurus asuransi mobil setelah kredit lunas](https://asuransiserpong.com/blog/kredit-mobil-lunas-asuransi-mobil-mandiri/): Langkah memeriksa polis lama dan membandingkan perlindungan.
+- [Membandingkan penawaran asuransi mobil](https://asuransiserpong.com/blog/perbandingan-asuransi-mobil-terbaik-serpong/): Rincian manfaat, limit, biaya sendiri, dan bengkel yang perlu dibandingkan.
+- [Asuransi rumah setelah KPR lunas](https://asuransiserpong.com/blog/panduan-asuransi-rumah-tinggal-bsd-alam-sutera/): Panduan polis rumah, nilai bangunan, dan isi rumah.
+- [Asuransi perjalanan keluarga ke luar negeri](https://asuransiserpong.com/blog/kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga/): Hal yang perlu diperiksa sebelum membeli polis perjalanan keluarga.
+- [Nomor darurat ACA](https://asuransiserpong.com/nomor-darurat-aca/): Hotline dan panduan bantuan darurat ACA Otomate.
+- [Nomor darurat Garda Oto](https://asuransiserpong.com/nomor-darurat-garda-oto/): Kontak dan panduan bantuan darurat Garda Oto.
+- [Nomor darurat Zurich](https://asuransiserpong.com/nomor-darurat-zurich/): Kontak dan panduan bantuan darurat Zurich Autocillin.
+- [Ketentuan layanan dan kebijakan privasi](https://asuransiserpong.com/terms-and-privacy/): Informasi penggunaan layanan dan data konsultasi.
+
+## Catatan
+
+Konten situs bersifat informatif dan bukan pengganti dokumen polis atau konfirmasi resmi perusahaan asuransi. Manfaat, pengecualian, dan keputusan klaim mengikuti syarat dan ketentuan polis yang berlaku.

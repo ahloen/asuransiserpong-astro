@@ -1,0 +1,57 @@
+---
+import { BadgeCheck } from "lucide-astro";
+
+const steps = [
+  {
+    title: "Chat saya.",
+      body: "Ceritakan mobil atau rumahnya. Untuk pertanyaan awal, KTP/STNK belum perlu; kirim foto polis hanya jika nyaman dan tutupi data yang tidak relevan.",
+  },
+  {
+    title: "Baca penjelasan saya.",
+    body: "Saya kirim penawarannya dan jelaskan isinya. Lanjut atau tidak, Anda yang putuskan.",
+  },
+  {
+    title: "Cocok? Saya urus.",
+    body: "Kirim dokumen lewat WA. Bayarnya nanti, setelah pengajuan disetujui, lewat link resmi.",
+  },
+];
+---
+
+<section id="cara-kerja" class="bg-white px-5 py-14 md:py-20">
+  <div class="mx-auto max-w-5xl">
+    <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase">
+      <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+      Cara kerja
+    </p>
+    <h2 class="mt-2.5 font-display text-[1.625rem] leading-[1.18] font-bold tracking-[-0.025em] text-balance md:text-[2.125rem] md:leading-[1.14]">
+      Tiga langkah, semuanya dari HP.
+    </h2>
+
+    <ol class="mt-8 md:grid md:grid-cols-3 md:gap-7">
+      {steps.map((s, i) => (
+        <li class="relative flex gap-4 pb-8 last:pb-0 md:block md:pb-0">
+          {i < steps.length - 1 && (
+            <span
+              aria-hidden="true"
+              class="absolute top-12 bottom-1 left-[1.4375rem] w-0.5 bg-gradient-to-b from-ink/30 to-ink/5 md:hidden"
+            ></span>
+          )}
+          <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink font-display text-[1.125rem] font-bold text-wa tabular-nums ring-4 ring-white">
+            {i + 1}
+          </span>
+          <div class="md:mt-4">
+            <h3 class="font-display text-[1.25rem] leading-[1.25] font-bold tracking-[-0.02em]">{s.title}</h3>
+            <p class="mt-1.5 text-[0.9375rem] leading-[1.6] text-muted">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-9 flex items-start gap-3 rounded-2xl border border-wa-deep/20 bg-wa-soft p-4">
+      <BadgeCheck class="mt-0.5 h-5.5 w-5.5 shrink-0 text-wa-deep" />
+      <p class="text-[0.9375rem] leading-[1.5] font-semibold text-wa-ink">
+        Konsultasi awal bisa lewat WA. Perusahaan asuransi dapat meminta dokumen atau survei sesuai kondisi properti dan kendaraan.
+      </p>
+    </div>
+  </div>
+</section>

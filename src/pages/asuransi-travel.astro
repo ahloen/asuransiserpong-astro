@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../components/About.astro";
+import FinalCta from "../components/FinalCta.astro";
+import ProductHero from "../components/ProductHero.astro";
+import WaButton from "../components/WaButton.astro";
+import { MESSAGES } from "../data/config";
+import { BaggageClaim, ChevronDown, FileCheck2, Globe2, HeartPulse, Plane } from "lucide-astro";
+
+const message = MESSAGES.travel;
+const samplePremiumMessage = MESSAGES.travel;
+const packages = ["Domestik", "Internasional Lite", "Internasional Edge", "Internasional Prime"];
+const benefits = [
+  { name: "Biaya medis darurat, termasuk COVID-19", values: ["Hingga Rp200 juta", "Hingga Rp700 juta", "Hingga Rp1 miliar", "Hingga Rp2,5 miliar"] },
+  { name: "Medis cashless di luar negeri", values: ["Tidak berlaku", "Tersedia untuk rawat inap", "Tersedia untuk rawat inap", "Tersedia untuk rawat inap"] },
+  { name: "Evakuasi medis darurat & repatriasi", values: ["Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya"] },
+  { name: "Kecelakaan diri: meninggal / cacat tetap", values: ["Hingga Rp300 juta", "Hingga Rp500 juta", "Hingga Rp1,25 miliar", "Hingga Rp1,5 miliar"] },
+  { name: "Keterlambatan perjalanan (min. 4 jam)", values: ["Hingga Rp500 ribu / 4 jam", "Rp500 ribu / 4 jam", "Rp750 ribu / 4 jam", "Rp1 juta / 4 jam"] },
+  { name: "Keterlambatan bagasi", values: ["Cek manfaat paket", "Cek manfaat paket", "Cek manfaat paket", "Cek manfaat paket"] },
+  { name: "Bagasi & barang pribadi", values: ["Hingga Rp5 juta", "Hingga Rp15 juta", "Hingga Rp25 juta", "Hingga Rp30 juta"] },
+  { name: "Pembatalan & perubahan perjalanan", values: ["Hingga Rp10 juta", "Hingga Rp35 juta", "Hingga Rp50 juta", "Hingga Rp65 juta"] },
+  { name: "Pemulangan jenazah", values: ["Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya", "Sesuai biaya sebenarnya"] },
+  { name: "Perlindungan rumah kosong di Indonesia", values: ["Tidak berlaku", "Hingga Rp12 juta", "Hingga Rp15 juta", "Hingga Rp20 juta"] },
+  { name: "Kebutuhan visa Schengen (umumnya min. EUR 30.000)", values: ["Tidak berlaku", "Konfirmasi polis & dokumen", "Konfirmasi polis & dokumen", "Konfirmasi polis & dokumen"] },
+];
+const keyBenefits = benefits.filter((benefit) =>
+  ["Biaya medis darurat", "Bagasi & barang pribadi", "Pembatalan & perubahan perjalanan", "Kebutuhan visa Schengen"].some((label) => benefit.name.startsWith(label)),
+);
+const risks = [
+  { icon: Plane, title: "Penerbangan tertunda", text: "Keterlambatan dapat menambah waktu tunggu dan biaya perjalanan, sesuai definisi manfaat polis." },
+  { icon: BaggageClaim, title: "Bagasi terlambat, hilang, atau rusak", text: "Simpan laporan maskapai dan bukti terkait; jenis kejadian serta limit yang dijamin mengikuti polis." },
+  { icon: HeartPulse, title: "Biaya medis darurat", text: "Perawatan di luar negeri dapat mahal dan belum tentu ditanggung BPJS atau asuransi lokal." },
+  { icon: Globe2, title: "Persyaratan visa Schengen", text: "Pengajuan visa Schengen umumnya membutuhkan asuransi medis minimal EUR 30.000." },
+];
+const steps = [
+  { title: "Kirim detail perjalanan", text: "Informasikan negara tujuan, tanggal keberangkatan dan kepulangan, serta jumlah peserta melalui WhatsApp." },
+  { title: "Pilih rekomendasi paket", text: "Aditya akan mengirimkan pilihan paket resmi beserta rincian manfaat dan preminya." },
+  { title: "Terima e-policy", text: "Setelah pembayaran dan proses penerbitan selesai, polis elektronik dapat digunakan sebagai dokumen perjalanan atau pengajuan visa sesuai persyaratan." },
+];
+const faqs = [
+  { question: "Kapan waktu paling tepat membeli asuransi perjalanan?", answer: "Sebaiknya segera setelah memesan tiket atau akomodasi, sebelum keberangkatan. Periksa tanggal mulai dan ketentuan jaminan pembatalan pada polis; perlindungan tidak otomatis berlaku untuk semua penyebab pembatalan." },
+  { question: "Apakah paket internasional memenuhi syarat visa Schengen?", answer: "Jangan mengandalkan angka limit rupiah saja. Kesesuaian dengan persyaratan visa bergantung pada kurs, wilayah pertanggungan, masa berlaku, dokumen polis, dan ketentuan kedutaan. Minta konfirmasi atas dokumen polis sebelum membeli atau mengajukan visa." },
+  { question: "Bagaimana jika saya bepergian bersama anak?", answer: "Manfaat keluarga dan ketentuan untuk anak berbeda menurut produk. Periksa definisi anak, usia peserta, jumlah peserta, dan limit di penawaran serta polis sebelum membeli." },
+  { question: "Bagaimana cara klaim saat berada di luar negeri?", answer: "Untuk rawat inap darurat, hubungi layanan bantuan medis yang tercantum di sertifikat polis untuk meminta arahan dan fasilitas cashless jika tersedia. Untuk klaim lain, simpan bukti pembayaran dan dokumen pendukung dari maskapai atau penyedia layanan. Laporkan sesegera mungkin dalam tenggat yang ditentukan produk; Aditya dapat membantu menjelaskan prosesnya." },
+];
+---
+
+<BaseLayout
+      title="Asuransi Perjalanan: Domestik & Internasional | AsuransiSerpong"
+      description="Bandingkan manfaat dan estimasi premi asuransi perjalanan domestik maupun internasional. Cek medis darurat, bagasi, dan dokumen visa bersama Aditya."
+  stickyMessage={message}
+  faqs={faqs}
+>
+  <article class="bg-paper">
+    <ProductHero
+      product="Asuransi Perjalanan"
+      eyebrow="Asuransi perjalanan · Domestik & internasional"
+      titleLead="Cek premi asuransi"
+      titleAccent="perjalanan Anda."
+      lead="Kirim tujuan, tanggal pergi-pulang, dan jumlah peserta. Saya bantu cek paket untuk biaya medis darurat, bagasi, atau perubahan perjalanan, termasuk kebutuhan dokumen visa."
+      message={message}
+      ctaLabel="Cek Premi via WhatsApp"
+      checks={["Konsultasi gratis", "Tidak harus beli"]}
+      stackChecks
+      background="travel"
+      secondary={{ href: "#manfaat", label: "Lihat pilihan paket" }}
+      summary={{
+        icon: Plane,
+        eyebrow: "Sebelum berangkat",
+        title: "Perjalanan berbeda, kebutuhan pun berbeda.",
+        items: [
+          { icon: HeartPulse, label: "Medis darurat & evakuasi" },
+          { icon: BaggageClaim, label: "Bagasi & keterlambatan" },
+          { icon: FileCheck2, label: "Pilihan untuk kebutuhan visa" },
+        ],
+        note: "Manfaat, limit, dan pengecualian mengikuti paket serta polis yang diterbitkan.",
+      }}
+    />
+
+    <section id="manfaat" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl"><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Pilihan perlindungan</p><h2 class="mt-3 font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] text-balance md:text-[2.75rem]">Bandingkan manfaat sesuai tujuan perjalanan.</h2><p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Ringkasan limit indikatif dalam rupiah. Paket domestik dapat memiliki pilihan Boost, Joy, dan Roadtrip dengan limit berbeda; pastikan rincian pada penawaran resmi.</p></div>
+        <div class="mt-8 hidden overflow-x-auto rounded-3xl border border-line focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep lg:block" tabindex="0" role="region" aria-label="Tabel perbandingan manfaat asuransi perjalanan, geser untuk melihat seluruh paket">
+          <table class="w-full min-w-[58rem] border-collapse text-left text-[0.875rem] leading-[1.55]">
+            <thead class="bg-ink text-white"><tr><th scope="col" class="px-4 py-4">Manfaat utama</th>{packages.map((name) => <th scope="col" class="px-4 py-4">{name}</th>)}</tr></thead>
+            <tbody class="divide-y divide-line text-muted">{benefits.map((benefit) => <tr><th scope="row" class="px-4 py-4 font-semibold text-ink">{benefit.name}</th>{benefit.values.map((value) => <td class="px-4 py-4">{value}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+        <div class="mt-5 overflow-x-auto rounded-2xl border border-line bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep lg:hidden" tabindex="0" role="region" aria-label="Ringkasan empat manfaat utama tiap paket; geser mendatar untuk membandingkan">
+          <table class="w-full min-w-[42rem] border-collapse text-left text-[0.875rem] leading-[1.5]">
+            <thead class="bg-ink text-white"><tr><th scope="col" class="px-3 py-3">Manfaat utama</th>{packages.map((name) => <th scope="col" class="px-3 py-3">{name}</th>)}</tr></thead>
+            <tbody class="divide-y divide-line text-muted">{keyBenefits.map((benefit) => <tr><th scope="row" class="px-3 py-3 font-semibold text-ink">{benefit.name}</th>{benefit.values.map((value) => <td class="px-3 py-3">{value}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-[0.875rem] font-medium text-muted lg:hidden">Geser ringkasan mendatar untuk membandingkan manfaat utama. Buka paket untuk melihat rincian lainnya; minta penawaran resmi sebelum membeli.</p>
+        <div class="mt-4 grid gap-3 lg:hidden">
+          {packages.map((name, i) => <details class="group overflow-hidden rounded-3xl border border-line bg-paper" open={i === 0}>
+            <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display font-bold marker:hidden [&::-webkit-details-marker]:hidden"><span>{name}{i === 0 && <span class="mt-1 block text-[0.75rem] font-medium text-muted">Boost / Joy / Roadtrip</span>}</span><ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" /></summary>
+            <dl class="divide-y divide-line border-t border-line bg-white px-5">{benefits.map((benefit) => <div class="grid grid-cols-2 gap-3 py-3 text-[0.8125rem] leading-[1.5]"><dt class="text-muted">{benefit.name}</dt><dd class="font-semibold text-ink">{benefit.values[i]}</dd></div>)}</dl>
+          </details>)}
+        </div>
+        <p class="mt-4 text-[0.9375rem] leading-[1.65] text-muted">Kesesuaian dokumen untuk visa perlu dikonfirmasi berdasarkan persyaratan kedutaan. Angka merupakan ringkasan, bukan jaminan pembayaran klaim; sublimit, syarat, pengecualian, dan manfaat sesuai biaya sebenarnya tetap mengikuti penawaran serta polis.</p>
+        <div class="mt-8">
+          <h3 class="font-display text-[1.25rem] font-bold">Pilih tipe perjalanan</h3>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <article class="rounded-3xl border border-line bg-paper p-6">
+              <p class="text-[0.75rem] font-bold tracking-[0.12em] text-wa-deep uppercase">Sekali perjalanan</p>
+              <h4 class="mt-2 font-display text-[1.125rem] font-bold">Single Trip</h4>
+              <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Cocok untuk liburan sesekali atau satu kali perjalanan pulang-pergi.</p>
+            </article>
+            <article class="rounded-3xl border border-wa-deep/20 bg-wa-soft p-6">
+              <p class="text-[0.75rem] font-bold tracking-[0.12em] text-wa-deep uppercase">Tahunan · Worldwide</p>
+              <h4 class="mt-2 font-display text-[1.125rem] font-bold">Annual Trip</h4>
+              <p class="mt-2 text-[0.9375rem] leading-[1.7] text-ink/80">Dapat dipertimbangkan bagi Anda yang sering bepergian. Jumlah perjalanan dan durasi maksimum per trip mengikuti paket tahunan yang dipilih.</p>
+              <p class="mt-4 text-[0.875rem] font-bold text-wa-deep">Premi mulai Rp1.924.000 / tahun <span class="font-medium">(Plan Lite, 90 hari per trip)</span></p>
+              <p class="mt-2 text-[0.875rem] leading-[1.6] text-muted">Angka ini ilustrasi paket tertentu, bukan tarif semua produk. Premi aktual dan ketersediaan mengikuti penawaran terbaru serta ketentuan polis.</p>
+            </article>
+          </div>
+        </div>
+        <div class="mt-8 rounded-3xl bg-wa-soft p-6 md:p-7"><h3 class="font-display text-[1.125rem] font-bold">Pilihan peserta</h3><ul class="mt-4 grid gap-3 text-[0.9375rem] leading-[1.7] text-ink/80"><li><strong>Individu, grup, atau keluarga:</strong> ketersediaan, jumlah peserta, dan manfaat keluarga berbeda menurut produk; minta rincian paket sebelum membeli.</li><li><strong>Perjalanan domestik:</strong> cakupan perjalanan di dalam negeri mengikuti wilayah pertanggungan yang disebut dalam polis.</li></ul></div>
+        <div class="mt-4 rounded-3xl border border-line bg-paper p-6 md:p-7">
+          <h3 class="font-display text-[1.125rem] font-bold">Manfaat tambahan opsional</h3>
+          <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Lengkapi perlindungan dasar sesuai aktivitas dan kebutuhan perjalanan Anda:</p>
+          <ul class="mt-4 grid gap-2 text-[0.875rem] leading-[1.6] text-ink/80 sm:grid-cols-2 lg:grid-cols-3">
+            <li>Perlindungan visa jika ditolak</li><li>Olahraga salju, termasuk ski dan snowboarding</li><li>Aktivitas petualangan</li><li>Jaminan kapal pesiar (cruise)</li><li>Perjalanan bisnis</li><li>Acara olahraga amatir</li>
+          </ul>
+          <p class="mt-4 text-[0.75rem] leading-[1.65] text-muted">Ketersediaan, premi tambahan, alasan penolakan visa yang dijamin, dan ketentuan setiap perluasan mengikuti penawaran serta polis.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl"><div class="max-w-3xl"><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Simulasi &amp; ketentuan</p><h2 class="mt-3 font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] text-balance md:text-[2.75rem]">Siapkan perjalanan dengan informasi yang jelas.</h2></div>
+        <div class="mt-8 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <article class="rounded-3xl bg-ink p-6 text-white md:p-8"><p class="text-[0.75rem] font-bold tracking-[0.12em] text-wa uppercase">Contoh premi</p><h3 class="mt-3 font-display text-[1.4rem] font-bold">Perjalanan ke Asia</h3><p class="mt-2 text-[0.875rem] leading-[1.7] text-white/70">Singapura, Thailand, atau Malaysia · 5–6 hari · individu · pulang pergi</p><p class="mt-6 font-display text-[2rem] font-extrabold tracking-[-0.04em]">Rp214.000 <span class="text-[1rem] font-medium text-white/65">– Rp361.000 / orang</span></p><p class="mt-2 text-[0.875rem] leading-[1.7] text-white/70">Estimasi Paket Asia Lite hingga Asia Prime.</p><p class="mt-6 border-t border-white/15 pt-5 text-[0.8125rem] leading-[1.7] text-white/70">Untuk 1–4 hari di Asia: mulai Rp137.000 per individu atau Rp117.000 per orang untuk polis group. Premi aktual mengikuti tujuan, durasi, peserta, paket, dan penawaran terbaru.</p><WaButton message={samplePremiumMessage} class="mt-5 w-full">Cek premi untuk perjalanan saya</WaButton></article>
+          <article class="rounded-3xl border border-line bg-white p-6 md:p-8"><h3 class="font-display text-[1.25rem] font-bold">Ketentuan penting</h3><div class="mt-5 grid gap-5 text-[0.9375rem] leading-[1.7] text-muted"><p><strong class="text-ink">Waktu pembelian.</strong> Beli sebelum keberangkatan jika memungkinkan. Pembelian setelah perjalanan dimulai, masa tunggu, dan jaminan pembatalan bergantung pada produk dan dapat memiliki pembatasan.</p><p><strong class="text-ink">Batas usia.</strong> Kelayakan peserta dan limit manfaat dapat berubah menurut usia serta jenis paket; minta konfirmasi untuk semua peserta.</p><p><strong class="text-ink">Kondisi kesehatan sebelumnya.</strong> Kondisi yang sudah ada sebelumnya dapat dikecualikan atau dibatasi; periksa wording dan pengecualian produk yang dipilih.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl"><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Risiko perjalanan</p><h2 class="mt-3 font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] text-balance md:text-[2.75rem]">Rencana bisa berubah, bahkan sebelum sampai tujuan.</h2><p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Kenali kejadian yang mungkin mengganggu perjalanan dan periksa apakah penyebab serta biayanya tercakup dalam polis.</p></div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {risks.map(({ icon: Icon, title, text }) => <article class="rounded-3xl border border-line bg-white p-6"><span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Icon class="h-5 w-5" /></span><h3 class="mt-4 font-display text-[1.05rem] font-bold leading-snug">{title}</h3><p class="mt-2 text-[0.9375rem] leading-[1.7] text-muted">{text}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-[#efece4] px-5 py-16 md:py-24"><div class="mx-auto max-w-6xl"><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Cara kerja</p><h2 class="mt-3 max-w-2xl font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] md:text-[2.75rem]">Tiga langkah sebelum berangkat.</h2><div class="mt-8 grid gap-4 md:grid-cols-3">{steps.map((step, i) => <article class="rounded-3xl border border-line bg-white p-6"><span class="grid h-10 w-10 place-items-center rounded-full bg-ink text-[0.875rem] font-extrabold text-white">0{i + 1}</span><h3 class="mt-4 font-display text-[1.125rem] font-bold">{step.title}</h3><p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">{step.text}</p></article>)}</div></div></section>
+
+      <About message={message} />
+
+    <section id="faq" class="px-5 py-16 md:py-24"><div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-14"><div><p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Yang sering ditanyakan</p><h2 class="mt-3 font-display text-[1.9rem] leading-[1.12] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">FAQ asuransi perjalanan</h2><p class="mt-4 text-[0.9rem] leading-[1.7] text-muted">Jawaban umum untuk membantu Anda. Penawaran dan polis resmi tetap menjadi acuan.</p><WaButton message={MESSAGES.travelVisa} class="mt-5 w-full">Cek kebutuhan visa via WhatsApp</WaButton></div><div class="grid content-start gap-3">{faqs.map((faq) => <details class="group rounded-2xl border border-line bg-white p-5 open:border-wa-deep/30"><summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] leading-[1.45] font-bold marker:hidden [&::-webkit-details-marker]:hidden">{faq.question}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" /></summary><p class="pt-3 pr-7 text-[0.9375rem] leading-[1.7] text-muted">{faq.answer}</p></details>)}</div></div></section>
+
+  </article>
+
+  <FinalCta
+    eyebrow="Siap berangkat?"
+    title="Cek premi perjalanan Anda sebelum berangkat."
+    message={message}
+    ctaLabel="Cek Premi via WhatsApp"
+  />
+</BaseLayout>

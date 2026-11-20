@@ -1,0 +1,56 @@
+---
+import { EMERGENCY_NUMBER_LINKS, MESSAGES } from "../data/config";
+import WaButton from "./WaButton.astro";
+import { RefreshCw, Waves, Wrench } from "lucide-astro";
+
+const linkCls = "font-semibold text-wa-deep underline decoration-wa-deep/40 underline-offset-4 hover:decoration-wa-deep";
+---
+
+<section id="risiko" class="bg-white px-5 py-14 md:py-20">
+  <div class="mx-auto max-w-5xl">
+    <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase">
+      <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>Yang sering terlewat
+    </p>
+    <h2 class="mt-2.5 max-w-xl font-display text-[1.625rem] leading-[1.18] font-bold tracking-[-0.025em] text-balance md:text-[2.125rem] md:leading-[1.14]">
+      Sebelum klaim, cek 3 hal ini di polis mobil Anda.
+    </h2>
+    <ul class="mt-7 grid gap-4 md:grid-cols-3">
+      <li class="relative scroll-mt-24 overflow-hidden rounded-3xl border border-line bg-paper p-5 before:absolute before:inset-y-0 before:left-0 before:w-1.5 before:bg-wa-deep">
+        <div class="flex items-start justify-between">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Waves class="h-6 w-6" /></span>
+          <span class="font-display text-[2rem] leading-none font-bold tracking-[-0.04em] text-ink/10 tabular-nums">01</span>
+        </div>
+        <h3 class="mt-4 font-display text-[1.1875rem] leading-[1.28] font-bold tracking-[-0.018em] text-balance">All risk belum tentu termasuk banjir.</h3>
+        <p class="mt-2 text-[0.9375rem] leading-[1.6] text-muted">Banjir biasanya perluasan yang dibeli terpisah. Cek polis Anda.</p>
+      </li>
+      <li class="relative scroll-mt-24 overflow-hidden rounded-3xl border border-line bg-paper p-5 before:absolute before:inset-y-0 before:left-0 before:w-1.5 before:bg-wa-deep">
+        <div class="flex items-start justify-between">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><RefreshCw class="h-6 w-6" /></span>
+          <span class="font-display text-[2rem] leading-none font-bold tracking-[-0.04em] text-ink/10 tabular-nums">02</span>
+        </div>
+        <h3 class="mt-4 font-display text-[1.1875rem] leading-[1.28] font-bold tracking-[-0.018em] text-balance">Kredit 4 tahun, all risk belum tentu 4 tahun.</h3>
+        <p class="mt-2 text-[0.9375rem] leading-[1.6] text-muted">Bisa jadi hanya tahun 1-2, sisanya TLO (hanya menjamin kehilangan atau kerusakan total).</p>
+      </li>
+      <li id="bengkel" class="relative scroll-mt-24 overflow-hidden rounded-3xl border border-line bg-paper p-5 before:absolute before:inset-y-0 before:left-0 before:w-1.5 before:bg-wa-deep">
+        <div class="flex items-start justify-between">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Wrench class="h-6 w-6" /></span>
+          <span class="font-display text-[2rem] leading-none font-bold tracking-[-0.04em] text-ink/10 tabular-nums">03</span>
+        </div>
+        <h3 class="mt-4 font-display text-[1.1875rem] leading-[1.28] font-bold tracking-[-0.018em] text-balance">Bengkel rekanan beda di tiap asuransi.</h3>
+        <p class="mt-2 text-[0.9375rem] leading-[1.6] text-muted">
+          Bengkel langganan Anda belum tentu masuk daftar. Cek daftarnya:{" "}
+          <a href={EMERGENCY_NUMBER_LINKS.zurich} class={linkCls}>Zurich</a> ·{" "}
+          <a href={EMERGENCY_NUMBER_LINKS.aca} class={linkCls}>ACA</a> ·{" "}
+          <a href={EMERGENCY_NUMBER_LINKS.gardaOto} class={linkCls}>Garda Oto</a>
+        </p>
+      </li>
+    </ul>
+    <div class="mt-8 rounded-3xl bg-ink p-6 text-white md:flex md:items-center md:justify-between md:gap-8">
+      <div>
+        <p class="font-display text-[1.375rem] leading-[1.24] font-bold tracking-[-0.02em] md:text-[1.5rem]">Mau saya cek ketiganya di polis Anda?</p>
+        <p class="mt-2 text-[0.875rem] leading-[1.55] text-white/70">Untuk konsultasi awal tidak perlu KTP/STNK. Jika mengirim foto polis, tutupi data yang tidak relevan.</p>
+      </div>
+      <WaButton message={MESSAGES.cekTiga} class="mt-5 w-full md:mt-0 md:w-auto md:shrink-0 md:px-8">Kirim foto polis via WA</WaButton>
+    </div>
+  </div>
+</section>

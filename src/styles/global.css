@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-ink: #0b1b2b;
+  --color-ink-2: #12304a;
+  --color-paper: #f6f3ec;
+  --color-line: #e3ddcf;
+  --color-muted: #51606f;
+
+  --color-wa: #25d366;
+  --color-wa-ink: #04230f;
+  --color-wa-deep: #0f7a3d;
+  --color-wa-soft: #e3f7ea;
+}
+
+@layer base {
+  h1 {
+    overflow-wrap: anywhere;
+  }
+}
+
+.hero-accent {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5C58 2 146 1.5 218 6.5' fill='none' stroke='%2338bdf8' stroke-opacity='.8' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E") bottom / 100% 0.5rem no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-bottom: 0.125em;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  padding-bottom: 0;
+}
+
+/* Sticky WA hanya ada di mobile (< 768px) dan baru muncul setelah halaman digulir. */
+@media (width < 48rem) {
+  body[data-sticky-wa="visible"] {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+}
+
+section[id] {
+  scroll-margin-top: 68px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 0.75rem;
+  background: var(--color-wa);
+  padding: 0.75rem 1rem;
+  color: var(--color-wa-ink);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------- Rain: rintik halus jatuh berkesinambungan, tanpa kedipan ---------- */
+.rain {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+}
+
+.rain::before,
+.rain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  will-change: background-position;
+}
+
+/* Tile 120x240 -> pergeseran -120px 480px (kelipatan utuh, nol loncatan). */
+.rain::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='240' viewBox='0 0 120 240'%3E%3Cg stroke='%23bfe6ff' stroke-linecap='round' stroke-width='0.95' opacity='.32'%3E%3Cpath d='M22 16l-4 16'/%3E%3Cpath d='M84 58l-4 16'/%3E%3Cpath d='M48 124l-4 16'/%3E%3Cpath d='M104 176l-4 16'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 240px;
+  animation: rain-fall-a 5.4s linear infinite;
+}
+
+/* Tile 160x320 -> pergeseran -160px 640px. */
+.rain::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='320' viewBox='0 0 160 320'%3E%3Cg stroke='%23e0f2fe' stroke-linecap='round' stroke-width='0.75' opacity='.2'%3E%3Cpath d='M44 26l-3 12'/%3E%3Cpath d='M126 96l-3 12'/%3E%3Cpath d='M20 194l-3 12'/%3E%3Cpath d='M98 258l-3 12'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 160px 320px;
+  animation: rain-fall-b 8.2s linear infinite;
+}
+
+@keyframes rain-fall-a {
+  from { background-position: 0 0; }
+  to { background-position: -120px 480px; }
+}
+
+@keyframes rain-fall-b {
+  from { background-position: 0 0; }
+  to { background-position: -160px 640px; }
+}
+
+/* ---------- Flood waves ---------- */
+@keyframes wave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-360px); }
+}
+
+.wave-a { animation: wave 10s linear infinite; }
+.wave-b { animation: wave 14s linear infinite reverse; }
+
+/* ---------- Carousel Tips & Informasi ---------- */
+.tips-carousel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.tips-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- CTA shimmer ---------- */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: shimmer 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%, 55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pop-in { animation: pop-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fade-in { animation: fade-in 0.2s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rain::before,
+  .rain::after,
+  .wave-a,
+  .wave-b,
+  .shimmer::after,
+  .pop-in,
+  .fade-in {
+    animation: none;
+  }
+}

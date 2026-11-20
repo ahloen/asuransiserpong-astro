@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../components/About.astro";
+import FinalCta from "../components/FinalCta.astro";
+import ProductHero from "../components/ProductHero.astro";
+import WaLink from "../components/WaLink.astro";
+import { MESSAGES } from "../data/config";
+import {
+  ArrowUpRight,
+  Box,
+  BriefcaseBusiness,
+  Building2,
+  FileCheck,
+  HardHat,
+  HeartPulse,
+  Plane,
+  Scale,
+  ShieldPlus,
+  Ship,
+  Truck,
+  Users,
+  Wallet,
+} from "lucide-astro";
+
+const services = [
+  { name: "Fleet", icon: Truck, description: "Melindungi kendaraan operasional dan komersial dari risiko kerusakan atau kehilangan." },
+  { name: "Properti", icon: Building2, description: "Melindungi bangunan dan aset usaha, seperti kantor, gudang, dan stok, dari risiko kerusakan atau kerugian." },
+  { name: "Group Health", icon: HeartPulse, description: "Perlindungan kesehatan bagi sekelompok karyawan dalam satu polis perusahaan." },
+  { name: "Travel", icon: Plane, description: "Melindungi dari risiko finansial selama perjalanan bisnis atau liburan." },
+  { name: "Marine Cargo", icon: Box, description: "Melindungi kargo dari risiko kerusakan atau kehilangan selama pengiriman." },
+  { name: "Marine Hull", icon: Ship, description: "Melindungi kapal dari risiko kerusakan atau kehilangan selama berlayar." },
+  { name: "Liabilities", icon: Scale, description: "Melindungi perusahaan dari kewajiban finansial akibat tuntutan hukum pihak ketiga." },
+  { name: "PA Group", icon: Users, description: "Memberikan perlindungan bagi kelompok atas risiko cacat atau meninggal dunia akibat kecelakaan." },
+  { name: "Engineering", icon: HardHat, description: "Melindungi perusahaan dari risiko kerugian finansial akibat kerusakan pada proyek atau peralatan." },
+  { name: "Credit Life", icon: Wallet, description: "Membantu melunasi kewajiban kredit jika peminjam meninggal dunia atau mengalami cacat yang dijamin polis." },
+  { name: "Surety Bond", icon: FileCheck, description: "Menjamin kewajiban pelaksana pekerjaan sesuai kontrak. Pemberi kerja dapat menerima kompensasi jika kewajiban yang dijamin tidak dipenuhi." },
+  { name: "Produk Lainnya", icon: ShieldPlus, description: "Butuh perlindungan yang belum tercantum? Ceritakan kebutuhan usaha Anda.", other: true },
+];
+
+const consultationLabel = "Konsultasi dengan Aditya";
+---
+
+<BaseLayout
+  title="Asuransi Bisnis Serpong | AsuransiSerpong · Aditya"
+  description="Konsultasi asuransi bisnis dengan Aditya di Serpong. Penawaran untuk armada, properti, karyawan, pengiriman, dan proyek disesuaikan dengan kebutuhan usaha Anda."
+  stickyMessage={MESSAGES.bisnis}
+>
+  <article class="bg-paper">
+    <ProductHero
+      product="Asuransi Bisnis"
+      eyebrow="Asuransi bisnis · BSD · Gading Serpong · Alam Sutera"
+      titleLead="Asuransi yang sesuai"
+      titleAccent="dengan bisnis Anda."
+      lead="Ceritakan bidang usaha, lokasi, dan aset atau karyawan yang ingin dilindungi. Saya bantu menyiapkan data pengajuan dan menjelaskan pilihan yang sesuai dengan risiko usaha Anda."
+      message={MESSAGES.bisnis}
+      ctaLabel={consultationLabel}
+      secondary={{ href: "#layanan", label: "Lihat layanan" }}
+      checks={["Konsultasi awal lewat WhatsApp", "Tidak perlu memilih produk dulu"]}
+      stackChecks
+      background="property"
+      summary={{
+        icon: BriefcaseBusiness,
+        eyebrow: "Konsultasi awal",
+        title: "Ceritakan tiga hal ini",
+        items: [
+          { icon: Building2, label: "Bidang usaha dan lokasi operasional" },
+          { icon: ShieldPlus, label: "Apa yang ingin Anda lindungi" },
+          { icon: FileCheck, label: "Kapan perlindungan dibutuhkan" },
+        ],
+        note: "Untuk chat pertama, cukup berikan gambaran umum. Dokumen atau survei bisa diperlukan, tergantung produk dan penilaian risiko.",
+      }}
+    />
+
+    <section id="layanan" aria-labelledby="judul-layanan" class="scroll-mt-24 px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Layanan Asuransi Bisnis</p>
+          <h2 id="judul-layanan" class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Apa yang ingin Anda lindungi?</h2>
+          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Pilih layanan yang ingin dibahas lewat WhatsApp. Premi, manfaat, batas pertanggungan, dan pengecualian mengikuti penawaran dan ketentuan polis.</p>
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map(({ name, icon: Icon, description, other }) => (
+            <article class:list={[
+              "flex flex-col items-start rounded-3xl border p-5 md:p-6",
+              other ? "border-dashed border-wa-deep/35 bg-wa-soft" : "border-line bg-white",
+            ]}>
+              <span class:list={["grid h-10 w-10 place-items-center rounded-2xl text-wa-deep", other ? "bg-white" : "bg-wa-soft"]}>
+                <Icon class="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h3 class="mt-4 font-display text-[1.125rem] font-bold tracking-[-0.02em]">{name}</h3>
+              <p class="mt-2 mb-3 text-[0.9375rem] leading-[1.6] text-muted">{description}</p>
+              <WaLink
+                message={other ? "Halo Aditya, saya ingin membahas kebutuhan perlindungan lain untuk usaha saya." : `Halo Aditya, saya ingin berkonsultasi tentang ${name} untuk usaha saya.`}
+                class="mt-auto inline-flex min-h-11 items-center gap-1.5 rounded-sm text-[0.875rem] font-bold text-wa-deep underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep"
+              >
+                {other ? "Bahas kebutuhan lain" : <>Konsultasi<span class="sr-only"> {name}</span></>}
+                <ArrowUpRight class="h-4 w-4" aria-hidden="true" />
+              </WaLink>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <About message={MESSAGES.bisnis} />
+  </article>
+
+  <FinalCta
+    eyebrow="Konsultasi awal"
+    title="Belum tahu asuransi mana yang cocok? Ceritakan kebutuhan usaha Anda."
+    message={MESSAGES.bisnis}
+    ctaLabel={consultationLabel}
+  />
+</BaseLayout>

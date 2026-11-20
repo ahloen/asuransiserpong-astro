@@ -1,0 +1,107 @@
+---
+import { MESSAGES } from "../data/config";
+import WaButton from "./WaButton.astro";
+import { CheckCheck, ChevronDown, FileText } from "lucide-astro";
+---
+
+<section id="contoh" class="bg-paper px-5 pt-14 pb-10 md:pt-20 md:pb-14">
+  <div class="mx-auto max-w-5xl md:grid md:grid-cols-2 md:items-center md:gap-14">
+    <div>
+      <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase"><span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>Contoh balasan</p>
+      <h2 class="mt-2.5 font-display text-[1.625rem] leading-[1.18] font-bold tracking-[-0.025em] text-balance md:text-[2.125rem] md:leading-[1.14]">Yang Anda terima: file penawaran + penjelasan dari saya</h2>
+      <div class="mt-6 hidden md:block">
+        <WaButton message={MESSAGES.contoh} class="md:px-8">Minta balasan seperti ini via WA</WaButton>
+        <div class="rounded-2xl border border-line bg-white p-4 md:p-5 mt-5">
+          <p class="text-[1rem] font-bold tracking-[-0.01em]">Sudah ada tawaran dari dealer atau bank?</p>
+          <p class="mt-1 text-[0.9375rem] leading-[1.55] text-muted">Kirim saja ke saya. Kalau memang sudah bagus, saya bilang bagus.</p>
+          <WaButton message={MESSAGES.dealer} variant="outline" size="md" class="mt-3.5 w-full">Kirim tawaran dealer/bank</WaButton>
+        </div>
+      </div>
+    </div>
+    <div class="mt-7 md:mt-0">
+      <div class="overflow-hidden rounded-3xl border border-line bg-[#ece5dd] shadow-xl shadow-ink/10">
+        <div class="flex items-center gap-3 bg-[#0f5c4d] px-4 py-3 text-white">
+          <img src="/avatar-aditya.jpg" alt="" width="40" height="40" class="h-10 w-10 rounded-full object-cover object-[50%_20%]" />
+          <div class="leading-tight"><p class="text-[0.9375rem] font-bold tracking-[-0.01em]">Aditya</p><p class="text-[0.75rem] font-medium text-white/75">online · contoh balasan</p></div>
+        </div>
+        <div class="relative">
+          <div id="chat-body" inert class="overflow-hidden px-3 pt-4 transition-[max-height] duration-500 ease-out max-h-[19.5rem] pb-0">
+            <div class="relative max-w-[94%] rounded-2xl rounded-tl-sm bg-white px-3.5 pt-2.5 pb-2 text-[0.9375rem] leading-[1.58] shadow-sm">
+              <p class="text-[0.8125rem] font-bold text-[#0f7a6a]">Aditya</p>
+              <p class="mt-1">Terima kasih, Bu Dian. Saya rangkum dulu ya:</p>
+              <ul class="mt-1.5 list-disc space-y-0.5 pl-5">
+                <li>Mobil: Toyota All New Kijang Innova 2.0 G A/T Bensin, 2024 (bekas)</li>
+                <li>Pemakaian: pribadi, tanpa aksesoris tambahan</li>
+                <li>Perlindungan: Komprehensif (All Risk)</li>
+                <li>Wilayah plat: B</li>
+                <li>Nilai pertanggungan: Rp400.000.000</li>
+                <li>Mulai berlaku: 1 Januari 2027</li>
+              </ul>
+              <p class="mt-2.5">Dari yang tersedia, saya rekomendasikan <strong class="font-semibold">Autocillin Ikhlas Comprehensive dari Zurich Syariah</strong>. Penawaran lengkapnya saya lampirkan di PDF.</p>
+              <div class="mt-2.5 flex items-center gap-3 rounded-xl bg-[#f0f2f5] p-2.5">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-red-500 text-white"><FileText class="h-5 w-5" /></span>
+                <div class="min-w-0 leading-tight"><p class="truncate text-[0.875rem] font-semibold">penawaran_QS-261108.pdf</p><p class="mt-0.5 text-[0.75rem] font-medium text-muted">PDF · Penawaran lengkap</p></div>
+              </div>
+              <p class="mt-2.5"><strong class="font-semibold">Premi: Rp10.205.000 / tahun</strong> (premi dasar Rp8.320.000).</p>
+              <p class="mt-1"><strong class="font-semibold">Sudah termasuk:</strong> huru-hara dan kerusuhan, banjir, badai, angin topan, angin ribut, tanah longsor, tanggung jawab hukum pihak ketiga, kecelakaan diri pengemudi dan penumpang, serta fasilitas bengkel authorized dan fitur Autocillin.</p>
+              <p class="mt-2.5"><strong class="font-semibold">Risiko sendiri per klaim:</strong></p>
+              <ul class="mt-1 list-disc space-y-0.5 pl-5">
+                <li>Kerusakan sebagian: Rp300.000 per kejadian</li>
+                <li>Kerugian total karena kecelakaan atau pencurian: 5% dari nilai klaim, minimum Rp500.000</li>
+                <li>Banjir, badai, angin topan, serta huru-hara/kerusuhan: 10% dari nilai klaim, minimum Rp500.000</li>
+              </ul>
+              <p class="mt-2.5">
+                <strong class="font-semibold">Bengkel rekanan sekitar Serpong:</strong>
+                Lihat daftar resmi Zurich dan konfirmasikan apakah bengkel yang dipilih sesuai dengan polis Anda.
+                <a href="https://www.zurich.co.id/-/media-assets/project/zurich-headless/indonesia/docs/rekanan/list/daftar-bengkel-rekanan-utama-zurich-autocillin-garage.pdf" class="ml-1 font-medium text-blue-600 hover:underline">
+                  Buka daftar bengkel Zurich &rarr;
+                </a>
+              </p>
+              <p class="mt-2.5">Kalau cocok, kirim foto STNK dan KTP, nanti saya proses. Masa berlaku penawaran mengikuti dokumen PDF.</p>
+              <p class="mt-1.5 flex items-center justify-end gap-1 text-[0.6875rem] font-medium text-muted tabular-nums">10:23 <CheckCheck class="h-4 w-4 text-sky-500" aria-label="Terbaca" /></p>
+            </div>
+          </div>
+          <div id="chat-fade" aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#ece5dd] via-[#ece5dd]/85 to-transparent transition-opacity duration-300"></div>
+        </div>
+        <button type="button" id="chat-toggle" aria-expanded="false" class="flex min-h-12 w-full items-center justify-center gap-1.5 border-t border-black/5 bg-[#ece5dd] text-[0.875rem] font-bold tracking-[-0.01em] text-[#0f5c4d] transition active:bg-[#e3dbd0]">
+          <span id="chat-toggle-label">Lihat balasan lengkap</span><ChevronDown id="chat-toggle-chevron" class="h-4 w-4 transition-transform duration-300" />
+        </button>
+      </div>
+     
+      <div class="mt-5 md:hidden">
+        <WaButton message={MESSAGES.contoh} class="w-full">Minta balasan seperti ini via WA</WaButton>
+        <div class="rounded-2xl border border-line bg-white p-4 mt-4">
+          <p class="text-[1rem] font-bold tracking-[-0.01em]">Sudah ada tawaran dari dealer atau bank?</p>
+          <p class="mt-1 text-[0.9375rem] leading-[1.55] text-muted">Kirim saja ke saya. Kalau memang sudah bagus, saya bilang bagus.</p>
+          <WaButton message={MESSAGES.dealer} variant="outline" size="md" class="mt-3.5 w-full">Kirim tawaran dealer/bank</WaButton>
+        </div>
+      </div>
+      <p class="mt-4 text-[0.875rem] leading-[1.6] text-muted">Untuk konsultasi awal, KTP/STNK belum perlu. Jika mengirim foto polis, tutupi data yang tidak relevan. <a href="/terms-and-privacy#privasi" class="font-semibold text-wa-deep underline underline-offset-2">Baca kebijakan privasi</a>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const toggle = document.getElementById("chat-toggle");
+    const body = document.getElementById("chat-body");
+    const fade = document.getElementById("chat-fade");
+    const label = document.getElementById("chat-toggle-label");
+    const chevron = document.getElementById("chat-toggle-chevron");
+    if (!toggle || !body) return;
+    let openChat = false;
+    toggle.addEventListener("click", function () {
+      openChat = !openChat;
+      toggle.setAttribute("aria-expanded", String(openChat));
+      body.classList.toggle("max-h-[64rem]", openChat);
+      body.classList.toggle("pb-4", openChat);
+      body.classList.toggle("max-h-[19.5rem]", !openChat);
+      body.classList.toggle("pb-0", !openChat);
+      if (openChat) body.removeAttribute("inert");
+      else body.setAttribute("inert", "");
+      if (fade) fade.classList.toggle("opacity-0", openChat);
+      if (label) label.textContent = openChat ? "Ciutkan balasan" : "Lihat balasan lengkap";
+      if (chevron) chevron.classList.toggle("rotate-180", openChat);
+    });
+  })();
+</script>

@@ -1,0 +1,68 @@
+---
+import { MESSAGES, waLink } from "../data/config";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+
+interface Props {
+  message?: string;
+}
+
+const { message = MESSAGES.sticky } = Astro.props;
+---
+
+<div
+  id="sticky-wa"
+  aria-hidden="true"
+  class="fixed inset-x-0 bottom-0 z-50 bg-wa md:hidden pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-6px_rgba(11,27,43,0.25)] transition duration-300 pointer-events-none translate-y-full opacity-0"
+>
+  <a
+    id="sticky-wa-link"
+    href={waLink(message)}
+    target="_blank"
+    rel="noopener noreferrer"
+    tabindex="-1"
+    class="shimmer flex h-[60px] w-full items-center justify-center gap-2.5 text-[1rem] font-bold tracking-[-0.01em] text-wa-ink transition active:bg-[#1fc35e] focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-wa-ink"
+  >
+    <WhatsAppIcon class="h-5.5 w-5.5" />
+    Tanya Aditya via WA
+  </a>
+</div>
+
+<script>
+  (function () {
+    const bar = document.getElementById("sticky-wa")!;
+    const link = document.getElementById("sticky-wa-link");
+    if (!bar) return;
+    let visible = false;
+    function setVisible(v: boolean) {
+      if (visible === v) return;
+      visible = v;
+      document.body.dataset.stickyWa = visible ? "visible" : "hidden";
+      bar.setAttribute("aria-hidden", String(!visible));
+      bar.classList.toggle("translate-y-0", visible);
+      bar.classList.toggle("opacity-100", visible);
+      bar.classList.toggle("pointer-events-none", !visible);
+      bar.classList.toggle("translate-y-full", !visible);
+      bar.classList.toggle("opacity-0", !visible);
+      if (link) link.tabIndex = visible ? 0 : -1;
+      if (visible) bar.removeAttribute("inert");
+      else bar.setAttribute("inert", "");
+    }
+    function update() {
+      const y = window.scrollY;
+      const hero = document.getElementById("hero");
+      const second = document.getElementById("contoh");
+      var reachedSecond = !!second && second.getBoundingClientRect().top <= 80;
+      const pastHero = hero ? hero.getBoundingClientRect().bottom <= 80 : y > 320;
+      setVisible(pastHero || reachedSecond);
+    }
+    update();
+    let frame = 0;
+    function onScroll() {
+      if (frame) return;
+      frame = requestAnimationFrame(function () { update(); frame = 0; });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    window.addEventListener("pageshow", update);
+  })();
+</script>

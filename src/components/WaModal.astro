@@ -1,0 +1,203 @@
+---
+import { WA_NUMBER, WA_NUMBER_DISPLAY } from "../data/config";
+import { Copy, X } from "lucide-astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+---
+
+<div id="wa-modal-root" class="fixed inset-0 z-[70] hidden items-center justify-center p-5" role="presentation">
+  <div id="wa-modal-backdrop" class="fade-in absolute inset-0 bg-ink/70 backdrop-blur-sm"></div>
+
+  <div
+    id="wa-modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="wa-modal-title"
+    aria-describedby="wa-modal-desc"
+    tabindex="-1"
+    class="pop-in relative max-h-full w-full max-w-[27rem] overflow-y-auto rounded-3xl bg-white p-7 text-center text-ink shadow-2xl shadow-ink/30 outline-none md:p-8"
+  >
+    <button
+      type="button"
+      id="wa-modal-close"
+      aria-label="Tutup"
+      class="absolute top-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-paper text-ink transition hover:bg-line active:scale-95"
+    >
+      <X class="h-5 w-5" />
+    </button>
+
+    <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-wa text-wa-ink">
+      <WhatsAppIcon class="h-6 w-6" />
+    </span>
+
+    <h2 id="wa-modal-title" class="mt-4 font-display text-[1.5rem] leading-[1.2] font-bold tracking-[-0.025em] text-balance">
+      Pilih cara menghubungi Aditya
+    </h2>
+    <p id="wa-modal-desc" class="mx-auto mt-2.5 max-w-[21rem] text-[0.9375rem] leading-[1.6] text-muted">
+      Pesan pembuka sudah disiapkan. Buka WhatsApp Web langsung, atau scan QR dengan HP.
+    </p>
+
+    <a
+      id="wa-modal-open"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-6 flex min-h-12 w-full items-center justify-center rounded-2xl bg-wa px-4 text-[0.9375rem] font-bold tracking-[-0.01em] text-wa-ink transition hover:bg-[#2fe074] active:scale-[0.98]"
+    >
+      Buka WhatsApp Web
+    </a>
+
+    <p class="mt-4 text-[0.8125rem] font-semibold text-muted">Atau scan QR dengan kamera HP</p>
+    <div class="relative mx-auto mt-2 grid h-[212px] w-[212px] place-items-center rounded-2xl border border-line bg-white">
+      <div id="wa-modal-loading" aria-hidden="true" class="absolute inset-4 grid animate-pulse place-items-center rounded-xl bg-paper text-[0.8125rem] font-medium text-muted">
+        Menyiapkan QR…
+      </div>
+      <p id="wa-modal-error" role="status" class="hidden px-6 text-[0.875rem] leading-[1.55] text-muted">
+        QR tidak bisa dimuat. Gunakan tombol WhatsApp Web di atas untuk melanjutkan.
+      </p>
+      <img
+        id="wa-modal-qr"
+        src=""
+        alt="QR code untuk membuka chat WhatsApp dengan Aditya, pesan sudah terisi"
+        width="220"
+        height="220"
+        style="image-rendering: pixelated;"
+        class="h-[180px] w-[180px] transition-opacity duration-200 opacity-0"
+      />
+    </div>
+
+    <button
+      id="wa-modal-copy"
+      type="button"
+      class="mt-2.5 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-paper px-4 text-[0.9375rem] font-semibold tracking-[-0.01em] text-ink tabular-nums transition hover:bg-line active:scale-[0.98]"
+    >
+      <span id="wa-modal-copy-icon"><Copy class="h-4 w-4 text-muted" /></span>
+      <span aria-live="polite" id="wa-modal-copy-label">Salin Nomor WA: {WA_NUMBER_DISPLAY}</span>
+    </button>
+  </div>
+</div>
+
+<script define:vars={{ displayNumber: WA_NUMBER_DISPLAY, waNumber: WA_NUMBER }}>
+  (function () {
+    var DESKTOP_QUERY = "(min-width: 48rem)";
+    var root = document.getElementById("wa-modal-root");
+    var dialog = document.getElementById("wa-modal-dialog");
+    var backdrop = document.getElementById("wa-modal-backdrop");
+    var closeBtn = document.getElementById("wa-modal-close");
+    var qr = document.getElementById("wa-modal-qr");
+    var loading = document.getElementById("wa-modal-loading");
+    var errorBox = document.getElementById("wa-modal-error");
+    var openLink = document.getElementById("wa-modal-open");
+    var copyBtn = document.getElementById("wa-modal-copy");
+    var copyLabel = document.getElementById("wa-modal-copy-label");
+    var previous = null;
+    var copyTimer = 0;
+
+    function qrLink(waUrl) {
+      return "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(waUrl);
+    }
+
+    function openModal(message, waNumber) {
+      var base = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(message);
+      if (!root || !dialog) return;
+      previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      root.classList.remove("hidden");
+      root.classList.add("flex");
+      if (openLink) openLink.href = base;
+      if (qr) {
+        qr.classList.add("opacity-0");
+        qr.classList.remove("opacity-100");
+        if (loading) loading.style.display = "";
+        if (errorBox) errorBox.classList.add("hidden");
+        qr.onerror = function () {
+          if (loading) loading.style.display = "none";
+          if (errorBox) errorBox.classList.remove("hidden");
+        };
+        qr.onload = function () {
+          if (loading) loading.style.display = "none";
+          qr.classList.remove("opacity-0");
+          qr.classList.add("opacity-100");
+        };
+        qr.src = qrLink(base);
+      }
+      var overflow = document.body.style.overflow;
+      var paddingRight = document.body.style.paddingRight;
+      root.dataset.prevOverflow = overflow;
+      root.dataset.prevPadding = paddingRight;
+      var scrollbar = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      if (scrollbar > 0) document.body.style.paddingRight = scrollbar + "px";
+      dialog.focus();
+    }
+
+    function closeModal() {
+      if (!root) return;
+      root.classList.add("hidden");
+      root.classList.remove("flex");
+      document.body.style.overflow = root.dataset.prevOverflow || "";
+      document.body.style.paddingRight = root.dataset.prevPadding || "";
+      if (previous && previous.focus) previous.focus();
+    }
+
+    async function copyText(value) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return true;
+      } catch (e) {
+        try {
+          var field = document.createElement("textarea");
+          field.value = value;
+          field.setAttribute("readonly", "");
+          field.style.position = "fixed";
+          field.style.opacity = "0";
+          document.body.appendChild(field);
+          field.select();
+          var ok = document.execCommand("copy");
+          field.remove();
+          return ok;
+        } catch (e2) {
+          return false;
+        }
+      }
+    }
+
+    document.addEventListener("click", function (e) {
+      var link = e.target instanceof Element ? e.target.closest("a[data-wa-message]") : null;
+      if (!link) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (window.matchMedia(DESKTOP_QUERY).matches) {
+        e.preventDefault();
+        openModal(link.getAttribute("data-wa-message") || "", waNumber);
+      }
+    });
+
+    if (backdrop) backdrop.addEventListener("click", closeModal);
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    document.addEventListener("keydown", function (e) {
+      if (!root || root.classList.contains("hidden")) return;
+      if (e.key === "Escape") { closeModal(); return; }
+      if (e.key !== "Tab" || !dialog) return;
+      var items = dialog.querySelectorAll("a[href], button:not([disabled])");
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === dialog)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    if (copyBtn) copyBtn.addEventListener("click", async function () {
+      var ok = await copyText(displayNumber.replace(/\D/g, ""));
+      if (!copyLabel) return;
+      copyLabel.textContent = ok ? ("Nomor tersalin: " + displayNumber) : ("Gagal menyalin. Nomor WA: " + displayNumber);
+      if (copyTimer) clearTimeout(copyTimer);
+      copyTimer = setTimeout(function () {
+        copyLabel.textContent = "Salin Nomor WA: " + displayNumber;
+      }, 2500);
+      copyBtn.focus();
+    });
+  })();
+</script>

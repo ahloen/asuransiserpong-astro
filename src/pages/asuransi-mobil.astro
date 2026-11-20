@@ -1,0 +1,288 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ChatSample from "../components/ChatSample.astro";
+import About from "../components/About.astro";
+import FinalCta from "../components/FinalCta.astro";
+import ProductHero from "../components/ProductHero.astro";
+import { waLink } from "../data/config";
+import {
+  ArrowRight,
+  ChevronDown,
+  Clock3,
+  Droplets,
+  FileCheck2,
+  ShieldCheck,
+  UsersRound,
+  Wrench,
+} from "lucide-astro";
+
+const quoteMessage = "Halo Aditya, saya ingin minta estimasi premi asuransi mobil. Data mobil dan wilayah pelat bisa saya kirim setelah ini.";
+const extensionMessage = "Halo Aditya, saya ingin bertanya tentang perluasan asuransi mobil. Data mobil dan wilayahnya bisa saya kirim setelah ini.";
+
+const extraExtensions = [
+  {
+    title: "Gempa, tsunami & letusan gunung berapi",
+    text: "Kerugian mobil akibat bencana yang tercantum di polis.",
+  },
+  {
+    title: "Huru-hara & kerusuhan",
+    text: "Kerugian akibat risiko yang disebut dalam perluasan. Persentase biaya sendiri dan jumlah minimum mengikuti penawaran.",
+  },
+  {
+    title: "Terorisme & sabotase",
+    text: "Kerugian mobil akibat risiko yang dinyatakan dalam perluasan.",
+  },
+  {
+    title: "Bengkel resmi (ATPM)",
+    text: "Perbaikan di bengkel resmi merek mobil Anda. Ketersediaan bengkel dan biaya sendiri mengikuti produk serta penawaran.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Apa itu biaya sendiri?",
+    answer: "Bagian yang Anda bayar untuk klaim yang disetujui. Besarnya mengikuti jenis kejadian dan penawaran.",
+  },
+  {
+    question: "Perlu survei fisik mobil?",
+    answer: "Tergantung kondisi kendaraan dan perusahaan. Perpanjangan aktif biasanya cukup dengan foto polis lama dan STNK. Saya konfirmasi sebelum pengajuan.",
+  },
+  {
+    question: "Kenapa tidak ada simulasi otomatis?",
+    answer: "Tarif bergantung pada wilayah pelat, tahun, nilai mobil, perluasan, dan bengkel. Saya hitung manual agar sesuai dengan kebutuhan Anda.",
+  },
+  {
+    question: "Kapan premi harus dibayar?",
+    answer: "Cek tanggal jatuh tempo di polis. Status pertanggungan dan klaim mengikuti ketentuan polis; jangan menganggap klaim otomatis dijamin sebelum premi lunas.",
+  },
+];
+
+const claims = [
+  { title: "Amankan & foto", text: "Amankan penumpang, lalu foto kerusakan dan lokasi jika aman. Mobil terendam? Jangan nyalakan mesin." },
+  { title: "Hubungi asuransi", text: "Hubungi perusahaan asuransi sesegera mungkin. Tenggat pelaporan dan prosedur mengikuti polis yang berlaku." },
+  { title: "Tunggu SPK", text: "Ikuti arahan asuransi dan tunggu Surat Perintah Kerja (SPK) sebelum perbaikan dimulai." },
+];
+
+const exclusions = [
+  "Mengemudi di bawah pengaruh alkohol atau obat terlarang",
+  "Mobil dipaksa jalan saat rusak, atau masuk jalan tertutup",
+  "Kelebihan muatan",
+  "Kerusakan ban, velg, atau dop saja",
+  "Kunci atau bagian yang tidak melekat di kendaraan",
+];
+---
+
+<BaseLayout
+  title="Asuransi Mobil Serpong | AsuransiSerpong · Aditya"
+  description="Bandingkan asuransi mobil All Risk dan TLO di Serpong. Pahami perluasan banjir, biaya sendiri, bengkel, dan pengecualian sebelum meminta penawaran."
+  stickyMessage={quoteMessage}
+  faqs={faqs}
+>
+  <article class="overflow-hidden bg-paper">
+    <ProductHero
+      product="Asuransi Mobil"
+      eyebrow="Asuransi mobil · BSD · Gading Serpong · Alam Sutera"
+      titleLead="Bandingkan asuransi mobil."
+      titleAccent="Cek isi polisnya."
+      lead="All Risk tidak otomatis menjamin banjir. Saya bantu bandingkan All Risk dan TLO, lalu cek perluasan banjir, biaya sendiri, dan pilihan bengkel sebelum Anda memutuskan."
+      message={quoteMessage}
+      note={{ title: "Cek sebelum memilih atau memperpanjang.", text: "Pastikan banjir, biaya sendiri, dan pilihan bengkel tertulis sesuai kebutuhan Anda." }}
+      summary={{
+        icon: ShieldCheck,
+        eyebrow: "Sebelum memilih",
+        title: "Jangan bandingkan premi saja",
+        items: [
+          { icon: Droplets, label: "Risiko banjir dan perluasan" },
+          { icon: Wrench, label: "Pilihan bengkel dan biaya sendiri" },
+          { icon: FileCheck2, label: "Isi penawaran dan pengecualian" },
+        ],
+        note: "Manfaat, limit, dan pengecualian mengikuti polis yang diterbitkan.",
+      }}
+      emergency={{
+        heading: "Keadaan Darurat Hubungi",
+        items: [
+          { href: "/nomor-darurat-zurich", label: "Zurich", number: "1500456" },
+          { href: "/nomor-darurat-aca", label: "ACA", number: "1500737" },
+          { href: "/nomor-darurat-garda-oto", label: "Garda Oto", number: "1500112" },
+        ],
+      }}
+    />
+
+    <nav aria-label="Di halaman ini" class="border-b border-line bg-white px-5 py-3">
+      <div class="mx-auto flex max-w-6xl gap-2 overflow-x-auto text-[0.875rem] font-semibold">
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#all-risk-tlo">All Risk &amp; TLO</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#perluasan">Perluasan</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#biaya-sendiri">Biaya sendiri</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#klaim">Klaim</a>
+      </div>
+    </nav>
+
+    <section id="all-risk-tlo" class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">All Risk atau TLO?</p>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Premi murah belum tentu hemat. Cek isinya dulu.</h2>
+        </div>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <article class="rounded-3xl border border-line bg-white p-6 md:p-7">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><ShieldCheck class="h-6 w-6" /></span>
+            <h3 class="mt-5 font-display text-[1.55rem] font-extrabold tracking-[-0.03em]">All Risk<span class="font-medium text-muted">/ Comprehensive</span></h3>
+            <p class="mt-3 text-[0.9375rem] leading-[1.7] text-muted">Umumnya mencakup kerusakan sebagian maupun total sesuai polis. Cocok dipertimbangkan untuk mobil harian atau yang relatif baru.</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-6 md:p-7">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-[#fff3dc] text-[#8a5a19]"><FileCheck2 class="h-6 w-6" /></span>
+            <h3 class="mt-5 font-display text-[1.55rem] font-extrabold tracking-[-0.03em]">TLO <span class="font-medium text-muted">/ Total Loss Only</span></h3>
+            <p class="mt-3 text-[0.9375rem] leading-[1.7] text-muted">Menjamin kerugian total sesuai definisi polis, yang pada banyak produk memakai ambang kerusakan sekitar 75% nilai kendaraan, serta risiko pencurian sesuai syarat. Lecet dan penyok biasanya tidak dijamin.</p>
+          </article>
+        </div>
+        <div class="mt-5 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-[0.875rem] leading-[1.65] text-wa-deep md:p-5">
+          <Clock3 class="mt-0.5 h-5 w-5 shrink-0" />
+          <p><strong>Batas usia berbeda tiap perusahaan dan produk.</strong> Konfirmasikan batas usia, tambahan kontribusi, dan ketentuan pada penawaran terbaru sebelum memilih.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="perluasan" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Perluasan</p>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Risiko yang tidak otomatis dijamin</h2>
+          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">All Risk atau TLO adalah dasarnya. Risiko di bawah ini biasanya harus diminta terpisah.</p>
+        </div>
+
+        <div class="mt-8 grid gap-4 lg:grid-cols-3">
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-wa-deep"><Droplets class="h-5 w-5" /></span>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Banjir &amp; cuaca ekstrem</h3>
+            <dl class="mt-4 grid gap-3 text-[0.8125rem] leading-[1.6] text-muted">
+              <div><dt class="font-bold text-ink">Menjamin</dt><dd>Kerusakan mobil akibat banjir, angin topan, badai, hujan es, dan tanah longsor.</dd></div>
+              <div><dt class="font-bold text-ink">Kenapa penting</dt><dd>Genangan bisa terjadi di beberapa ruas Tangsel–Jakarta. Tanpa perluasan ini, kerusakan akibat banjir umumnya tidak dijamin.</dd></div>
+              <div><dt class="font-bold text-ink">Perlu dicek</dt><dd>Biaya sendiri dan minimum klaim berbeda menurut produk; cek angka pada penawaran.</dd></div>
+            </dl>
+            <p class="mt-4 rounded-xl bg-white p-3 text-[0.75rem] font-semibold leading-[1.55] text-wa-deep">Mobil terendam? Jangan nyalakan mesin, lalu hubungi hotline asuransi.</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-wa-deep"><UsersRound class="h-5 w-5" /></span>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Tanggung jawab pihak ketiga</h3>
+            <dl class="mt-4 grid gap-3 text-[0.8125rem] leading-[1.6] text-muted">
+              <div><dt class="font-bold text-ink">Menjamin</dt><dd>Tuntutan ganti rugi jika Anda merusak kendaraan/properti orang lain atau mencederai orang lain, sampai limit yang dipilih.</dd></div>
+              <div><dt class="font-bold text-ink">Contoh</dt><dd>Mobil Anda menyerempet mobil lain atau pagar rumah warga.</dd></div>
+              <div><dt class="font-bold text-ink">Perlu dicek</dt><dd>Besar limit, pengecualian, dan syarat klaim.</dd></div>
+            </dl>
+          </article>
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-wa-deep"><ShieldCheck class="h-5 w-5" /></span>
+            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Kecelakaan diri</h3>
+            <dl class="mt-4 grid gap-3 text-[0.8125rem] leading-[1.6] text-muted">
+              <div><dt class="font-bold text-ink">Menjamin</dt><dd>Santunan untuk pengemudi dan penumpang: meninggal dunia, cacat tetap, atau biaya pengobatan.</dd></div>
+              <div><dt class="font-bold text-ink">Perlu dicek</dt><dd>Nilai santunan dan jumlah penumpang yang ditanggung.</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <div class="mt-4 grid gap-2.5">
+          {extraExtensions.map((item) => (
+            <details class="group rounded-2xl border border-line bg-paper px-4 py-3.5 open:bg-white md:px-5">
+              <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
+                {item.title}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
+              </summary>
+              <p class="pt-2 pr-7 text-[0.8125rem] leading-[1.65] text-muted">{item.text}</p>
+            </details>
+          ))}
+        </div>
+        <p class="mt-4 text-[0.75rem] leading-[1.6] text-muted">Cakupan, limit, dan ketersediaan mengikuti polis tiap perusahaan.</p>
+        <a href={waLink(extensionMessage)} data-wa-message={extensionMessage} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-wa-deep transition hover:text-ink">Bingung memilih perluasan? Tanya Aditya via WA <ArrowRight class="h-4 w-4" /></a>
+      </div>
+    </section>
+
+    <section id="biaya-sendiri" class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Contoh biaya sendiri</p>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">Ketahui biaya yang mungkin dibayar saat klaim</h2>
+        </div>
+        <div class="mt-7 overflow-hidden rounded-3xl border border-line bg-white">
+          <div class="hidden md:block">
+            <table class="w-full border-collapse text-left text-[0.875rem]">
+              <thead class="bg-ink text-white"><tr><th class="px-5 py-4 font-bold">Kejadian</th><th class="px-5 py-4 font-bold">Biaya sendiri</th></tr></thead>
+              <tbody class="divide-y divide-line text-muted">
+                <tr><th scope="row" class="px-5 py-4 font-semibold text-ink">Kerusakan sebagian</th><td class="px-5 py-4">Dapat berupa biaya tetap per kejadian.</td></tr>
+                <tr><th scope="row" class="px-5 py-4 font-semibold text-ink">Kerugian total</th><td class="px-5 py-4">Dapat berupa persentase nilai klaim dan/atau minimum.</td></tr>
+                <tr><th scope="row" class="px-5 py-4 font-semibold text-ink">Banjir, bencana, kerusuhan</th><td class="px-5 py-4">Biaya sendiri khusus dapat berlaku jika perluasan dipilih.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid gap-2.5 p-3 md:hidden">
+            <article class="rounded-2xl border border-line bg-paper p-4"><h3 class="text-[0.875rem] font-bold">Kerusakan sebagian</h3><p class="mt-1 text-[0.875rem] leading-[1.5] text-muted">Dapat berupa biaya tetap per kejadian.</p></article>
+            <article class="rounded-2xl border border-line bg-paper p-4"><h3 class="text-[0.875rem] font-bold">Kerugian total</h3><p class="mt-1 text-[0.875rem] leading-[1.5] text-muted">Dapat berupa persentase nilai klaim dan/atau minimum.</p></article>
+            <article class="rounded-2xl border border-line bg-paper p-4"><h3 class="text-[0.875rem] font-bold">Banjir, bencana, kerusuhan</h3><p class="mt-1 text-[0.875rem] leading-[1.5] text-muted">Biaya sendiri khusus dapat berlaku jika perluasan dipilih.</p></article>
+          </div>
+          <p class="border-t border-line px-4 py-3 text-[0.875rem] leading-[1.6] text-muted md:px-5">Ini gambaran jenis biaya yang dapat berlaku, bukan angka standar semua polis. Periksa jumlah dan cara hitungnya pada penawaran Anda.</p>
+        </div>
+
+        <details class="group mt-4 rounded-2xl border border-line bg-white px-4 py-3.5 md:px-5">
+          <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
+            Pengecualian umum<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
+          </summary>
+          <ul class="grid gap-2 pt-3 pr-7 text-[0.8125rem] leading-[1.6] text-muted">
+            {exclusions.map((item) => <li class="flex gap-2"><span class="font-bold text-wa-deep">·</span><span>{item}</span></li>)}
+          </ul>
+          <p class="pt-3 text-[0.75rem] text-muted">Daftar lengkap ada di polis.</p>
+        </details>
+      </div>
+    </section>
+
+    <ChatSample />
+
+    <section id="klaim" class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Pendampingan klaim</p>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Mobil lecet atau tabrakan?</h2>
+        </div>
+        <div class="mt-7 grid gap-3 md:grid-cols-3">
+          {claims.map((claim, index) => (
+            <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">0{index + 1}</span>
+              <h3 class="mt-4 font-display text-[1.0625rem] font-bold">{claim.title}</h3>
+              <p class="mt-2 text-[0.8125rem] leading-[1.65] text-muted">{claim.text}</p>
+            </article>
+          ))}
+        </div>
+        <details class="group mt-4 rounded-2xl border border-line bg-white px-4 py-3.5 md:px-5">
+          <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
+            Dokumen yang biasanya diminta<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
+          </summary>
+          <p class="pt-2 pr-7 text-[0.8125rem] leading-[1.65] text-muted">Kronologi, SIM, STNK, foto kerusakan, dan polis. Laporan polisi dapat diminta bila melibatkan pihak ketiga. Persyaratan akhir mengikuti arahan perusahaan asuransi.</p>
+        </details>
+      </div>
+    </section>
+
+    <About message={quoteMessage} />
+
+    <section id="faq" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto grid max-w-6xl gap-7 md:grid-cols-[0.65fr_1.35fr] md:gap-14">
+        <div>
+          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">FAQ</p>
+          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">Pertanyaan yang sering muncul</h2>
+        </div>
+        <div class="grid content-start gap-2.5">
+          {faqs.map((faq) => (
+            <details class="group rounded-2xl border border-line bg-paper px-4 py-3.5 open:bg-white md:px-5">
+              <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold leading-[1.45] marker:hidden [&::-webkit-details-marker]:hidden">
+                {faq.question}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
+              </summary>
+              <p class="pt-2 pr-7 text-[0.8125rem] leading-[1.65] text-muted">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <FinalCta
+    title="Cek banjir, biaya sendiri, dan bengkel sebelum memilih polis."
+    message={quoteMessage}
+  />
+</BaseLayout>

@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WaButton from "../components/WaButton.astro";
+import { WORKING_HOURS } from "../data/config";
+import { ArrowUpRight, Camera, Check, MapPin, Phone, ShieldAlert, Smartphone, Truck, Wrench } from "lucide-astro";
+
+const claimMessage = "Halo Aditya, kondisi saya sudah aman. Mohon panduan dokumen dan langkah pelaporan klaim Garda Oto.";
+const gardaWhatsApp = "https://wa.me/6289501500112";
+const myGarda = "https://www.asuransiastra.com/service/garda-mobile/mygarda/";
+
+const safetySteps = [
+  {
+    title: "Utamakan keselamatan",
+    text: "Nyalakan lampu hazard jika aman, lalu pindah bersama penumpang ke tempat yang aman dari arus lalu lintas. Jangan mengambil risiko untuk memotret kendaraan.",
+  },
+  {
+    title: "Telepon Garda Akses",
+    text: "Sampaikan kondisi kendaraan, lokasi atau patokan kilometer di jalan tol, arah perjalanan, dan apakah mobil masih bisa dijalankan.",
+  },
+  {
+    title: "Dokumentasikan setelah aman",
+    text: "Jika situasi sudah aman, catat kronologi dan foto kerusakan. Ikuti arahan petugas di lokasi dan Garda Akses, terutama sebelum melakukan perbaikan.",
+  },
+];
+
+const roadServices = [
+  {
+    title: "Garda Siaga 24 jam",
+    details: "Layanan bantuan darurat di jalan atau Emergency Roadside Assistance (ERA). Hubungi Garda Akses untuk menanyakan bantuan di lokasi Anda.",
+    icon: ShieldAlert,
+  },
+  {
+    title: "Derek atau mobil gendong",
+    details: "Jika mobil tidak dapat dijalankan, tanyakan pilihan armada dan arahan Garda Akses sebelum memesan bantuan sendiri.",
+    icon: Truck,
+  },
+  {
+    title: "Gangguan di jalan",
+    details: "Tanyakan bantuan untuk kendala seperti ban kempis, kunci tertinggal di dalam mobil, atau mogok. Layanan mengikuti wilayah dan ketentuan yang berlaku.",
+    icon: Wrench,
+  },
+];
+
+const claimDocuments = [
+  "Foto STNK asli",
+  "Foto SIM asli pengemudi saat kejadian",
+  "Foto KTP asli pemegang polis",
+  "Kronologi dan foto kerusakan jika tersedia",
+];
+---
+
+<BaseLayout
+  title="Nomor Darurat Garda Oto 24 Jam | AsuransiSerpong"
+  description="Hubungi Garda Akses 1 500 112 untuk bantuan darurat Garda Oto 24 jam. Lihat panduan Garda Siaga, myGarda, dan pelaporan klaim."
+  showStickyBar={false}
+  showHeaderContact={false}
+>
+  <article class="bg-paper">
+    <section class="relative isolate overflow-hidden bg-ink px-5 pt-7 pb-9 text-white md:py-14" aria-labelledby="garda-title">
+      <div aria-hidden="true" class="rain pointer-events-none -z-10 opacity-25"></div>
+      <div class="mx-auto grid max-w-5xl items-center gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-8 lg:gap-14">
+        <div>
+          <p class="text-xs font-bold tracking-[0.12em] text-[#b8e8cd] uppercase">Nomor darurat Garda Oto</p>
+          <h1 id="garda-title" class="mt-3 max-w-xl font-display text-[clamp(1.875rem,5vw,3.5rem)] leading-[1.12] font-extrabold tracking-[-0.04em]">Kecelakaan atau mobil mogok?</h1>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">Bantuan darurat Garda Oto tersedia 24 jam. Telepon Garda Akses di 1 500 112 dan sampaikan lokasi serta kondisi kendaraan.</p>
+          <p class="mt-4 flex items-start gap-2.5 border-l-2 border-[#f5c45e] pl-3 text-sm leading-relaxed text-white/85 md:mt-6 md:text-base">
+            <ShieldAlert aria-hidden="true" class="mt-0.5 h-5 w-5 shrink-0 text-[#f5c45e]" />
+            <span>Jika ada korban luka atau bahaya langsung, <strong class="text-white">hubungi layanan darurat setempat lebih dulu.</strong></span>
+          </p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-4 text-ink shadow-xl shadow-black/20 sm:p-5 md:p-6">
+          <h2 class="px-1 text-xs font-bold tracking-[0.1em] text-muted uppercase">Garda Akses · Hotline 24 jam</h2>
+          <a href="tel:1500112" class="mt-2.5 flex w-full items-center gap-3 rounded-2xl bg-wa px-4 py-3 text-wa-ink transition hover:bg-[#2fe074] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-sky-400">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-wa-ink/10" aria-hidden="true"><Phone class="h-5 w-5" /></span>
+            <span>
+              <span class="block text-xs font-bold">Telepon Garda Akses</span>
+              <span class="block font-display text-[clamp(1.625rem,4vw,2.25rem)] leading-none font-extrabold whitespace-nowrap tabular-nums">1 500 112</span>
+            </span>
+          </a>
+          <p class="mt-2.5 px-1 text-sm leading-relaxed text-muted">Hubungi Garda Akses untuk meminta bantuan darurat di jalan.</p>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-x-3 border-t border-line px-1 pt-1">
+            <a href={gardaWhatsApp} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 flex-col justify-center text-sm font-bold text-wa-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">
+              <span class="inline-flex items-center gap-1 underline decoration-wa-deep/40 underline-offset-4 hover:decoration-current">WhatsApp Garda Akses <ArrowUpRight aria-hidden="true" class="h-3.5 w-3.5" /></span>
+              <span class="text-xs font-medium text-muted tabular-nums">08950 1 500 112</span>
+            </a>
+            <span class="text-xs text-muted">Untuk bantuan darurat, utamakan telepon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-10 md:py-14" aria-labelledby="garda-steps">
+      <div class="mx-auto max-w-5xl">
+        <h2 id="garda-steps" class="font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Yang perlu dilakukan di lokasi</h2>
+        <ol class="mt-5 grid gap-3 md:grid-cols-3">
+          {safetySteps.map(({ title, text }, index) => (
+            <li class="flex items-start gap-3 rounded-2xl border border-line bg-white p-4 md:flex-col md:p-5">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-wa-soft font-display text-sm font-extrabold text-wa-deep" aria-hidden="true">{index + 1}</span>
+              <div><h3 class="font-display text-base font-bold">{title}</h3><p class="mt-1 text-sm leading-relaxed text-muted">{text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-white px-5 py-10 md:py-14" aria-labelledby="garda-services">
+      <div class="mx-auto grid max-w-5xl gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)] md:gap-10 lg:gap-16">
+        <div>
+          <h2 id="garda-services" class="font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Bantuan dari Garda Oto</h2>
+          <p class="mt-2 max-w-sm text-sm leading-relaxed text-muted">Garda Siaga menyediakan bantuan darurat di jalan. Ketersediaan, wilayah, dan ketentuan layanan perlu dikonfirmasi kepada Garda Akses.</p>
+        </div>
+        <ul class="divide-y divide-line rounded-2xl border border-line bg-paper px-4 sm:px-5">
+          {roadServices.map(({ title, details, icon: Icon }) => (
+            <li class="flex items-start gap-3 py-4">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-wa-soft text-wa-deep"><Icon aria-hidden="true" class="h-4.5 w-4.5" /></span>
+              <div><h3 class="font-display text-base font-bold">{title}</h3><p class="mt-1 text-sm leading-relaxed text-muted">{details}</p></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="px-5 py-10 md:py-14" aria-labelledby="garda-claims">
+      <div class="mx-auto grid max-w-5xl items-start gap-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-12">
+        <div>
+          <p class="text-xs font-bold tracking-[0.12em] text-wa-deep uppercase">Setelah keadaan aman</p>
+          <h2 id="garda-claims" class="mt-2 font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Pelaporan dan dokumen klaim</h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted">Laporkan kejadian sesegera mungkin melalui myGarda, telepon, atau WhatsApp Garda Akses. <a href="https://www.asuransiastra.com/knowledge-post/prosedur-klaim-garda-oto/" target="_blank" rel="noopener noreferrer" class="font-bold text-wa-deep underline underline-offset-4">Prosedur klaim Asuransi Astra</a> menyebut batas pelaporan <strong class="text-ink">5 hari kerja setelah kejadian</strong>. Periksa juga ketentuan polis Anda dan konfirmasikan kepada Garda Akses.</p>
+          <h3 class="mt-5 font-display text-base font-bold">Yang perlu disiapkan untuk klaim kerusakan sebagian</h3>
+          <ul class="mt-3 grid gap-x-4 gap-y-2 rounded-2xl border border-line bg-white p-4 sm:grid-cols-2">
+            {claimDocuments.map((document) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-muted"><Check aria-hidden="true" class="mt-0.5 h-4 w-4 shrink-0 text-wa-deep" /><span>{document}</span></li>
+            ))}
+          </ul>
+          <p class="mt-2 text-sm leading-relaxed text-muted">Isi laporan kejadian dan konfirmasikan kelengkapan dokumen kepada Asuransi Astra. Kebutuhan dokumen dapat berbeda sesuai kejadian.</p>
+          <div class="mt-4 rounded-2xl border border-[#f5c45e]/50 bg-[#fff8e8] p-4">
+            <h3 class="font-display text-base font-bold">Jika melibatkan pihak ketiga atau kehilangan</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">Surat keterangan polisi dapat diperlukan jika kerugian melibatkan pihak ketiga atau disebabkan perbuatan jahat orang lain. Jika ada tuntutan pihak ketiga, dokumen tambahan juga diperlukan. Untuk kehilangan atau kerusakan total, tanyakan persyaratan lengkap kepada Asuransi Astra.</p>
+          </div>
+        </div>
+        <aside class="rounded-3xl bg-ink p-5 text-white md:p-6" aria-labelledby="garda-claim-help">
+          <p class="text-xs font-bold tracking-[0.12em] text-[#b8e8cd] uppercase">AsuransiSerpong</p>
+          <h3 id="garda-claim-help" class="mt-2 font-display text-xl font-bold">Bantuan klaim online</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/80">Saya bisa membantu menjelaskan dokumen dan langkah pelaporan, serta mencari informasi bengkel rekanan. Ceritakan kronologi singkat terlebih dahulu. Pastikan kanal penerima terverifikasi sebelum mengirim dokumen pribadi.</p>
+          <WaButton message={claimMessage} class="mt-4 w-full">Chat Aditya</WaButton>
+          <p class="mt-3 text-xs leading-relaxed text-white/70">{WORKING_HOURS}</p>
+          <p class="mt-3 border-t border-white/15 pt-3 text-xs leading-relaxed text-white/75">Pendampingan dilakukan secara online, bukan untuk bantuan darurat atau pengurusan laporan polisi. Keputusan klaim dan nilai ganti rugi ditetapkan oleh Asuransi Astra.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-white px-5 py-10 md:py-14" aria-labelledby="garda-app">
+      <div class="mx-auto max-w-5xl">
+        <p class="text-xs font-bold tracking-[0.12em] text-wa-deep uppercase">Layanan digital</p>
+        <h2 id="garda-app" class="mt-2 font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Layanan myGarda</h2>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-muted">Gunakan myGarda untuk mengakses layanan Garda Oto. Untuk keadaan darurat, utamakan telepon Garda Akses.</p>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { title: "Lapor klaim", text: "Kirim laporan dan pantau status klaim serta perbaikan.", icon: Smartphone },
+            { title: "Surat perintah kerja", text: "Lihat surat perintah kerja (SPK) untuk perbaikan.", icon: Check },
+            { title: "Survei virtual", text: "Lakukan survei kendaraan melalui panggilan video.", icon: Camera },
+            { title: "Bantuan darurat", text: "Ajukan bantuan darurat Garda Siaga.", icon: Truck },
+            { title: "Lokasi layanan", text: "Cari cabang atau Garda Center terdekat.", icon: MapPin },
+          ].map(({ title, text, icon: Icon }) => (
+            <article class="flex gap-3 rounded-2xl border border-line bg-paper p-4">
+              <Icon aria-hidden="true" class="mt-0.5 h-5 w-5 shrink-0 text-wa-deep" />
+              <div><h3 class="font-display text-base font-bold">{title}</h3><p class="mt-1 text-sm leading-relaxed text-muted">{text}</p></div>
+            </article>
+          ))}
+        </div>
+        <a href={myGarda} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-wa-deep underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">Unduh myGarda melalui halaman resmi <ArrowUpRight aria-hidden="true" class="h-4 w-4" /></a>
+      </div>
+    </section>
+
+    <section class="px-5 py-7 md:py-8" aria-labelledby="garda-contacts">
+      <div class="mx-auto max-w-5xl">
+        <h2 id="garda-contacts" class="font-display text-base font-bold">Informasi resmi Asuransi Astra</h2>
+        <div class="mt-1 flex flex-wrap gap-x-6 text-sm font-bold text-wa-deep">
+          <a href="https://www.asuransiastra.com/garda-oto/" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">Informasi Garda Oto <ArrowUpRight aria-hidden="true" class="h-4 w-4" /></a>
+          <a href="https://www.asuransiastra.com/network/" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">Jaringan layanan <ArrowUpRight aria-hidden="true" class="h-4 w-4" /></a>
+        </div>
+        <p class="mt-2 border-t border-line pt-3 text-xs leading-relaxed text-muted">AsuransiSerpong bukan situs resmi PT Asuransi Astra Buana. Informasi ini merupakan panduan umum; manfaat, persyaratan, dan keputusan klaim mengikuti polis serta konfirmasi Asuransi Astra.</p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,457 @@
+---
+import { EMERGENCY_NUMBER_LINKS, MESSAGES, SERVICE_LINKS, TOP_LINKS, waLink } from "../data/config";
+import { Building2, Car, ChevronDown, House, Menu, Plane, X } from "lucide-astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+import Wordmark from "./Wordmark.astro";
+
+interface Props {
+  message?: string;
+  showContact?: boolean;
+}
+
+const { message = MESSAGES.header, showContact = true } = Astro.props;
+
+const serviceIconMap: Record<string, any> = {
+  mobil: Car,
+  properti: House,
+  travel: Plane,
+  bisnis: Building2,
+};
+
+const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400";
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 border-b backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-300 border-white/10 bg-ink text-white"
+>
+  <div class="mx-auto flex min-h-16 max-w-5xl items-center justify-between gap-2 px-3 py-2 sm:gap-3 sm:px-4 lg:px-5">
+    <a href="/" class:list={["brand-link min-w-0 text-white transition-colors", focusRing]}>
+      <Wordmark />
+    </a>
+
+    {/* Menu desktop (>= 768px) */}
+    <nav aria-label="Menu utama" class="hidden items-center gap-0.5 md:flex">
+      <div id="services-wrap" class="relative">
+        <button
+          id="services-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menu-layanan"
+          class="top-link"
+        >
+          Asuransi
+          <ChevronDown id="services-chevron" class="h-4 w-4 transition-transform duration-200" />
+        </button>
+
+        <div
+          id="menu-layanan"
+          class="absolute top-full left-0 w-60 pt-2 transition duration-150 invisible -translate-y-1 opacity-0"
+        >
+          <ul class="rounded-2xl border border-line bg-white p-1.5 text-ink shadow-xl shadow-ink/15">
+            {SERVICE_LINKS.map((s) => {
+              const Icon = serviceIconMap[s.key];
+              return (
+                <li>
+                  <a href={s.href} class={`flex min-h-11 items-center gap-3 rounded-xl px-3 text-[0.9375rem] font-semibold tracking-[-0.01em] transition-colors hover:bg-paper ${focusRing}`}>
+                    <Icon class="h-[1.125rem] w-[1.125rem] shrink-0 text-muted" />
+                    {s.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+
+      <a href={TOP_LINKS.artikel.href} class="top-link">{TOP_LINKS.artikel.label}</a>
+
+      <div id="emergency-wrap" class="relative">
+        <button
+          id="emergency-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menu-darurat"
+          class="top-link"
+        >
+          Nomor Darurat
+          <ChevronDown id="emergency-chevron" class="h-4 w-4 transition-transform duration-200" />
+        </button>
+
+        <div
+          id="menu-darurat"
+          class="absolute top-full right-0 w-52 pt-2 transition duration-150 invisible -translate-y-1 opacity-0"
+        >
+          <ul class="rounded-2xl border border-line bg-white p-1.5 text-ink shadow-xl shadow-ink/15">
+            <li><a href={EMERGENCY_NUMBER_LINKS.zurich} class={`flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-semibold tracking-[-0.01em] transition-colors hover:bg-paper ${focusRing}`}>Zurich</a></li>
+            <li><a href={EMERGENCY_NUMBER_LINKS.aca} class={`flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-semibold tracking-[-0.01em] transition-colors hover:bg-paper ${focusRing}`}>ACA</a></li>
+            <li><a href={EMERGENCY_NUMBER_LINKS.gardaOto} class={`flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-semibold tracking-[-0.01em] transition-colors hover:bg-paper ${focusRing}`}>Garda Oto</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="flex shrink-0 items-center gap-1.5">
+      {showContact && (
+        <a
+          href={waLink(message)}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-wa-message={message}
+          aria-label="Tanya Aditya via WA"
+          class="inline-flex min-h-10.5 items-center gap-1.5 rounded-full bg-wa px-3 text-[0.875rem] font-bold tracking-[-0.01em] whitespace-nowrap text-wa-ink transition hover:bg-[#2fe074] active:scale-95 sm:px-3.5 lg:px-4.5"
+        >
+          <WhatsAppIcon class="h-[1.0625rem] w-[1.0625rem] shrink-0" />
+          <span class="lg:hidden">WA</span>
+          <span class="hidden lg:inline">Tanya Aditya via WA</span>
+        </a>
+      )}
+      <button
+        type="button"
+        id="drawer-toggle"
+        aria-expanded="false"
+        aria-controls="menu-mobile"
+        aria-label="Buka menu"
+        class="grid h-10.5 w-10.5 place-items-center rounded-full transition active:scale-95 md:hidden text-white hover:bg-white/10"
+      >
+        <span id="drawer-icon-open"><Menu class="h-5.5 w-5.5" /></span>
+        <span id="drawer-icon-close" class="hidden"><X class="h-5.5 w-5.5" /></span>
+      </button>
+    </div>
+  </div>
+
+  {/* Drawer hamburger (< 768px) */}
+  <nav
+    id="menu-mobile"
+    aria-label="Menu utama"
+    class="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] origin-top overflow-y-auto border-b border-line bg-paper text-ink shadow-xl shadow-ink/10 transition duration-200 md:hidden invisible -translate-y-2 opacity-0"
+  >
+    <ul class="mx-auto max-w-5xl px-4 py-2">
+      <li class="border-b border-line/70">
+        <button
+          type="button"
+          id="drawer-services-toggle"
+          aria-expanded="false"
+          aria-controls="drawer-layanan"
+          class="flex min-h-12 w-full items-center justify-between text-left text-[0.9375rem] font-semibold tracking-[-0.01em]"
+        >
+          Asuransi
+          <ChevronDown id="drawer-services-chevron" class="h-5 w-5 text-muted transition-transform duration-300" />
+        </button>
+        <div id="drawer-layanan" inert class="grid transition-[grid-template-rows] duration-300 grid-rows-[0fr]">
+          <div class="overflow-hidden">
+            <ul class="pb-2">
+              {SERVICE_LINKS.map((s) => {
+                const Icon = serviceIconMap[s.key];
+                return (
+                  <li>
+                    <a href={s.href} data-drawer-close class="flex min-h-11 items-center gap-3 rounded-xl px-3 text-[0.9375rem] font-medium tracking-[-0.01em] active:bg-ink/5">
+                      <Icon class="h-[1.125rem] w-[1.125rem] shrink-0 text-muted" />
+                      {s.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li class="border-b border-line/70">
+        <a href={TOP_LINKS.artikel.href} data-drawer-close class="flex min-h-12 w-full items-center justify-between text-left text-[0.9375rem] font-semibold tracking-[-0.01em]">
+          {TOP_LINKS.artikel.label}
+          <span aria-hidden class="text-muted">→</span>
+        </a>
+      </li>
+
+      <li>
+        <button
+          type="button"
+          id="drawer-emergency-toggle"
+          aria-expanded="false"
+          aria-controls="drawer-darurat"
+          class="flex min-h-12 w-full items-center justify-between text-left text-[0.9375rem] font-semibold tracking-[-0.01em]"
+        >
+          Nomor Darurat
+          <ChevronDown id="drawer-emergency-chevron" class="h-5 w-5 text-muted transition-transform duration-300" />
+        </button>
+        <div id="drawer-darurat" inert class="grid transition-[grid-template-rows] duration-300 grid-rows-[0fr]">
+          <div class="overflow-hidden">
+            <ul class="pb-2">
+              <li><a href={EMERGENCY_NUMBER_LINKS.zurich} data-drawer-close class="flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-medium tracking-[-0.01em] active:bg-ink/5">Zurich</a></li>
+              <li><a href={EMERGENCY_NUMBER_LINKS.aca} data-drawer-close class="flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-medium tracking-[-0.01em] active:bg-ink/5">ACA</a></li>
+              <li><a href={EMERGENCY_NUMBER_LINKS.gardaOto} data-drawer-close class="flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] font-medium tracking-[-0.01em] active:bg-ink/5">Garda Oto</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  #site-header {
+    will-change: transform;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s,
+      border-color 0.3s,
+      box-shadow 0.3s;
+  }
+  #site-header.header-hidden {
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #site-header { transition: none; }
+  }
+  .top-link {
+    display: inline-flex;
+    height: 2.5rem;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 9999px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition-property: color;
+  }
+  @media (min-width: 64rem) {
+    .top-link { padding-left: 0.875rem; padding-right: 0.875rem; font-size: 0.9375rem; }
+  }
+  #site-header[data-scrolled="false"] .top-link { color: rgb(255 255 255 / 0.8); }
+  #site-header[data-scrolled="false"] .top-link:hover { background: rgb(255 255 255 / 0.1); color: #fff; }
+  #site-header[data-scrolled="true"] .top-link { color: rgb(11 27 43 / 0.75); }
+  #site-header[data-scrolled="true"] .top-link:hover { background: rgb(11 27 43 / 0.05); color: var(--color-ink); }
+  #site-header[data-scrolled="true"] .brand-link { color: var(--color-ink); }
+</style>
+
+<script>
+  (function () {
+    const header = document.getElementById("site-header")!;
+    if (!header) return;
+    const drawerToggle = document.getElementById("drawer-toggle");
+    const iconOpen = document.getElementById("drawer-icon-open");
+    const iconClose = document.getElementById("drawer-icon-close");
+    const drawer = document.getElementById("menu-mobile");
+    const drawerServicesToggle = document.getElementById("drawer-services-toggle");
+    const drawerServices = document.getElementById("drawer-layanan");
+    const drawerServicesChevron = document.getElementById("drawer-services-chevron");
+    const servicesWrap = document.getElementById("services-wrap");
+    const servicesButton = document.getElementById("services-button");
+    const servicesMenu = document.getElementById("menu-layanan");
+    const servicesChevron = document.getElementById("services-chevron");
+    const emergencyWrap = document.getElementById("emergency-wrap");
+    const emergencyButton = document.getElementById("emergency-button");
+    const emergencyMenu = document.getElementById("menu-darurat");
+    const emergencyChevron = document.getElementById("emergency-chevron");
+    const drawerEmergencyToggle = document.getElementById("drawer-emergency-toggle");
+    const drawerEmergency = document.getElementById("drawer-darurat");
+    const drawerEmergencyChevron = document.getElementById("drawer-emergency-chevron");
+
+    let open = false;
+    let drawerServicesOpen = false;
+    let servicesOpen = false;
+    let emergencyOpen = false;
+    let drawerEmergencyOpen = false;
+
+    function applyHeader() {
+      const y = window.scrollY;
+      const hero = document.getElementById("hero");
+      const scrolled = hero ? hero.getBoundingClientRect().bottom <= 64 : y > 24;
+      header.setAttribute("data-scrolled", scrolled ? "true" : "false");
+      header.classList.toggle("border-line", scrolled);
+      header.classList.toggle("bg-paper/90", scrolled);
+      header.classList.toggle("shadow-sm", scrolled);
+      header.classList.toggle("shadow-ink/5", scrolled);
+      header.classList.toggle("border-white/10", !scrolled);
+      header.classList.toggle("bg-ink", !scrolled);
+      header.classList.toggle("text-white", !scrolled);
+      if (drawerToggle) {
+        drawerToggle.classList.toggle("text-ink", scrolled);
+        drawerToggle.classList.toggle("hover:bg-ink/5", scrolled);
+        drawerToggle.classList.toggle("text-white", !scrolled);
+        drawerToggle.classList.toggle("hover:bg-white/10", !scrolled);
+      }
+    }
+
+    let lastY = window.scrollY;
+    let hidden = false;
+
+    function pastHidePoint() {
+      return window.scrollY > 64;
+    }
+
+    function onScroll() {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      applyHeader();
+      if (open || servicesOpen || emergencyOpen) {
+        hidden = false;
+      } else if (!pastHidePoint()) {
+        hidden = false;
+      } else if (dy > 4) {
+        hidden = true;
+      } else if (dy < -4) {
+        hidden = false;
+      }
+      // dy kecil / pause: pertahankan state sebelumnya (jangan dimunculkan lagi)
+      header.classList.toggle("header-hidden", hidden);
+      lastY = y;
+    }
+
+    function setDrawer(v: boolean) {
+      open = v;
+      if (!v) {
+        setDrawerServices(false);
+        setDrawerEmergency(false);
+      }
+      if (v) {
+        hidden = false;
+        header.classList.toggle("header-hidden", false);
+      }
+      if (!drawer || !drawerToggle) return;
+      drawerToggle.setAttribute("aria-expanded", String(open));
+      drawerToggle.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+      drawer.classList.toggle("visible", open);
+      drawer.classList.toggle("translate-y-0", open);
+      drawer.classList.toggle("opacity-100", open);
+      drawer.classList.toggle("invisible", !open);
+      drawer.classList.toggle("-translate-y-2", !open);
+      drawer.classList.toggle("opacity-0", !open);
+      if (iconOpen) iconOpen.classList.toggle("hidden", open);
+      if (iconClose) iconClose.classList.toggle("hidden", !open);
+    }
+
+    function setServices(v: boolean) {
+      servicesOpen = v;
+      if (v) {
+        setEmergency(false);
+        hidden = false;
+        header.classList.toggle("header-hidden", false);
+      }
+      if (!servicesButton || !servicesMenu) return;
+      servicesButton.setAttribute("aria-expanded", String(servicesOpen));
+      servicesMenu.classList.toggle("visible", servicesOpen);
+      servicesMenu.classList.toggle("translate-y-0", servicesOpen);
+      servicesMenu.classList.toggle("opacity-100", servicesOpen);
+      servicesMenu.classList.toggle("invisible", !servicesOpen);
+      servicesMenu.classList.toggle("-translate-y-1", !servicesOpen);
+      servicesMenu.classList.toggle("opacity-0", !servicesOpen);
+      if (servicesChevron) {
+        servicesChevron.classList.toggle("rotate-180", servicesOpen);
+      }
+    }
+
+    function setEmergency(v: boolean) {
+      emergencyOpen = v;
+      if (v) {
+        setServices(false);
+        hidden = false;
+        header.classList.toggle("header-hidden", false);
+      }
+      if (!emergencyButton || !emergencyMenu) return;
+      emergencyButton.setAttribute("aria-expanded", String(emergencyOpen));
+      emergencyMenu.classList.toggle("visible", emergencyOpen);
+      emergencyMenu.classList.toggle("translate-y-0", emergencyOpen);
+      emergencyMenu.classList.toggle("opacity-100", emergencyOpen);
+      emergencyMenu.classList.toggle("invisible", !emergencyOpen);
+      emergencyMenu.classList.toggle("-translate-y-1", !emergencyOpen);
+      emergencyMenu.classList.toggle("opacity-0", !emergencyOpen);
+      if (emergencyChevron) emergencyChevron.classList.toggle("rotate-180", emergencyOpen);
+    }
+
+    function setDrawerServices(v: boolean) {
+      drawerServicesOpen = v;
+      if (!drawerServicesToggle || !drawerServices) return;
+      if (v) drawerServices.removeAttribute("inert");
+      else drawerServices.setAttribute("inert", "");
+      drawerServicesToggle.setAttribute("aria-expanded", String(drawerServicesOpen));
+      drawerServices.classList.toggle("grid-rows-[1fr]", drawerServicesOpen);
+      drawerServices.classList.toggle("grid-rows-[0fr]", !drawerServicesOpen);
+      if (drawerServicesChevron) drawerServicesChevron.classList.toggle("rotate-180", drawerServicesOpen);
+    }
+
+    function setDrawerEmergency(v: boolean) {
+      drawerEmergencyOpen = v;
+      if (!drawerEmergencyToggle || !drawerEmergency) return;
+      if (v) drawerEmergency.removeAttribute("inert");
+      else drawerEmergency.setAttribute("inert", "");
+      drawerEmergencyToggle.setAttribute("aria-expanded", String(drawerEmergencyOpen));
+      drawerEmergency.classList.toggle("grid-rows-[1fr]", drawerEmergencyOpen);
+      drawerEmergency.classList.toggle("grid-rows-[0fr]", !drawerEmergencyOpen);
+      if (drawerEmergencyChevron) drawerEmergencyChevron.classList.toggle("rotate-180", drawerEmergencyOpen);
+    }
+
+    if (drawerToggle) drawerToggle.addEventListener("click", function () { setDrawer(!open); });
+    if (drawerServicesToggle) drawerServicesToggle.addEventListener("click", function () { setDrawerServices(!drawerServicesOpen); });
+    if (drawerEmergencyToggle) drawerEmergencyToggle.addEventListener("click", function () { setDrawerEmergency(!drawerEmergencyOpen); });
+    if (servicesButton) {
+      servicesButton.addEventListener("click", function () { setServices(!servicesOpen); });
+    }
+    if (servicesWrap) {
+      servicesWrap.addEventListener("pointerenter", function (e) {
+        if (e.pointerType !== "mouse") return;
+        setServices(true);
+      });
+      servicesWrap.addEventListener("pointerleave", function (e) {
+        if (e.pointerType !== "mouse") return;
+        setServices(false);
+      });
+      servicesWrap.addEventListener("focusout", function (e) {
+        var related = e.relatedTarget;
+        if (related instanceof Node && !servicesWrap.contains(related)) setServices(false);
+      });
+    }
+    if (emergencyButton) emergencyButton.addEventListener("click", function () { setEmergency(!emergencyOpen); });
+    if (emergencyWrap) {
+      emergencyWrap.addEventListener("pointerenter", function (e) {
+        if (e.pointerType === "mouse") setEmergency(true);
+      });
+      emergencyWrap.addEventListener("pointerleave", function (e) {
+        if (e.pointerType === "mouse") setEmergency(false);
+      });
+      emergencyWrap.addEventListener("focusout", function (e) {
+        var related = e.relatedTarget;
+        if (related instanceof Node && !emergencyWrap.contains(related)) setEmergency(false);
+      });
+    }
+    document.addEventListener("pointerdown", function (e) {
+      if (servicesOpen && e.target instanceof Node && servicesWrap && !servicesWrap.contains(e.target)) setServices(false);
+      if (emergencyOpen && e.target instanceof Node && emergencyWrap && !emergencyWrap.contains(e.target)) setEmergency(false);
+    });
+    document.querySelectorAll("[data-drawer-close]").forEach(function (el) {
+      el.addEventListener("click", function () { setDrawer(false); setDrawerServices(false); setDrawerEmergency(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      const closeDrawer = open;
+      if (servicesOpen && servicesButton) servicesButton.focus();
+      if (emergencyOpen && emergencyButton) emergencyButton.focus();
+      setDrawer(false);
+      setServices(false);
+      setEmergency(false);
+      setDrawerServices(false);
+      setDrawerEmergency(false);
+      if (closeDrawer && drawerToggle) drawerToggle.focus();
+    });
+
+    document.addEventListener("focusin", function (e) {
+      if (e.target instanceof Node && header.contains(e.target)) {
+        hidden = false;
+        header.classList.remove("header-hidden");
+      }
+    });
+
+    applyHeader();
+    onScroll();
+    let ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { onScroll(); ticking = false; });
+    }, { passive: true });
+  })();
+</script>

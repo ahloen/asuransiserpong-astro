@@ -1,0 +1,115 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import StickyBar from "../components/StickyBar.astro";
+import WaModal from "../components/WaModal.astro";
+import Schema from "../components/Schema.astro";
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface ArticleSchema {
+  headline: string;
+  datePublished: string;
+  dateModified?: string;
+  description?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  showStickyBar?: boolean;
+  stickyMessage?: string;
+  showHeaderContact?: boolean;
+  schemaType?: "home" | "page" | "article";
+  article?: ArticleSchema;
+  faqs?: readonly FAQ[];
+}
+
+const {
+  title = "Asuransi Mobil Mau Habis? Tanya Aditya | Serpong",
+  description = "Polis mobil mau habis? Kirim fotonya dulu, Aditya bantu cek soal banjir, biaya sendiri, dan bengkelnya. BSD, Gading Serpong, Alam Sutera.",
+  showStickyBar = true,
+  stickyMessage,
+  showHeaderContact = true,
+  schemaType = "page",
+  article,
+  faqs,
+} = Astro.props;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b1b2b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="AsuransiSerpong" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {canonicalUrl && <meta name="twitter:url" content={canonicalUrl} />}
+    <meta name="robots" content="index,follow" />
+    {canonicalUrl && <Schema type={schemaType} url={canonicalUrl} title={title} description={description} article={article} faqs={faqs} />}
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-K73HS5XN");
+    </script>
+    <script is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "zginh5pnml");
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K73HS5XN"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+    <a href="#main-content" class="skip-link">Lewati ke konten</a>
+    <Header message={stickyMessage} showContact={showHeaderContact} />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    {showStickyBar && <StickyBar message={stickyMessage} />}
+    <WaModal />
+  </body>
+</html>

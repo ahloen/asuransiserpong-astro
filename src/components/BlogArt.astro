@@ -1,0 +1,93 @@
+---
+import { BadgeDollarSign, Building2, Camera, CarFront, CloudRain, House, Plane, RefreshCw, Wrench } from "lucide-astro";
+import type { BlogCategory } from "../data/blog";
+
+interface Props {
+  category: BlogCategory;
+  postId: string;
+}
+
+const { category, postId } = Astro.props;
+const photoByPost: Record<string, string> = {
+  "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": "/images/blog/asuransi-rumah-kpr-lunas-serpong.webp",
+  "perbandingan-asuransi-mobil-terbaik-serpong": "/images/blog/perbandingan-asuransi-mobil-serpong.webp",
+  "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": "/images/blog/asuransi-perjalanan-keluarga.webp",
+  "kredit-mobil-lunas-asuransi-mobil-mandiri": "/images/blog/kredit-mobil-lunas-asuransi-mobil.webp",
+  "asuransi-mobil-banjir-bsd-gading-serpong": "/images/blog/asuransi-mobil-banjir-serpong.webp",
+};
+const photoAltByPost: Record<string, string> = {
+  "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": "Rumah tinggal sebagai ilustrasi perlindungan asuransi bangunan dan isi rumah di Serpong",
+  "perbandingan-asuransi-mobil-terbaik-serpong": "Mobil untuk ilustrasi membandingkan penawaran asuransi mobil di Serpong",
+  "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": "Koper dan perlengkapan perjalanan keluarga untuk ilustrasi asuransi perjalanan",
+  "kredit-mobil-lunas-asuransi-mobil-mandiri": "Mobil untuk ilustrasi mengurus asuransi setelah kredit lunas",
+  "asuransi-mobil-banjir-bsd-gading-serpong": "Mobil di jalan tergenang sebagai ilustrasi risiko banjir pada asuransi mobil",
+};
+const photo = photoByPost[postId];
+const categoryArt = {
+  mobil: [CarFront, "sage"], travel: [Plane, "blue"], properti: [House, "ochre"], bisnis: [Building2, "lilac"],
+} as const;
+const topicArt: Record<string, (typeof categoryArt)[BlogCategory] | readonly [typeof CloudRain, string]> = {
+  "banjir-tidak-selalu-dijamin": [CloudRain, "blue"],
+  "biaya-sendiri-yang-sering-lupa": [BadgeDollarSign, "ochre"],
+  "bengkel-rekanan-berubah": [Wrench, "lilac"],
+  "perpanjangan-tidak-selalu-sama": [RefreshCw, "rose"],
+  "cara-klaim-tanpa-panik": [Camera, "blue"],
+};
+const [Icon, tone] = topicArt[postId] ?? categoryArt[category];
+---
+
+{photo ? (
+  <img class="blog-photo" src={photo} alt={photoAltByPost[postId]} />
+) : (
+<div class:list={["blog-art", tone]} aria-hidden="true">
+  <svg class="diagram" viewBox="0 0 400 240" fill="none" preserveAspectRatio="xMidYMid slice">
+    <g stroke="currentColor">
+      <circle cx="200" cy="120" r="76" stroke-dasharray="2 5" />
+      <circle cx="200" cy="120" r="96" />
+      <circle cx="200" cy="120" r="121" />
+      <path d="M0 120h400M200 0v240M78 120h244M200 24l96 96-96 96-96-96z" />
+      <path d="M28 40h24M40 28v24m308 148h24m-12-12v24M28 200h24m-12-12v24M348 40h24m-12-12v24" />
+    </g>
+    <g fill="currentColor">
+      <circle cx="104" cy="120" r="3" /><circle cx="296" cy="120" r="3" />
+      <circle cx="200" cy="24" r="3" /><circle cx="200" cy="216" r="3" />
+    </g>
+  </svg>
+  <span class="emblem"><Icon class="mark" stroke-width={1.45} /></span>
+</div>
+)}
+
+<style>
+  .blog-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .blog-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    isolation: isolate;
+    background: radial-gradient(ellipse at 50% 28%, var(--wash), var(--base));
+    color: var(--mark);
+    container-type: inline-size;
+  }
+  .sage { --wash: #f0f7e6; --base: #cbdcc2; --mark: #285237; }
+  .blue { --wash: #ecf6f7; --base: #c5dce1; --mark: #214e60; }
+  .ochre { --wash: #fcf3df; --base: #ead4ac; --mark: #744b21; }
+  .lilac { --wash: #f4eff8; --base: #ddd0ea; --mark: #574674; }
+  .rose { --wash: #f9eeea; --base: #e9d1c8; --mark: #794b43; }
+  .diagram { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.24; z-index: -1; }
+  .emblem {
+    display: grid;
+    place-items: center;
+    width: clamp(4.5rem, 30cqw, 7.75rem);
+    aspect-ratio: 1;
+    border-radius: 28%;
+    border: 1px solid rgb(255 255 255 / 0.82);
+    background: linear-gradient(145deg, rgb(255 255 255 / 0.77), rgb(255 255 255 / 0.25));
+    box-shadow: 0 12px 28px rgb(11 27 43 / 0.12);
+    transform: rotate(-8deg);
+  }
+  .mark { width: 49%; height: 49%; transform: rotate(8deg); }
+</style>

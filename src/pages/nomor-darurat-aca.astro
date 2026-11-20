@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WaButton from "../components/WaButton.astro";
+import { WORKING_HOURS } from "../data/config";
+import {
+  ArrowUpRight,
+  Camera,
+  Check,
+  ClipboardList,
+  Phone,
+  ShieldAlert,
+  Truck,
+  Wrench,
+} from "lucide-astro";
+
+const acaWhatsApp = "https://wa.me/6285771500737";
+const claimMessage =
+  "Halo Aditya, kondisi sudah aman. Mohon panduan dokumen dan pengajuan klaim ACA Otomate.";
+
+const safetySteps = [
+  {
+    title: "Utamakan keselamatan",
+    text: "Nyalakan lampu hazard jika aman. Jauhkan diri dan penumpang dari arus lalu lintas.",
+  },
+  {
+    title: "Telepon ACA",
+    text: "Sebutkan lokasi atau patokan KM tol, arah perjalanan, dan apakah mobil masih bisa dijalankan.",
+  },
+  {
+    title: "Dokumentasikan setelah aman",
+    text: "Catat waktu dan kronologi, lalu foto kerusakan jika aman. Ikuti arahan ACA sebelum memindahkan atau memperbaiki kendaraan.",
+  },
+];
+
+const roadServices = [
+  {
+    title: "Mobil derek 24 jam",
+    details: "Jika armada ACA tidak tersedia, minta persetujuan sebelum memesan derek sendiri. Batas penggantian per kejadian: hingga 0,5% dari harga pertanggungan untuk kecelakaan, atau Rp1.000.000 untuk mogok atau kerusakan nonkecelakaan.",
+    icon: Truck,
+  },
+  {
+    title: "Teknisi di lokasi (RSA)",
+    details: "Untuk gangguan ringan pada mesin. Layanan teknisi gratis, tetapi suku cadang ditanggung nasabah. Senin–Jumat, 08.00–17.00 WIB, kecuali hari libur nasional.",
+    icon: Wrench,
+  },
+  {
+    title: "Bantuan ambulans",
+    details: "Utamakan bantuan medis jika ada korban luka. Penggantian biaya ambulans umumnya maksimal Rp1.000.000 per kejadian, sesuai polis.",
+    icon: ShieldAlert,
+  },
+  {
+    title: "Mobil pengganti",
+    details: "Hingga 5 × 24 jam jika perbaikan bodi akibat kecelakaan di bengkel rekanan ACA memakan waktu lebih dari 48 jam. Syarat lain berlaku, termasuk laporan bengkel.",
+    icon: ClipboardList,
+  },
+  {
+    title: "Valet service & mobile claim",
+    details: "Antar-jemput kendaraan dan survei klaim di lokasi. Tanyakan cakupan area, jam layanan, dan syaratnya ke ACA.",
+    icon: Camera,
+  },
+];
+
+const claimDocuments = [
+  "Kronologi singkat kejadian",
+  "Foto atau salinan polis asuransi",
+  "SIM pengemudi saat kejadian",
+  "STNK kendaraan",
+  "KTP tertanggung",
+  "Foto bagian mobil yang rusak",
+];
+---
+
+<BaseLayout
+  title="Nomor Darurat ACA Otomate 24 Jam | AsuransiSerpong"
+  description="Telepon hotline ACA 1500 737 untuk bantuan darurat Otomate 24 jam. Lihat langkah aman di jalan, pilihan bantuan, dan dokumen klaim."
+  showStickyBar={false}
+  showHeaderContact={false}
+>
+  <article class="bg-paper">
+    <section class="relative isolate overflow-hidden bg-ink px-5 pt-7 pb-9 text-white md:py-14" aria-labelledby="aca-title">
+      <div aria-hidden="true" class="rain pointer-events-none -z-10 opacity-25"></div>
+      <div class="mx-auto grid max-w-5xl items-center gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-8 lg:gap-14">
+        <div>
+          <p class="text-xs font-bold tracking-[0.12em] text-[#b8e8cd] uppercase">Nomor darurat ACA Otomate</p>
+          <h1 id="aca-title" class="mt-3 max-w-xl font-display text-[clamp(1.875rem,5vw,3.5rem)] leading-[1.12] font-extrabold tracking-[-0.04em]">
+            Kecelakaan atau mobil mogok?
+          </h1>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">Bantuan darurat ACA Otomate tersedia 24 jam. Telepon 1500 737 dan sampaikan lokasi serta kondisi kendaraan.</p>
+          <p class="mt-4 flex items-start gap-2.5 border-l-2 border-[#f5c45e] pl-3 text-sm leading-relaxed text-white/85 md:mt-6 md:text-base">
+            <ShieldAlert aria-hidden="true" class="mt-0.5 h-5 w-5 shrink-0 text-[#f5c45e]" />
+            <span>Jika ada korban luka atau bahaya langsung, <strong class="text-white">hubungi layanan darurat setempat lebih dulu.</strong></span>
+          </p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-4 text-ink shadow-xl shadow-black/20 sm:p-5 md:p-6">
+          <h2 class="px-1 text-xs font-bold tracking-[0.1em] text-muted uppercase">Hotline ACA 24 jam</h2>
+          <a
+            href="tel:1500737"
+            class="mt-2.5 flex w-full items-center gap-3 rounded-2xl bg-wa px-4 py-3 text-wa-ink transition hover:bg-[#2fe074] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-sky-400"
+          >
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-wa-ink/10" aria-hidden="true"><Phone class="h-5 w-5" /></span>
+            <span>
+              <span class="block text-xs font-bold">Telepon ACA</span>
+              <span class="block font-display text-[clamp(1.625rem,4vw,2.25rem)] leading-none font-extrabold whitespace-nowrap tabular-nums">1500 737</span>
+            </span>
+          </a>
+          <p class="mt-2.5 px-1 text-sm leading-relaxed text-muted">Untuk derek atau bantuan segera di jalan.</p>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-x-3 border-t border-line px-1 pt-1">
+            <a href={acaWhatsApp} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 flex-col justify-center text-sm font-bold text-wa-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">
+              <span class="inline-flex items-center gap-1 underline decoration-wa-deep/40 underline-offset-4 hover:decoration-current">WhatsApp ACA <ArrowUpRight aria-hidden="true" class="h-3.5 w-3.5" /></span>
+              <span class="text-xs font-medium text-muted tabular-nums">08577 1500 737</span>
+            </a>
+            <span class="text-xs text-muted">Hanya untuk informasi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-10 md:py-14" aria-labelledby="aca-steps">
+      <div class="mx-auto max-w-5xl">
+        <h2 id="aca-steps" class="font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Yang perlu dilakukan di lokasi</h2>
+        <ol class="mt-5 grid gap-3 md:grid-cols-3">
+          {safetySteps.map(({ title, text }, index) => (
+            <li class="flex items-start gap-3 rounded-2xl border border-line bg-white p-4 md:flex-col md:p-5">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-wa-soft font-display text-sm font-extrabold text-wa-deep" aria-hidden="true">{index + 1}</span>
+              <div>
+                <h3 class="font-display text-base font-bold">{title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-muted">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="border-y border-line bg-white px-5 py-10 md:py-14" aria-labelledby="aca-services">
+      <div class="mx-auto grid max-w-5xl gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)] md:gap-10 lg:gap-16">
+        <div>
+          <h2 id="aca-services" class="font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Bantuan dari ACA Otomate</h2>
+          <p class="mt-2 max-w-sm text-sm leading-relaxed text-muted">Ringkasan manfaat dari RIPLAY ACA Otomate. Ketersediaan, batas biaya, dan persetujuan mengikuti polis serta konfirmasi ACA.</p>
+        </div>
+        <ul class="divide-y divide-line rounded-2xl border border-line bg-paper px-4 sm:px-5">
+          {roadServices.map(({ title, details, icon: Icon }) => (
+            <li class="flex items-start gap-3 py-4">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-wa-soft text-wa-deep"><Icon aria-hidden="true" class="h-4.5 w-4.5" /></span>
+              <div>
+                <h3 class="font-display text-base font-bold">{title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-muted">{details}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="px-5 py-10 md:py-14" aria-labelledby="aca-claims">
+      <div class="mx-auto grid max-w-5xl items-start gap-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-12">
+        <div>
+          <p class="text-xs font-bold tracking-[0.12em] text-wa-deep uppercase">Setelah keadaan aman</p>
+          <h2 id="aca-claims" class="mt-2 font-display text-[1.75rem] leading-tight font-extrabold tracking-[-0.03em] md:text-4xl">Pelaporan dan dokumen klaim</h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted">Laporkan kejadian ke ACA sesegera mungkin. Menurut RIPLAY ACA Otomate, batas pelaporan adalah <strong class="text-ink">5 hari kerja sejak kejadian</strong>.</p>
+
+          <h3 class="mt-5 font-display text-base font-bold">Dokumen awal untuk kerusakan sebagian</h3>
+          <ul class="mt-3 grid gap-x-4 gap-y-2 rounded-2xl border border-line bg-white p-4 sm:grid-cols-2">
+            {claimDocuments.map((document) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-muted">
+                <Check aria-hidden="true" class="mt-0.5 h-4 w-4 shrink-0 text-wa-deep" />
+                <span>{document}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-4 rounded-2xl border border-[#f5c45e]/50 bg-[#fff8e8] p-4">
+            <h3 class="font-display text-base font-bold">Kapan perlu laporan polisi?</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">Jika insiden melibatkan pihak ketiga atau terjadi kehilangan total atau pencurian, urus surat laporan di kantor polisi setempat. Untuk kehilangan total, minta daftar dokumen resmi dari ACA.</p>
+          </div>
+        </div>
+
+        <aside class="rounded-3xl bg-ink p-5 text-white md:p-6" aria-labelledby="aca-claim-help">
+          <p class="text-xs font-bold tracking-[0.12em] text-[#b8e8cd] uppercase">AsuransiSerpong</p>
+          <h3 id="aca-claim-help" class="mt-2 font-display text-xl font-bold">Bantuan klaim online</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/80">Saya bisa bantu cek berkas, meneruskan pengajuan, dan memberi referensi bengkel rekanan. Mulai dari kronologi singkat; pastikan kanal pengiriman terverifikasi sebelum mengirim dokumen sensitif.</p>
+          <WaButton message={claimMessage} class="mt-4 w-full">Chat Aditya</WaButton>
+          <p class="mt-3 text-xs leading-relaxed text-white/70">{WORKING_HOURS}</p>
+          <p class="mt-3 border-t border-white/15 pt-3 text-xs leading-relaxed text-white/75">Pendampingan hanya online, bukan bantuan darurat atau pengurusan laporan polisi. Keputusan klaim dan nilai ganti rugi ditetapkan ACA.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-t border-line bg-white px-5 py-7 md:py-8" aria-labelledby="aca-other-contacts">
+      <div class="mx-auto max-w-5xl">
+        <h2 id="aca-other-contacts" class="font-display text-base font-bold">Kontak ACA untuk administrasi</h2>
+        <div class="mt-1 flex flex-wrap gap-x-6 text-sm font-bold text-wa-deep">
+          <a href="tel:+622129103232" class="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"><Phone aria-hidden="true" class="h-4 w-4" /> Kantor pusat: (021) 2910 3232</a>
+          <a href="https://aca.co.id/Hubungi-Kami" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400">Situs resmi ACA <ArrowUpRight aria-hidden="true" class="h-4 w-4" /></a>
+        </div>
+        <p class="mt-2 border-t border-line pt-3 text-xs leading-relaxed text-muted">AsuransiSerpong bukan situs resmi PT Asuransi Central Asia. Gunakan halaman ini sebagai panduan umum dan konfirmasikan ketentuan polis langsung ke ACA.</p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

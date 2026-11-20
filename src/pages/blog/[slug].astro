@@ -1,0 +1,153 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Clock, ShieldCheck } from "lucide-astro";
+import BlogArt from "../../components/BlogArt.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import WaButton from "../../components/WaButton.astro";
+import { blogCategories } from "../../data/blog";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, excerpt, tldr, metaTitle, metaDescription, category, topic, date, dateModified, readTime, bullets } = post.data;
+const currentCategory = blogCategories.find(({ id }) => id === category)!;
+const related = await getCollection("blog", ({ id, data }) => id !== post.id && data.category === category);
+related.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const message = `Halo Aditya, saya baru membaca artikel tentang ${topic ?? currentCategory.service.label} dan mau bertanya soal ${currentCategory.service.label.toLowerCase()}.`;
+const faqSection = (post.body ?? "").split(/^## Pertanyaan yang sering muncul\s*$/m)[1]?.split(/^## /m)[0] ?? "";
+const articleFaqs = faqSection
+  .split(/(?=^### )/m)
+  .map((block) => {
+    const match = block.trim().match(/^### (.+)\s*\n+([\s\S]*)$/);
+    if (!match) return undefined;
+    const answer = match[2]
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/[*_`]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    return answer ? { question: match[1].trim(), answer } : undefined;
+  })
+  .filter((faq): faq is { question: string; answer: string } => Boolean(faq));
+---
+
+<BaseLayout
+  title={metaTitle ?? `${title} | AsuransiSerpong`}
+  description={metaDescription ?? excerpt}
+  stickyMessage={message}
+  schemaType="article"
+  article={{ headline: title, datePublished: date, dateModified, description: excerpt }}
+  faqs={articleFaqs}
+>
+  <article>
+    <header class="border-b border-line bg-[#eeeee4]">
+      <div class="mx-auto max-w-5xl px-5 pt-6 pb-9 md:pb-12">
+        <nav aria-label="Jejak navigasi" class="flex flex-wrap items-center gap-2 text-xs font-bold text-muted">
+          <a href="/" class="hover:text-ink hover:underline">Beranda</a>
+          <ChevronRight class="size-3.5" aria-hidden="true" />
+          <a href="/blog" class="hover:text-ink hover:underline">Artikel</a>
+          <ChevronRight class="size-3.5" aria-hidden="true" />
+          <a href={currentCategory.href} class="text-wa-deep hover:underline">{currentCategory.label}</a>
+        </nav>
+
+        <div class="mt-6 grid items-center gap-7 md:mt-8 md:grid-cols-[minmax(0,1fr)_minmax(0,0.57fr)] lg:gap-12">
+          <div class="min-w-0">
+            <p class="flex flex-wrap items-center gap-2 text-xs font-extrabold tracking-[0.12em] text-wa-deep uppercase">
+              {currentCategory.service.label}{topic && <><span aria-hidden="true">/</span>{topic}</>}
+            </p>
+            <h1 class="mt-3 text-[clamp(2rem,5vw,3.25rem)] leading-[1.14] font-extrabold tracking-[-0.035em] text-pretty">{title}</h1>
+            <p class="mt-4 max-w-prose text-base leading-relaxed text-muted">{tldr}</p>
+
+            <div class="mt-6 flex items-center gap-3">
+              <img src="/avatar-aditya.jpg" alt="Potret Aditya, penulis panduan asuransi di Serpong" width="44" height="44" class="size-11 shrink-0 rounded-full border border-white object-cover" />
+              <div>
+                <p class="text-sm font-extrabold">Aditya <span class="font-medium text-muted">· AsuransiSerpong</span></p>
+                <p class="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-muted">
+                  <time datetime={new Date(date).toISOString().slice(0, 10)}>{date}</time>
+                  <span aria-hidden="true">·</span>
+                  <span class="inline-flex items-center gap-1"><Clock class="size-3.5" aria-hidden="true" /> {readTime} baca</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-40 overflow-hidden rounded-3xl sm:h-48 md:h-auto md:min-h-64 md:self-stretch">
+            <BlogArt category={category} postId={post.id} />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mx-auto grid max-w-5xl items-start gap-8 px-5 py-9 md:py-12 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-14">
+      <div class="min-w-0">
+        <section aria-label="Isi artikel" class="article-copy max-w-prose"><Content /></section>
+
+        {bullets && bullets.length > 0 && (
+          <section aria-labelledby="checklist-title" class="mt-8 rounded-3xl border border-[#cedccd] bg-[#e6ede1] p-5 sm:p-7">
+            <h2 id="checklist-title" class="text-xl font-extrabold tracking-tight">Checklist cepat</h2>
+            <ul class="mt-4 space-y-3" role="list">
+              {bullets.map((item) => (
+                <li class="flex items-start gap-3 text-[0.9375rem] leading-relaxed text-ink/90">
+                  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-white text-wa-deep" aria-hidden="true"><Check class="size-3.5" stroke-width={2.5} /></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+
+      <aside aria-labelledby="consult-title" class="rounded-3xl bg-ink p-6 text-white lg:sticky lg:top-24">
+        <ShieldCheck class="size-6 text-wa" aria-hidden="true" />
+        <h2 id="consult-title" class="mt-3 text-xl leading-snug font-extrabold tracking-tight">Punya pertanyaan soal polis Anda?</h2>
+        <p class="mt-2 text-sm leading-relaxed text-white/75">Tanya Aditya tentang manfaat, pengecualian, atau hal yang perlu Anda cek sebelum memilih polis.</p>
+        <WaButton message={message} class="mt-5 w-full px-3">Tanya Aditya via WA</WaButton>
+        <a href={currentCategory.service.href} class="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
+          Lihat {currentCategory.service.label} <ArrowUpRight class="size-4 shrink-0" aria-hidden="true" />
+        </a>
+      </aside>
+    </div>
+  </article>
+
+  <section aria-label="Bacaan selanjutnya" class="border-t border-line bg-[#eeeee4]">
+    <div class="mx-auto max-w-5xl px-5 pt-8 pb-12 sm:pt-10 sm:pb-16">
+      {related.length > 0 && (
+        <>
+          <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+            <h2 class="text-2xl font-extrabold tracking-tight">Bacaan terkait</h2>
+            <a href={currentCategory.href} class="inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-wa-deep hover:underline">Artikel {currentCategory.label} <ArrowRight class="size-4" aria-hidden="true" /></a>
+          </div>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2">
+            {related.slice(0, 2).map((item) => <BlogCard post={item} />)}
+          </div>
+        </>
+      )}
+      <a href="/blog" class:list={["inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-wa-deep hover:underline", related.length > 0 && "mt-4"]}><ArrowLeft class="size-4" aria-hidden="true" /> Kembali ke semua artikel</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-copy { font-size: 1.0625rem; line-height: 1.8; color: var(--color-ink); overflow-wrap: anywhere; }
+  .article-copy :global(> * + *) { margin-top: 1.25em; }
+  .article-copy :global(:is(h2, h3, h4, h5, h6)) { font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; scroll-margin-top: 5rem; }
+  .article-copy :global(h2) { font-size: 1.5rem; }
+  .article-copy :global(h3) { font-size: 1.25rem; }
+  .article-copy :global(> * + :is(h2, h3)) { margin-top: 1.75em; }
+  .article-copy :global(> :is(h2, h3) + *) { margin-top: 0.65em; }
+  .article-copy :global(ul) { list-style: disc; padding-inline-start: 1.4em; }
+  .article-copy :global(ol) { list-style: decimal; padding-inline-start: 1.4em; }
+  .article-copy :global(li + li) { margin-top: 0.35em; }
+  .article-copy :global(a) { color: var(--color-wa-deep); font-weight: 650; text-decoration: underline; text-underline-offset: 0.2em; }
+  .article-copy :global(blockquote) { border-inline-start: 3px solid var(--color-wa-deep); padding-inline-start: 1em; color: var(--color-muted); }
+  .article-copy :global(img) { max-width: 100%; height: auto; border-radius: 1rem; }
+  .article-copy :global(pre) { overflow-x: auto; padding: 1rem; border-radius: 0.75rem; }
+</style>

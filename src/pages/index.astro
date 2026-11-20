@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ChatSample from "../components/ChatSample.astro";
+import SocialProof from "../components/SocialProof.astro";
+import Risks from "../components/Risks.astro";
+import Options from "../components/Options.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import About from "../components/About.astro";
+import Faq from "../components/Faq.astro";
+import FinalCta from "../components/FinalCta.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
+import { homeFaqs } from "../data/home-faqs";
+---
+
+<BaseLayout
+  title="Asuransi Mobil Mau Habis? Tanya Aditya | Serpong"
+  description="Polis mobil mau habis? Kirim fotonya dulu, Aditya bantu cek soal banjir, biaya sendiri, dan bengkelnya. BSD, Gading, Alam Sutera."
+  schemaType="home"
+  faqs={homeFaqs}
+>
+  <Hero />
+  <ChatSample />
+  <SocialProof />
+  <Risks />
+  <Options />
+  <HowItWorks />
+  <About />
+  <Faq />
+  <FinalCta />
+  <BlogTeaser />
+</BaseLayout>

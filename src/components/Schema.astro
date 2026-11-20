@@ -1,0 +1,125 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface ArticleSchema {
+  headline: string;
+  datePublished: string;
+  dateModified?: string;
+  description?: string;
+}
+
+interface Props {
+  type?: "home" | "page" | "article";
+  url: string;
+  title: string;
+  description: string;
+  article?: ArticleSchema;
+  faqs?: readonly FAQ[];
+}
+
+const { type = "page", url, title, description, article, faqs = [] } = Astro.props;
+const siteUrl = Astro.site?.href ?? new URL("https://asuransiserpong.com").href;
+const siteId = `${siteUrl}#website`;
+const personId = `${siteUrl}#aditya`;
+const pageId = `${url}#webpage`;
+const parseDate = (value: string) => {
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.valueOf()) ? value : parsed.toISOString().slice(0, 10);
+};
+
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "WebSite",
+    "@id": siteId,
+    url: siteUrl,
+    name: "AsuransiSerpong",
+    inLanguage: "id-ID",
+    publisher: { "@id": personId },
+  },
+  {
+    "@type": "Person",
+    "@id": personId,
+    name: "Aditya",
+    jobTitle: "Mitra Pemasar Asuransi",
+    description: "Mitra pemasar asuransi yang membantu menjelaskan pilihan perlindungan dan proses pengajuan klaim di Serpong.",
+    image: new URL("/aditya.jpg", siteUrl).href,
+    url: siteUrl,
+    telephone: "+628170826886",
+    areaServed: ["Serpong", "BSD City", "Gading Serpong", "Alam Sutera"],
+  },
+];
+
+if (type === "home") {
+  graph.push({
+    "@type": "FAQPage",
+    "@id": pageId,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": siteId },
+    about: { "@id": personId },
+    inLanguage: "id-ID",
+    mainEntity: faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  });
+} else if (type === "article" && article) {
+  const datePublished = parseDate(article.datePublished);
+  graph.push({
+    "@type": "BlogPosting",
+    "@id": pageId,
+    url,
+    headline: article.headline,
+    description: article.description ?? description,
+    datePublished,
+    dateModified: parseDate(article.dateModified ?? article.datePublished),
+    author: { "@id": personId },
+    publisher: { "@id": personId },
+    isPartOf: { "@id": siteId },
+    inLanguage: "id-ID",
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  });
+} else {
+  graph.push({
+    "@type": faqs.length > 0 ? ["WebPage", "FAQPage"] : "WebPage",
+    "@id": pageId,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": siteId },
+    about: { "@id": personId },
+    inLanguage: "id-ID",
+    ...(faqs.length > 0 && {
+      mainEntity: faqs.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    }),
+  });
+}
+
+if (type === "article" && faqs.length > 0) {
+  graph.push({
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    isPartOf: { "@id": siteId },
+    inLanguage: "id-ID",
+    mainEntity: faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  });
+}
+
+const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
+---
+
+<script type="application/ld+json" set:html={jsonLd} />

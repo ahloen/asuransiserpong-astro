@@ -1,0 +1,32 @@
+---
+import { waLink } from "../data/config";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+
+interface Props {
+  message: string;
+  variant?: "solid" | "outline";
+  size?: "md" | "lg";
+  class?: string;
+  icon?: boolean;
+}
+
+const { message, variant = "solid", size = "lg", class: className = "", icon = true } = Astro.props;
+
+const variants = {
+  solid: "bg-wa text-wa-ink shadow-[0_10px_24px_-8px_rgba(37,211,102,0.65)] hover:bg-[#2fe074]",
+  outline: "border border-wa-deep/30 bg-white text-wa-deep hover:border-wa-deep hover:bg-wa-soft",
+} as const;
+
+const sizeCls = size === "lg" ? "min-h-14 px-6 text-[1rem]" : "min-h-12 px-4 text-[0.9375rem]";
+---
+
+<a
+  href={waLink(message)}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-wa-message={message}
+  class={`inline-flex items-center justify-center gap-2.5 rounded-2xl font-bold tracking-[-0.01em] transition duration-150 active:scale-[0.98] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-400 ${sizeCls} ${variants[variant]} ${className}`}
+>
+  {icon && <WhatsAppIcon class={size === "lg" ? "h-5.5 w-5.5 shrink-0" : "h-5 w-5 shrink-0"} />}
+  <span><slot /></span>
+</a>

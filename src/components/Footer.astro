@@ -1,0 +1,105 @@
+---
+import { BLOG_LINK, EMERGENCY_NUMBER_LINKS, FOOTER_LINKS, SERVICE_LINKS, WORKING_HOURS } from "../data/config";
+import { Clock, MapPin } from "lucide-astro";
+import Wordmark from "./Wordmark.astro";
+---
+
+<footer class="border-t border-white/10 bg-[#07121d] px-5 pt-11 pb-8 text-white/70">
+  <div class="mx-auto max-w-5xl">
+    <div class="grid gap-10 md:grid-cols-[1.35fr_1fr_1fr]">
+      <div>
+        <a href="/" class="inline-block text-white">
+          <Wordmark />
+        </a>
+
+        <p class="mt-4 max-w-xs text-[0.875rem] leading-[1.6] text-white/60">
+          Konsultasi asuransi mobil, properti, perjalanan, dan bisnis. Dibalas langsung oleh Aditya.
+        </p>
+
+        <ul class="mt-4 space-y-2 text-[0.8125rem] text-white/65">
+          <li class="flex items-center gap-2">
+            <MapPin class="h-4 w-4 shrink-0 text-wa" />
+            <span>BSD · Gading Serpong · Alam Sutera · Bintaro</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <Clock class="mt-0.5 h-4 w-4 shrink-0 text-wa" />
+            <span class="leading-relaxed">{WORKING_HOURS}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 md:col-span-2">
+        <nav aria-label="Menu halaman">
+          <h2 class="text-xs font-semibold tracking-[0.1em] text-white/65 uppercase">Menu</h2>
+          <ul class="mt-3.5 space-y-1 text-[0.875rem]">
+            {FOOTER_LINKS.map((l) => (
+              <li>
+                <a href={l.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={BLOG_LINK.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
+                {BLOG_LINK.label}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="text-xs font-semibold tracking-[0.1em] text-white/65 uppercase">Layanan</h2>
+          <ul class="mt-3.5 space-y-1 text-[0.875rem]">
+            {SERVICE_LINKS.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-4 border-t border-white/10 pt-3">
+            <p class="text-xs font-semibold tracking-[0.08em] text-white/65 uppercase">
+              Nomor Darurat
+            </p>
+            <p class="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] font-medium">
+              <a href={EMERGENCY_NUMBER_LINKS.zurich} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                Zurich
+              </a>
+              <span aria-hidden="true" class="text-white/30">·</span>
+              <a href={EMERGENCY_NUMBER_LINKS.aca} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                ACA
+              </a>
+              <span aria-hidden="true" class="text-white/30">·</span>
+              <a href={EMERGENCY_NUMBER_LINKS.gardaOto} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                Garda Oto
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 space-y-2 border-t border-white/10 pt-5 text-[0.8125rem] leading-relaxed text-white/65">
+      <p>
+        <a href="/terms-and-privacy" class="font-semibold text-white/85 underline decoration-white/40 underline-offset-4 transition hover:text-white">
+          Ketentuan &amp; Privasi
+        </a>
+      </p>
+      <p>
+        AsuransiSerpong.com adalah website pribadi Aditya, Mitra Pemasar PT Mitra Jasa Pratama (Qoala). Website ini bukan website resmi Qoala maupun PT Mitra Jasa Pratama.
+      </p>
+      <p>
+        PT Mitra Jasa Pratama berizin dan diawasi oleh OJK (Nomor Izin KEP-7767/MD/1986). Izin tersebut dimiliki perusahaan, bukan Aditya secara pribadi.
+      </p>
+      <p>
+        Pilihan produk mengikuti perusahaan asuransi rekanan yang tersedia. Ketentuan yang berlaku adalah yang tertulis di dokumen polis resmi. Persetujuan, premi final, dan klaim ditentukan oleh perusahaan asuransi.
+      </p>
+      <p>© 2026 AsuransiSerpong.com</p>
+    </div>
+  </div>
+</footer>

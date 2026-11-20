@@ -1,0 +1,18 @@
+---
+import { waLink } from "../data/config";
+
+interface Props {
+  message: string;
+  class?: string;
+}
+
+const { message, class: className = "" } = Astro.props;
+---
+
+<a
+  href={waLink(message)}
+  data-wa-message={message}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={className}
+><slot /></a>

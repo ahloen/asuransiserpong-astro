@@ -1,0 +1,138 @@
+---
+import { MESSAGES } from "../data/config";
+import WaButton from "./WaButton.astro";
+import { ChevronDown, Handshake, Home, Link2, MessageCircle } from "lucide-astro";
+
+interface Props {
+  message?: string;
+}
+
+const { message = MESSAGES.profil } = Astro.props as Props;
+---
+
+<section id="tentang" class="bg-paper px-5 py-14 md:py-20">
+  <div class="mx-auto max-w-4xl">
+    <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase">
+      <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+      Siapa di balik ini
+    </p>
+
+    <article class="mt-4 overflow-hidden rounded-3xl border border-line bg-white shadow-xl shadow-ink/5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      <div class="relative">
+        <img
+          src="/aditya.jpg"
+          alt="Aditya, mitra pemasar asuransi di Serpong, tersenyum sambil memegang HP"
+          width="640"
+          height="640"
+          loading="lazy"
+          class="aspect-[4/3] w-full object-cover object-[50%_25%] md:aspect-auto md:h-full"
+        />
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent p-5 pt-16 text-white">
+          <p class="font-display text-[1.625rem] leading-none font-bold tracking-[-0.025em]">Aditya</p>
+          <p class="mt-1.5 text-[0.8125rem] font-medium text-white/85">Mitra Pemasar Asuransi · Serpong</p>
+        </div>
+        <div id="wa-status" hidden class="absolute top-4 left-4">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[0.75rem] font-semibold text-ink shadow">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-wa opacity-75 motion-reduce:animate-none"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-wa"></span>
+            </span>
+            Online di WA
+          </span>
+        </div>
+      </div>
+
+      <div class="p-5 md:p-8">
+        <p class="font-display text-[1.25rem] leading-[1.42] font-semibold tracking-[-0.015em] text-balance md:text-[1.5rem]">
+          &ldquo;Saya Aditya, tinggal di Serpong. Saya jelaskan sampai Anda paham isinya, dan saya bantu sampai
+          pengajuan klaim.&rdquo;
+        </p>
+
+        <ul class="mt-5 grid grid-cols-2 gap-2.5">
+          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+            <span class="mt-px shrink-0 text-wa-deep"><Home class="h-4 w-4" /></span>
+            Tinggal di Serpong
+          </li>
+          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+            <span class="mt-px shrink-0 text-wa-deep"><MessageCircle class="h-4 w-4" /></span>
+            Dibalas sendiri, bukan call center
+          </li>
+          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+            <span class="mt-px shrink-0 text-wa-deep"><Handshake class="h-4 w-4" /></span>
+            Bantu sampai pengajuan klaim
+          </li>
+          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+            <span class="mt-px shrink-0 text-wa-deep"><Link2 class="h-4 w-4" /></span>
+            Bayar lewat link resmi
+          </li>
+        </ul>
+
+        <div class="mt-4 overflow-hidden rounded-2xl border border-line">
+          <button
+            type="button"
+            id="komisi-toggle"
+            aria-expanded="false"
+            aria-controls="komisi"
+            class="flex min-h-13 w-full items-center justify-between gap-3 px-4 text-left text-[0.9375rem] font-bold tracking-[-0.01em]"
+          >
+            Kalau gratis, Aditya dapat apa?
+            <ChevronDown id="komisi-chevron" class="h-5 w-5 shrink-0 text-muted transition-transform duration-300" />
+          </button>
+          <div id="komisi" class="grid transition-[grid-template-rows] duration-300 grid-rows-[0fr]">
+            <div class="overflow-hidden">
+              <div class="space-y-2.5 px-4 pb-4 text-[0.9375rem] leading-[1.6] text-muted">
+                <p>
+                  <strong class="font-semibold text-ink">Konsultasinya gratis.</strong> Kalau Anda akhirnya beli, komisi saya dibayar asuransi, bukan Anda. Premi Anda tidak bertambah.
+                </p>
+                <p>
+                  <strong class="font-semibold text-ink">Pembayaran lewat link resmi</strong>, bukan ke saya.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <WaButton message={message} class="mt-5 w-full">
+          Tanya Aditya via WA
+        </WaButton>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  const waStatus = document.getElementById("wa-status");
+  const jakartaTime = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+
+  function updateWaAvailability() {
+    const parts = Object.fromEntries(jakartaTime.formatToParts(new Date()).map(({ type, value }) => [type, value]));
+    const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+    const isAvailable = parts.weekday !== "Sun" && minutes >= 8 * 60 && minutes < 20 * 60;
+
+    if (waStatus) waStatus.hidden = !isAvailable;
+  }
+
+  updateWaAvailability();
+  window.setInterval(updateWaAvailability, 30_000);
+
+  (function () {
+    const toggle = document.getElementById("komisi-toggle");
+    const panel = document.getElementById("komisi");
+    const chevron = document.getElementById("komisi-chevron");
+    if (!toggle || !panel) return;
+    let openKomisi = false;
+    toggle.addEventListener("click", function () {
+      openKomisi = !openKomisi;
+      toggle.setAttribute("aria-expanded", String(openKomisi));
+      panel.classList.toggle("grid-rows-[1fr]", openKomisi);
+      panel.classList.toggle("grid-rows-[0fr]", !openKomisi);
+      if (chevron) chevron.classList.toggle("rotate-180", openKomisi);
+    });
+  })();
+</script>
