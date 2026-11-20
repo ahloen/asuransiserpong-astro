@@ -14,7 +14,7 @@ export const qrLink = (waUrl: string) =>
   `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(waUrl)}`;
 
 /**
- * Pesan pembuka WA — tiap tombol sengaja berbeda supaya Aditya tahu
+ * Pesan pembuka WA: tiap tombol sengaja berbeda supaya Aditya tahu
  * dari bagian mana pengunjung datang.
  */
 export const MESSAGES = {
@@ -94,4 +94,4 @@ export const WORKING_HOURS =
 
 /** Versi ringkas untuk hero, CTA penutup, dan bawah tombol. */
 export const RESPONSE_TIME =
-  "Dibalas langsung oleh Aditya, maks. 1–2 jam kerja (Senin–Sabtu).";
+  "Dibalas langsung oleh Aditya, dalam 1 sampai 2 jam kerja (Senin sampai Sabtu).";
