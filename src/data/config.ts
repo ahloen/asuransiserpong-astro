@@ -90,7 +90,7 @@ export const FOOTER_LINKS = [
 export const BLOG_LINK = { href: "/blog", label: "Artikel" } as const;
 
 export const WORKING_HOURS =
-  "Jam kerja: Senin sampai Jumat 09.00 sampai 18.00, Sabtu 09.00 sampai 14.00. Chat di luar jam itu tetap boleh, saya balas pada jam kerja berikutnya.";
+  "Jam kerja: Senin–Jumat 09.00–18.00, Sabtu 09.00–14.00. Chat di luar jam itu tetap boleh, saya balas pada jam kerja berikutnya.";
 
 /** Versi ringkas untuk hero, CTA penutup, dan bawah tombol. */
 export const RESPONSE_TIME =
