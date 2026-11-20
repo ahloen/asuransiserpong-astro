@@ -3,7 +3,7 @@ import { WORKING_HOURS } from "./config";
 export const homeFaqs = [
   {
     question: "Apakah konsultasinya gratis?",
-    answer: "Gratis. Cek polis, penawaran, dan penjelasannya tidak dipungut biaya.",
+    answer: "Gratis. Cek polis, penawaran, dan penjelasannya tidak dipungut biaya. Kalau Anda akhirnya beli lewat saya, komisi dibayar perusahaan asuransi dan premi Anda tidak berubah.",
   },
   {
     question: "Apakah banjir otomatis dijamin?",
@@ -23,7 +23,7 @@ export const homeFaqs = [
   },
   {
     question: "Perlu KTP/STNK atau ketemu langsung?",
-    answer: "Untuk konsultasi awal, KTP/STNK belum perlu. Cukup ceritakan kebutuhannya; jika mengirim foto polis, tutupi data yang tidak relevan. Perusahaan dapat meminta dokumen atau survei tambahan sebelum pengajuan.",
+    answer: "Untuk konsultasi awal, belum perlu. Cukup ceritakan kebutuhannya. Jika mengirim foto polis, tutupi data yang tidak relevan. Perusahaan dapat meminta dokumen atau survei tambahan sebelum pengajuan.",
   },
   {
     question: "Kapan chat saya dibalas?",

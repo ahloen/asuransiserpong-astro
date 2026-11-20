@@ -21,7 +21,7 @@ export const MESSAGES = {
   /** Header */
   header: "Halo Aditya, saya ingin bertanya soal asuransi. Bisa dibantu?",
   /** Hero */
-  banjir: "Halo Aditya, polis mobil saya mau habis. Banjir ikut dijamin atau tidak ya?",
+  banjir: "Halo Aditya, polis mobil saya mau habis. Foto halaman depan polisnya saya kirim setelah ini. Tolong cek banjir, biaya sendiri, dan masa berlaku All Risk-nya.",
   /** Sticky bar mobile */
   sticky: "Halo Aditya, saya ingin bertanya soal asuransi. Bisa dibantu?",
   /** Di bawah contoh balasan */
