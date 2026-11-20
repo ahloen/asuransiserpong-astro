@@ -24,7 +24,7 @@ interface Props {
   stackChecks?: boolean;
   background?: "rain" | "property" | "travel";
   note?: { title: string; text: string };
-  summary: { icon: any; eyebrow: string; title: string; items: SummaryItem[]; note?: string };
+  summary: { icon: any; eyebrow?: string; title: string; items: SummaryItem[]; note?: string };
   secondary?: { href: string; label: string };
   emergency?: { heading: string; items: { href: string; label: string; number: string }[] };
 }
@@ -149,7 +149,7 @@ const SummaryIcon = summary.icon;
             <SummaryIcon class="h-6 w-6" />
           </span>
           <div>
-            <p class="text-xs font-bold tracking-[0.1em] text-white/70 uppercase">{summary.eyebrow}</p>
+            {summary.eyebrow && <p class="text-xs font-bold tracking-[0.1em] text-white/70 uppercase">{summary.eyebrow}</p>}
             <h2 class="mt-1 font-display text-[1.25rem] leading-tight font-bold">{summary.title}</h2>
           </div>
         </div>
