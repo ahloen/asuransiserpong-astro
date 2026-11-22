@@ -20,9 +20,6 @@ const dealerTitle = isLunas
   ? "Sudah ada tawaran dari dealer, bank, atau polis lama?"
   : "Sudah ada tawaran dari dealer atau bank?";
 const dealerCta = isLunas ? "Kirim penawaran / polis lama" : "Kirim tawaran dealer/bank";
-const privacyIntro = isLunas
-  ? "Jika mengirim foto polis, tutupi data yang tidak relevan."
-  : "Untuk konsultasi awal, cukup ceritakan kebutuhannya. Jika mengirim foto polis, tutupi data yang tidak relevan.";
 ---
 
 <section id="contoh" class="bg-paper px-5 pt-14 pb-10 md:pt-20 md:pb-14">
@@ -107,7 +104,6 @@ const privacyIntro = isLunas
           <WaButton message={dealerMessage} variant="outline" size="md" class="mt-3.5 w-full">{dealerCta}</WaButton>
         </div>
       </div>
-      <p class="type-body-sm mt-4 text-muted">{privacyIntro} <a href="/terms-and-privacy#privasi" target="_blank" rel="noopener noreferrer" class="font-semibold text-wa-deep underline underline-offset-2">Baca kebijakan privasi</a>.</p>
     </div>
   </div>
 </section>
