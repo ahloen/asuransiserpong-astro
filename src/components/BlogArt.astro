@@ -1,19 +1,33 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import { BadgeDollarSign, Building2, Camera, CarFront, CloudRain, House, Plane, RefreshCw, Wrench } from "lucide-astro";
 import type { BlogCategory } from "../data/blog";
+import rumahKprLunas from "../assets/blog/asuransi-rumah-kpr-lunas-serpong.webp";
+import perbandinganMobil from "../assets/blog/perbandingan-asuransi-mobil-serpong.webp";
+import perjalananKeluarga from "../assets/blog/asuransi-perjalanan-keluarga.webp";
+import kreditMobilLunas from "../assets/blog/kredit-mobil-lunas-asuransi-mobil.webp";
+import mobilBanjir from "../assets/blog/asuransi-mobil-banjir-serpong.webp";
 
 interface Props {
   category: BlogCategory;
   postId: string;
+  sizes?: string;
+  priority?: boolean;
 }
 
-const { category, postId } = Astro.props;
-const photoByPost: Record<string, string> = {
-  "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": "/images/blog/asuransi-rumah-kpr-lunas-serpong.webp",
-  "perbandingan-asuransi-mobil-terbaik-serpong": "/images/blog/perbandingan-asuransi-mobil-serpong.webp",
-  "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": "/images/blog/asuransi-perjalanan-keluarga.webp",
-  "kredit-mobil-lunas-asuransi-mobil-mandiri": "/images/blog/kredit-mobil-lunas-asuransi-mobil.webp",
-  "asuransi-mobil-banjir-bsd-gading-serpong": "/images/blog/asuransi-mobil-banjir-serpong.webp",
+const {
+  category,
+  postId,
+  sizes = "(min-width: 1024px) 480px, (min-width: 640px) 50vw, 100vw",
+  priority = false,
+} = Astro.props;
+const photoByPost: Record<string, ImageMetadata> = {
+  "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": rumahKprLunas,
+  "perbandingan-asuransi-mobil-terbaik-serpong": perbandinganMobil,
+  "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": perjalananKeluarga,
+  "kredit-mobil-lunas-asuransi-mobil-mandiri": kreditMobilLunas,
+  "asuransi-mobil-banjir-bsd-gading-serpong": mobilBanjir,
 };
 const photoAltByPost: Record<string, string> = {
   "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": "Rumah tinggal sebagai ilustrasi perlindungan asuransi bangunan dan isi rumah di Serpong",
@@ -37,7 +51,17 @@ const [Icon, tone] = topicArt[postId] ?? categoryArt[category];
 ---
 
 {photo ? (
-  <img class="blog-photo" src={photo} alt={photoAltByPost[postId]} />
+  <Image
+    class="blog-photo"
+    src={photo}
+    alt={photoAltByPost[postId]}
+    widths={[336, 480, 672, 840, 960]}
+    sizes={sizes}
+    quality={priority ? 84 : 80}
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : "auto"}
+    decoding="async"
+  />
 ) : (
 <div class:list={["blog-art", tone]} aria-hidden="true">
   <svg class="diagram" viewBox="0 0 400 240" fill="none" preserveAspectRatio="xMidYMid slice">

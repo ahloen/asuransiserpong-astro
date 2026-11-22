@@ -7,11 +7,11 @@ export const homeFaqs = [
   },
   {
     question: "Apakah banjir otomatis dijamin?",
-    answer: "Belum tentu. Ada polis yang sudah memasukkan banjir, ada yang harus ditambah. Menerobos genangan juga bisa membuat klaim ditolak. Kirim foto polisnya, saya cek bagian banjirnya.",
+    answer: "Belum tentu. Ada polis yang sudah memasukkan banjir, ada yang harus ditambah. Menerobos genangan juga bisa membuat klaim ditolak. Kirim foto polisnya, saya bantu cek bagian banjirnya.",
   },
   {
     question: "Apa bedanya All Risk dan TLO?",
-    answer: "All Risk menjamin kerusakan sebagian maupun total, sesuai ketentuan polis. TLO (Total Loss Only) hanya berlaku kalau kerusakannya total, atau mobil hilang. Premi TLO lebih murah, tapi lecet dan penyok biasanya tidak ditanggung.",
+    answer: "All Risk menjamin kerusakan sebagian maupun total, sesuai ketentuan polis. TLO (Total Loss Only) hanya berlaku kalau kerusakannya total, atau mobil hilang. Premi TLO lebih murah, kecelakaan ringan tidak ditanggung.",
   },
   {
     question: "Biaya sendiri itu apa?",
@@ -19,7 +19,7 @@ export const homeFaqs = [
   },
   {
     question: "Sudah ada tawaran dari dealer atau bank. Masih perlu dicek?",
-    answer: "Perlu, dan gratis. Kirim saja tawarannya ke saya. Saya bandingkan banjir, biaya sendiri, nilai pertanggungan, dan bengkelnya. Kalau memang sudah bagus, saya bilang bagus.",
+    answer: "Perlu, dan gratis. Kirim saja tawarannya ke saya. Saya cek semuanya. Kalau memang sudah bagus, saya bilang bagus.",
   },
   {
     question: "Perlu KTP/STNK atau ketemu langsung?",

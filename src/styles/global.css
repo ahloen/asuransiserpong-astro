@@ -22,6 +22,121 @@
   }
 }
 
+/*
+ * Single type scale.
+ * Roles below are the only approved sizes for their use. Do not add new
+ * arbitrary text sizes for section headings, card titles, or body copy.
+ *
+ * Eyebrow/label   12px  .type-eyebrow
+ * Fine print      12px  .type-fine
+ * Meta            13px  .type-meta
+ * Small body      14px  .type-body-sm
+ * Dense table     14px  .type-table
+ * Body / cards    15px  .type-card-body
+ * Lead / intro    16-18px .type-lead
+ * Card title      18px  .type-card-title
+ * Panel title     20px  .type-panel-title
+ * Subhead         24-28px .type-subsection
+ * Section (H2)    30-44px .type-section
+ * Page title (H1) 36-56px .type-hero
+ */
+@layer components {
+  .type-eyebrow {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .type-hero {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .type-section {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 4vw, 2.75rem);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .type-subsection {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .type-feature {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+
+  .type-lead {
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+
+  .type-section-lead {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .type-panel-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .type-card-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .type-card-body {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .type-body-sm {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .type-meta {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .type-fine {
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .type-table {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
 .hero-accent {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' preserveAspectRatio='none'%3E%3Cpath d='M2 7.5C58 2 146 1.5 218 6.5' fill='none' stroke='%2338bdf8' stroke-opacity='.8' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E") bottom / 100% 0.5rem no-repeat;
   -webkit-box-decoration-break: clone;
@@ -130,7 +245,7 @@ section[id] {
   -ms-overflow-style: none;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  touch-action: pan-x pan-y;
 }
 
 .tips-carousel::-webkit-scrollbar {

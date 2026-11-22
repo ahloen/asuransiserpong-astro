@@ -18,15 +18,15 @@ const secondary = [
 
 <section id="cek" class="bg-paper px-5 py-14 md:py-20">
   <div class="mx-auto max-w-3xl">
-    <h2 class="mt-2.5 font-display text-[1.625rem] leading-[1.18] font-bold tracking-[-0.025em] text-balance md:text-[2.125rem] md:leading-[1.14]">Pilih yang mau dicek</h2>
+    <h2 class="type-section mt-2.5">Pilih yang mau dicek</h2>
     <article id="layanan-mobil" class="relative mt-7 scroll-mt-20 overflow-hidden rounded-3xl bg-ink p-6 text-white shadow-2xl shadow-ink/25 md:p-8">
       <div aria-hidden="true" class="pointer-events-none absolute -top-16 -right-16 h-52 w-52 rounded-full bg-wa/20 blur-3xl"></div>
       <div class="relative">
         <div class="flex items-center justify-between gap-3">
           <span class="grid h-13 w-13 place-items-center rounded-2xl bg-wa text-wa-ink"><Car class="h-7 w-7" stroke-width={2.2} /></span>
-          <span class="rounded-full bg-amber-300 px-3 py-1 text-[0.75rem] font-bold tracking-[0.01em] text-ink">Paling sering ditanya</span>
+          <span class="type-fine rounded-full bg-amber-300 px-3 py-1 font-bold text-ink">Paling sering ditanya</span>
         </div>
-        <h3 class="mt-5 font-display text-[2rem] leading-none font-bold tracking-[-0.03em] md:text-[2.5rem]">Mobil</h3>
+        <h3 class="type-feature mt-5">Mobil</h3>
         <ul class="mt-5 flex flex-wrap gap-2">
           {mobilChecks.map((c) => (
             <li>
@@ -44,20 +44,20 @@ const secondary = [
         </ul>
         <div class="mt-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3.5">
           <Camera class="h-5 w-5 shrink-0 text-sky-300" />
-          <p class="text-[0.875rem] leading-[1.45] text-white/80">Paling cepat: <strong class="font-semibold text-white">kirim foto halaman depan polis</strong> Anda.</p>
+          <p class="type-body-sm text-white/80">Paling cepat: <strong class="font-semibold text-white">kirim foto halaman depan polis</strong> Anda.</p>
         </div>
         <WaButton message={MESSAGES.mobil} class="mt-6 w-full">Tanya Aditya via WA</WaButton>
       </div>
     </article>
     <div class="mt-7">
-      <p class="text-[0.875rem] font-semibold text-muted">Lihat layanan lainnya:</p>
+      <p class="type-body-sm font-semibold text-muted">Lihat layanan lainnya:</p>
       <div class="mt-3 grid gap-3 sm:grid-cols-3">
         {secondary.map((s) => (
           <a href={s.href} class="group flex min-h-40 flex-col rounded-2xl border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-wa-deep/40 hover:shadow-lg hover:shadow-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep">
             <span class="grid h-10 w-10 place-items-center rounded-xl bg-wa-soft text-wa-deep">{s.key === "properti" ? <House class="h-5 w-5" /> : s.key === "travel" ? <Plane class="h-5 w-5" /> : <Building2 class="h-5 w-5" />}</span>
-            <span class="mt-3 font-display font-bold">Asuransi {s.label}</span>
-            <span class="mt-1 text-[0.8125rem] leading-[1.5] text-muted">{s.desc}</span>
-            <span class="mt-auto inline-flex items-center gap-1 pt-3 text-[0.8125rem] font-bold text-wa-deep">Lihat informasi <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            <span class="type-card-title mt-3">Asuransi {s.label}</span>
+            <span class="type-body-sm mt-1 text-muted">{s.desc}</span>
+            <span class="type-meta mt-auto inline-flex items-center gap-1 pt-3 font-bold text-wa-deep">Lihat informasi <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
           </a>
         ))}
       </div>

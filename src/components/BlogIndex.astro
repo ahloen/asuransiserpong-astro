@@ -35,15 +35,15 @@ const description = active
 >
   <header class="relative isolate overflow-hidden border-b border-white/10 bg-ink text-white">
     <div class="relative mx-auto max-w-5xl px-5 pt-6 pb-10 sm:pb-14 lg:pb-16">
-      <nav aria-label="Jejak navigasi" class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-semibold text-white/70">
+      <nav aria-label="Jejak navigasi" class="type-fine relative z-10 flex flex-wrap items-center gap-2 font-semibold text-white/70">
         <a href="/" class="hover:text-white hover:underline">Beranda</a>
         <ChevronRight class="size-3.5" aria-hidden="true" />
         {active ? <><a href="/blog" class="hover:text-white hover:underline">Artikel</a><ChevronRight class="size-3.5" aria-hidden="true" /><span aria-current="page" class="text-white">{active.label}</span></> : <span aria-current="page" class="text-white">Artikel</span>}
       </nav>
       <div class="relative z-10 mt-9 max-w-xl sm:mt-12 md:max-w-[35rem]">
-        <p class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.16em] text-wa uppercase"><BookOpen class="size-4" aria-hidden="true" /> Panduan AsuransiSerpong</p>
-        <h1 class="mt-4 text-[clamp(2.35rem,6vw,4.25rem)] leading-[1.06] font-extrabold tracking-[-0.055em] text-balance">{title}</h1>
-        <p class="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-white/75 sm:text-base">{description}</p>
+        <p class="type-eyebrow inline-flex items-center gap-2 text-wa"><BookOpen class="size-4" aria-hidden="true" /> Panduan AsuransiSerpong</p>
+        <h1 class="type-hero mt-4">{title}</h1>
+        <p class="type-lead mt-5 max-w-lg text-white/75">{description}</p>
       </div>
       <div aria-hidden="true" class="hero-orbit absolute top-1/2 right-5 hidden size-64 -translate-y-1/2 place-items-center md:grid lg:right-12 lg:size-76">
         <span class="grid size-28 rotate-[-10deg] place-items-center rounded-3xl border border-wa/65 bg-[#d7f3e2] text-ink shadow-[12px_12px_0_#285445] lg:size-32"><ShieldCheck class="size-14" stroke-width={1.4} /></span>
@@ -54,7 +54,7 @@ const description = active
   <section aria-labelledby="blog-heading" class="mx-auto max-w-5xl px-5 pt-8 pb-14 sm:pt-11 sm:pb-20">
     <nav aria-label="Kategori artikel" class="flex flex-wrap gap-2">
       {tabs.map(({ id, label, href, Icon }) => (
-        <a href={href} aria-current={id === category ? "page" : undefined} class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-white px-3.5 text-sm font-bold transition-colors hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep aria-[current=page]:border-ink aria-[current=page]:bg-ink aria-[current=page]:text-white sm:px-4">
+        <a href={href} aria-current={id === category ? "page" : undefined} class="type-body-sm inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-white px-3.5 font-bold transition-colors hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep aria-[current=page]:border-ink aria-[current=page]:bg-ink aria-[current=page]:text-white sm:px-4">
           <Icon class="size-4" aria-hidden="true" /> {label}
         </a>
       ))}
@@ -62,8 +62,8 @@ const description = active
 
     <div class="mt-8 flex flex-col gap-4 border-t border-line pt-6 sm:mt-9 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h2 id="blog-heading" class="text-2xl font-extrabold tracking-tight sm:text-[1.75rem]">{active ? `Artikel ${active.label}` : "Semua artikel"}</h2>
-        <p id="blog-count" role="status" class="mt-1 text-sm text-muted">{posts.length} artikel</p>
+        <h2 id="blog-heading" class="type-subsection">{active ? `Artikel ${active.label}` : "Semua artikel"}</h2>
+        <p id="blog-count" role="status" class="type-body-sm mt-1 text-muted">{posts.length} artikel</p>
       </div>
       {posts.length > 0 && (
         <div id="blog-search-wrap" hidden class="relative w-full sm:max-w-xs">
@@ -79,24 +79,24 @@ const description = active
           {posts.map((post, index) => <BlogCard post={post} featured={!active && index === 0} />)}
         </div>
         <div id="blog-no-results" hidden class="mt-5 rounded-3xl border border-line bg-white px-5 py-9 text-center">
-          <p class="text-lg font-extrabold">Artikel tidak ditemukan</p>
-          <p class="mt-2 text-sm text-muted">Coba kata kunci lain, misalnya topik atau istilah di polis Anda.</p>
-          <button id="blog-clear" type="button" class="mt-3 min-h-11 cursor-pointer font-bold text-wa-deep underline underline-offset-4">Hapus pencarian</button>
+          <p class="type-panel-title">Artikel tidak ditemukan</p>
+          <p class="type-card-body mt-2 text-muted">Coba kata kunci lain, misalnya topik atau istilah di polis Anda.</p>
+          <button id="blog-clear" type="button" class="type-body-sm mt-3 min-h-11 cursor-pointer font-bold text-wa-deep underline underline-offset-4">Hapus pencarian</button>
         </div>
       </>
     ) : (
       <div class="mt-5 rounded-3xl border border-line bg-white px-5 py-9 text-center sm:p-12">
         <BookOpen class="mx-auto size-7 text-wa-deep" aria-hidden="true" />
-        <h3 class="mt-4 text-xl font-extrabold">{active ? `Belum ada artikel ${active.label}` : "Belum ada artikel"}</h3>
-        <p class="mt-2 text-sm leading-relaxed text-muted">{active ? "Sambil menunggu, Anda bisa cek informasi perlindungan di halaman layanan." : "Panduan asuransi akan tampil di sini saat sudah diterbitkan."}</p>
-        {active && <a href={active.service.href} class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-sm font-bold text-white hover:bg-ink-2">Lihat {active.service.label} <ArrowRight class="size-4" aria-hidden="true" /></a>}
+        <h3 class="type-panel-title mt-4">{active ? `Belum ada artikel ${active.label}` : "Belum ada artikel"}</h3>
+        <p class="type-card-body mt-2 text-muted">{active ? "Sambil menunggu, Anda bisa cek informasi perlindungan di halaman layanan." : "Panduan asuransi akan tampil di sini saat sudah diterbitkan."}</p>
+        {active && <a href={active.service.href} class="type-body-sm mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 font-bold text-white hover:bg-ink-2">Lihat {active.service.label} <ArrowRight class="size-4" aria-hidden="true" /></a>}
       </div>
     )}
 
     <aside aria-labelledby="blog-help" class="mt-10 rounded-3xl bg-[#e6ede1] p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
       <div>
-        <h2 id="blog-help" class="text-xl font-extrabold tracking-tight">Masih bingung soal polis atau perlindungan?</h2>
-        <p class="mt-2 text-sm leading-relaxed text-muted">Ceritakan kebutuhan Anda. Aditya bantu jelaskan pilihan dan apa yang perlu dicek.</p>
+        <h2 id="blog-help" class="type-panel-title">Masih bingung soal polis atau perlindungan?</h2>
+        <p class="type-card-body mt-2 text-muted">Ceritakan kebutuhan Anda. Aditya bantu jelaskan pilihan dan apa yang perlu dicek.</p>
       </div>
       <WaButton message={active ? `Halo Aditya, saya mau bertanya tentang ${active.service.label.toLowerCase()}.` : "Halo Aditya, saya membaca blog AsuransiSerpong dan mau bertanya soal asuransi."} class="mt-4 w-full sm:mt-0 sm:w-auto sm:shrink-0">
         Tanya Aditya via WA

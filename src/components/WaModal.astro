@@ -29,10 +29,10 @@ import WhatsAppIcon from "./WhatsAppIcon.astro";
       <WhatsAppIcon class="h-6 w-6" />
     </span>
 
-    <h2 id="wa-modal-title" class="mt-4 font-display text-[1.5rem] leading-[1.2] font-bold tracking-[-0.025em] text-balance">
+    <h2 id="wa-modal-title" class="type-subsection mt-4">
       Pilih cara menghubungi Aditya
     </h2>
-    <p id="wa-modal-desc" class="mx-auto mt-2.5 max-w-[21rem] text-[0.9375rem] leading-[1.6] text-muted">
+    <p id="wa-modal-desc" class="type-card-body mx-auto mt-2.5 max-w-[21rem] text-muted">
       Pesan pembuka sudah disiapkan. Buka WhatsApp Web langsung, atau scan QR dengan HP.
     </p>
 
@@ -41,17 +41,17 @@ import WhatsAppIcon from "./WhatsAppIcon.astro";
       href="#"
       target="_blank"
       rel="noopener noreferrer"
-      class="mt-6 flex min-h-12 w-full items-center justify-center rounded-2xl bg-wa px-4 text-[0.9375rem] font-bold tracking-[-0.01em] text-wa-ink transition hover:bg-[#2fe074] active:scale-[0.98]"
+      class="type-card-body mt-6 flex min-h-12 w-full items-center justify-center rounded-2xl bg-wa px-4 font-bold text-wa-ink transition hover:bg-[#2fe074] active:scale-[0.98]"
     >
       Buka WhatsApp Web
     </a>
 
-    <p class="mt-4 text-[0.8125rem] font-semibold text-muted">Atau scan QR dengan kamera HP</p>
+    <p class="type-meta mt-4 font-semibold text-muted">Atau scan QR dengan kamera HP</p>
     <div class="relative mx-auto mt-2 grid h-[212px] w-[212px] place-items-center rounded-2xl border border-line bg-white">
-      <div id="wa-modal-loading" aria-hidden="true" class="absolute inset-4 grid animate-pulse place-items-center rounded-xl bg-paper text-[0.8125rem] font-medium text-muted">
+      <div id="wa-modal-loading" aria-hidden="true" class="type-meta absolute inset-4 grid animate-pulse place-items-center rounded-xl bg-paper font-medium text-muted">
         Menyiapkan QR…
       </div>
-      <p id="wa-modal-error" role="status" class="hidden px-6 text-[0.875rem] leading-[1.55] text-muted">
+      <p id="wa-modal-error" role="status" class="type-body-sm hidden px-6 text-muted">
         QR tidak bisa dimuat. Gunakan tombol WhatsApp Web di atas untuk melanjutkan.
       </p>
       <img
@@ -68,7 +68,7 @@ import WhatsAppIcon from "./WhatsAppIcon.astro";
     <button
       id="wa-modal-copy"
       type="button"
-      class="mt-2.5 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-paper px-4 text-[0.9375rem] font-semibold tracking-[-0.01em] text-ink tabular-nums transition hover:bg-line active:scale-[0.98]"
+      class="type-card-body mt-2.5 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-paper px-4 font-semibold text-ink tabular-nums transition hover:bg-line active:scale-[0.98]"
     >
       <span id="wa-modal-copy-icon"><Copy class="h-4 w-4 text-muted" /></span>
       <span aria-live="polite" id="wa-modal-copy-label">Salin Nomor WA: {WA_NUMBER_DISPLAY}</span>

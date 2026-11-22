@@ -1,16 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
+import FaqSection from "../components/FaqSection.astro";
 import ProductHero from "../components/ProductHero.astro";
 import WaButton from "../components/WaButton.astro";
 import WaLink from "../components/WaLink.astro";
+import { MESSAGES } from "../data/config";
 import {
   ArrowUpRight,
   Box,
   BriefcaseBusiness,
   Building2,
-  Check,
-  ChevronDown,
   FileCheck,
   HeartPulse,
   ShieldPlus,
@@ -51,17 +52,10 @@ const services = [
   },
 ];
 
-const preparation = [
-  { title: "Kendaraan operasional", text: "Daftar kendaraan (jenis, tahun, plat) dan polis lama jika ada." },
-  { title: "Properti usaha", text: "Alamat, jenis dan luas bangunan, nilai bangunan dan stok." },
-  { title: "Karyawan", text: "Jumlah karyawan dan rentang usia." },
-  { title: "Pengiriman barang", text: "Jenis barang, rute, nilai per pengiriman." },
-];
-
 const steps: { title: string; text?: string }[] = [
-  { title: "Ceritakan usahanya." },
-  { title: "Saya kirim pilihan dan penjelasannya." },
-  { title: "Cocok? Saya urus.", text: "Bayar lewat link resmi setelah pengajuan disetujui." },
+  { title: "Ceritakan usahanya.", text: "Jenis usaha, lokasi, dan apa yang ingin dilindungi. Untuk chat pertama, cukup gambaran umumnya dulu." },
+  { title: "Saya kirim pilihan dan penjelasannya.", text: "Saya terjemahkan kebutuhan Anda jadi pilihan polis, lengkap dengan manfaat, batas pertanggungan, dan pengecualiannya." },
+  { title: "Cocok? Saya urus.", text: "Dokumen pengajuan saya pandu dan prosesnya saya ikuti sampai polis terbit." },
 ];
 
 const faqs = [
@@ -72,6 +66,30 @@ const faqs = [
   {
     question: "Sudah ada polis dari bank atau pemberi kredit. Masih perlu dicek?",
     answer: "Kirim saja. Saya cek apa yang dijamin.",
+  },
+  {
+    question: "Apa yang biasanya tidak dijamin?",
+    answer: "Paling sering: keausan, kerusakan yang terjadi pelan-pelan, dan barang yang tidak tercatat di polis. Daftar lengkapnya ada di bagian pengecualian, dan isinya beda tiap produk.",
+  },
+  {
+    question: "Kendaraan operasional dipakai bergantian. Tetap dijamin?",
+    answer: "Tergantung polis: ada yang mengikuti kendaraannya, ada yang mengikuti pengemudinya. Sebutkan siapa saja yang biasa mengemudi saat pengajuan, supaya tidak jadi masalah waktu klaim.",
+  },
+  {
+    question: "Karyawan saya sedikit dan sering berganti. Bisa Group Health?",
+    answer: "Bisa, tapi Group Health biasanya punya syarat jumlah peserta minimum. Kalau timnya kecil, PA Group atau polis perorangan untuk beberapa karyawan kunci kadang lebih masuk akal.",
+  },
+  {
+    question: "Berapa lama sampai polis terbit?",
+    answer: "Kalau data lengkap dan tidak perlu survei, bisa selesai dalam beberapa hari kerja. Ruko, gudang, dan nilai pertanggungan besar umumnya disurvei dulu.",
+  },
+  {
+    question: "Premi bisa dicicil?",
+    answer: "Beberapa produk bisa dibayar bertahap, tergantung perusahaan dan nilai preminya. Saya cek pilihannya saat kirim penawaran.",
+  },
+  {
+    question: "Kalau terjadi musibah, siapa yang bantu?",
+    answer: "Hubungi dulu nomor darurat perusahaan yang tertera di polis, lalu chat saya. Saya bantu arahkan dokumen dan ikuti pengajuannya. Keputusan tetap dari perusahaan asuransi.",
   },
 ];
 ---
@@ -88,7 +106,7 @@ const faqs = [
       eyebrow="Asuransi bisnis · BSD · Gading Serpong · Alam Sutera"
       titleLead="Asuransi untuk usaha,"
       titleAccent="tanpa harus hafal istilahnya."
-      lead="Ceritakan jenis usaha, lokasi, dan apa yang ingin dilindungi. Saya terjemahkan ke pilihan polis yang masuk akal, lalu bantu siapkan data pengajuannya."
+      lead="Ceritakan jenis usaha, lokasi, dan apa yang ingin dilindungi. Saya terjemahkan ke pilihan polis cocok, lalu bantu siapkan data pengajuannya."
       message={heroMessage}
       ctaLabel="Ceritakan usaha Anda"
       secondary={{ href: "#layanan", label: "Lihat layanan" }}
@@ -110,9 +128,9 @@ const faqs = [
     <section id="layanan" aria-labelledby="judul-layanan" class="scroll-mt-24 px-5 py-16 md:py-24">
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Layanan Asuransi Bisnis</p>
-          <h2 id="judul-layanan" class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Usaha Anda punya apa?</h2>
-          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Pilih layanan yang ingin dibahas lewat WhatsApp. Premi, manfaat, batas pertanggungan, dan pengecualian mengikuti penawaran dan ketentuan polis.</p>
+          <p class="type-eyebrow text-wa-deep">Layanan Asuransi Bisnis</p>
+          <h2 id="judul-layanan" class="type-section mt-3">Usaha Anda butuh apa?</h2>
+          <p class="type-section-lead mt-4 text-muted">Pilih layanan yang ingin dibahas. Premi, manfaat, batas pertanggungan, dan pengecualian mengikuti penawaran dan ketentuan polis.</p>
         </div>
         <div class="mt-8 grid gap-4 sm:grid-cols-2">
           {services.map((service) => {
@@ -122,15 +140,15 @@ const faqs = [
                 <span class="grid h-10 w-10 place-items-center rounded-2xl bg-wa-soft text-wa-deep">
                   <Icon class="h-5 w-5" aria-hidden="true" />
                 </span>
-                <h3 class="mt-4 font-display text-[1.125rem] font-bold tracking-[-0.02em]">{service.name}</h3>
-                <p class="mt-2 mb-3 text-[0.9375rem] leading-[1.6] text-muted">{service.description}</p>
+                <h3 class="type-card-title mt-4">{service.name}</h3>
+                <p class="type-card-body mt-2 mb-3 text-muted">{service.description}</p>
                 {service.href ? (
-                  <a href={service.href} class="mt-auto inline-flex min-h-11 items-center gap-1.5 rounded-sm text-[0.875rem] font-bold text-wa-deep underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep">
+                  <a href={service.href} class="type-body-sm mt-auto inline-flex min-h-11 items-center gap-1.5 rounded-sm font-bold text-wa-deep underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep">
                     {service.cta}
                     <ArrowUpRight class="h-4 w-4" aria-hidden="true" />
                   </a>
                 ) : (
-                  <WaLink message={service.message!} class="mt-auto inline-flex min-h-11 items-center gap-1.5 rounded-sm text-[0.875rem] font-bold text-wa-deep underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep">
+                  <WaLink message={service.message!} class="type-body-sm mt-auto inline-flex min-h-11 items-center gap-1.5 rounded-sm font-bold text-wa-deep underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wa-deep">
                     {service.cta}
                     <ArrowUpRight class="h-4 w-4" aria-hidden="true" />
                   </WaLink>
@@ -139,73 +157,42 @@ const faqs = [
             );
           })}
         </div>
-        <p class="mt-5 text-[0.9375rem] leading-[1.6] text-muted">
+        <p class="type-section-lead mt-5 text-muted">
           Perjalanan dinas? <a href="/asuransi-travel/" class="font-bold text-wa-deep underline decoration-wa-deep/30 underline-offset-4 hover:decoration-wa-deep">Lihat Asuransi Perjalanan</a>.
         </p>
-        <div class="mt-5 rounded-3xl border border-dashed border-wa-deep/35 bg-wa-soft p-5 md:p-6">
-          <h3 class="font-display text-[1.25rem] font-bold">Kebutuhan lain</h3>
-          <p class="mt-2 text-[0.9375rem] leading-[1.7] text-ink/80">Proyek, tanggung jawab hukum, atau kebutuhan lain? Ceritakan. Kalau produknya perlu ditangani tim khusus, saya sampaikan terus terang.</p>
-          <WaButton message={otherMessage} variant="outline" class="mt-4 w-full sm:w-auto">Bahas kebutuhan lain</WaButton>
+        <div class="mt-6 rounded-3xl bg-ink p-6 text-white md:flex md:items-center md:justify-between md:gap-8 md:p-8">
+          <div class="max-w-xl">
+            <h3 class="type-panel-title">Kebutuhan lain</h3>
+            <p class="type-card-body mt-2 text-white/75">Proyek, tanggung jawab hukum, atau kebutuhan lain? Tanyakan. Kalau produknya perlu ditangani tim khusus, saya koordinasikan dengan pihak asuransi.</p>
+          </div>
+          <WaButton message={otherMessage} class="mt-4 w-full shrink-0 md:mt-0 md:w-auto md:px-8">Bahas kebutuhan lain</WaButton>
         </div>
-      </div>
-    </section>
-
-    <section class="border-y border-line bg-white px-5 py-16 md:py-24">
-      <div class="mx-auto max-w-6xl">
-        <div class="max-w-3xl">
-          <h2 class="font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Yang perlu disiapkan</h2>
-        </div>
-        <ul class="mt-7 grid gap-3 sm:grid-cols-2">
-          {preparation.map((item) => (
-            <li class="flex gap-3 rounded-2xl border border-line bg-paper p-4">
-              <Check class="mt-0.5 h-4 w-4 shrink-0 text-wa-deep" aria-hidden="true" />
-              <p class="text-[0.9375rem] leading-[1.6] text-muted"><strong class="text-ink">{item.title}:</strong> {item.text}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
 
     <section class="px-5 py-16 md:py-24">
       <div class="mx-auto max-w-6xl">
-        <h2 class="font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Cara kerja</h2>
+        <h2 class="type-section">Cara kerja</h2>
         <div class="mt-8 grid gap-4 md:grid-cols-3">
           {steps.map((step, i) => (
             <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
               <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">0{i + 1}</span>
-              <h3 class="mt-4 font-display text-[1.0625rem] font-bold">{step.title}</h3>
-              {step.text && <p class="mt-2 text-[0.9375rem] leading-[1.6] text-muted">{step.text}</p>}
+              <h3 class="type-card-title mt-4">{step.title}</h3>
+              {step.text && <p class="type-card-body mt-2 text-muted">{step.text}</p>}
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="faq" class="border-y border-line bg-white px-5 py-16 md:py-24">
-      <div class="mx-auto grid max-w-6xl gap-7 md:grid-cols-[0.65fr_1.35fr] md:gap-14">
-        <div>
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">FAQ</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">Pertanyaan yang sering muncul</h2>
-        </div>
-        <div class="grid content-start gap-2.5">
-          {faqs.map((faq) => (
-            <details class="group rounded-2xl border border-line bg-paper px-4 py-3.5 open:bg-white md:px-5">
-              <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold leading-[1.45] marker:hidden [&::-webkit-details-marker]:hidden">
-                {faq.question}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
-              </summary>
-              <p class="pt-2 pr-7 text-[0.8125rem] leading-[1.65] text-muted">{faq.answer}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <FaqSection
+      faqs={faqs}
+      title="FAQ asuransi bisnis"
+      description="Jawaban umum soal perlindungan usaha Anda. Penawaran dan polis resmi tetap menjadi acuan."
+      cta={{ message: MESSAGES.bisnis, label: "Tanya soal asuransi bisnis" }}
+    />
 
-    <section class="bg-paper px-5 py-12 md:py-16">
-      <div class="mx-auto max-w-4xl">
-        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Konsultasi gratis. Kalau Anda akhirnya beli lewat saya, komisi dibayar perusahaan asuransi dan premi Anda tidak bertambah. Pembayaran lewat link resmi, bukan ke saya.</p>
-        <a href="/#tentang" class="mt-2 inline-flex min-h-11 items-center text-[0.875rem] font-bold text-wa-deep underline decoration-wa-deep/40 underline-offset-4 hover:decoration-wa-deep">Tentang Aditya</a>
-      </div>
-    </section>
+    <About message={MESSAGES.bisnis} />
   </article>
 
   <FinalCta

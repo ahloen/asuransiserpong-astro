@@ -1,20 +1,39 @@
 ---
 import { getCollection } from "astro:content";
 import { blogCategories } from "../data/blog";
-import { ArrowLeft, ArrowRight, BadgeDollarSign, Camera, CarFront, Clock, CloudRain, RefreshCw, Wrench } from "lucide-astro";
+import { ArrowLeft, ArrowRight, Clock } from "lucide-astro";
+import BlogArt from "./BlogArt.astro";
 
-const posts = await getCollection("blog");
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  limit?: number;
+  leadId?: string;
+}
+
+const {
+  eyebrow = "Blog",
+  title = "Artikel terbaru",
+  subtitle = "Penjelasan singkat soal polis, klaim, dan perpanjangan.",
+  limit,
+  leadId,
+} = Astro.props as Props;
+
+let posts = await getCollection("blog");
 posts.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 
-const visualMap: Record<string, { icon: any; cls: string }> = {
-  "banjir-tidak-selalu-dijamin": { icon: CloudRain, cls: "from-sky-100 via-sky-50 to-cyan-100 text-sky-800" },
-  "all-risk-vs-tlo": { icon: CarFront, cls: "from-emerald-100 via-teal-50 to-cyan-100 text-emerald-800" },
-  "biaya-sendiri-yang-sering-lupa": { icon: BadgeDollarSign, cls: "from-amber-100 via-orange-50 to-yellow-100 text-amber-800" },
-  "bengkel-rekanan-berubah": { icon: Wrench, cls: "from-violet-100 via-indigo-50 to-sky-100 text-violet-800" },
-  "perpanjangan-tidak-selalu-sama": { icon: RefreshCw, cls: "from-rose-100 via-orange-50 to-amber-100 text-rose-800" },
-  "cara-klaim-tanpa-panik": { icon: Camera, cls: "from-slate-200 via-sky-50 to-slate-100 text-slate-800" },
-};
-const fallback = visualMap["banjir-tidak-selalu-dijamin"];
+if (leadId) {
+  const leadIndex = posts.findIndex((post) => post.id === leadId);
+  if (leadIndex > 0) {
+    const [lead] = posts.splice(leadIndex, 1);
+    posts = [lead, ...posts];
+  }
+}
+
+if (limit && limit > 0) {
+  posts = posts.slice(0, limit);
+}
 ---
 
 <section
@@ -25,18 +44,18 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
   <div class="mx-auto max-w-5xl">
     <div class="flex items-end justify-between gap-5 px-5">
       <div>
-        <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase">
+        <p class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
           <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
-          Blog
+          {eyebrow}
         </p>
         <h2
           id="tips-title"
-          class="mt-2.5 font-display text-[1.625rem] leading-[1.18] font-bold tracking-[-0.025em] text-balance md:text-[2.125rem] md:leading-[1.14]"
+          class="type-section mt-2.5"
         >
-          Artikel terbaru
+          {title}
         </h2>
-        <p class="mt-2 max-w-sm text-[0.9375rem] leading-[1.6] text-muted">
-          Penjelasan singkat soal polis, klaim, dan perpanjangan.
+        <p class="type-card-body mt-2 max-w-sm text-muted">
+          {subtitle}
         </p>
       </div>
       <div class="hidden shrink-0 gap-2 md:flex">
@@ -68,8 +87,6 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
       class="tips-carousel mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 outline-none focus-visible:ring-2 focus-visible:ring-wa-deep focus-visible:ring-offset-4 md:gap-5"
     >
       {posts.map((post, index) => {
-        const visual = visualMap[post.id] ?? fallback;
-        const Icon = visual.icon;
         return (
           <article
             data-article-card
@@ -80,19 +97,16 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
               href={`/blog/${post.id}`}
               class="group block rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-wa-deep focus-visible:ring-offset-4"
             >
-              <div class={`relative flex h-44 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br ${visual.cls}`}>
-                <span class="absolute top-4 left-4 rounded-full bg-white/85 px-3 py-1.5 text-[0.75rem] font-bold text-ink shadow-sm">
+              <div class="relative h-44 overflow-hidden rounded-3xl">
+                <BlogArt category={post.data.category} postId={post.id} sizes="336px" />
+                <span class="type-fine absolute top-4 left-4 z-10 rounded-full bg-white/85 px-3 py-1.5 font-bold text-ink shadow-sm">
                   {post.data.topic ?? blogCategories.find(({ id }) => id === post.data.category)?.label}
                 </span>
-                <div class="absolute -right-8 -bottom-10 h-36 w-36 rounded-full bg-white/30 blur-2xl" aria-hidden="true"></div>
-                <span class="grid h-24 w-24 place-items-center rounded-[2rem] border border-white/60 bg-white/45 shadow-lg shadow-ink/5 backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1">
-                  <Icon class="h-12 w-12" stroke-width={1.55} />
-                </span>
               </div>
-              <h3 class="mt-4 min-h-[3lh] font-display text-[1.125rem] leading-[1.4] font-bold tracking-[-0.02em] text-balance wrap-anywhere transition-colors group-hover:text-wa-deep">
+              <h3 class="type-card-title mt-4 min-h-[3lh] wrap-anywhere transition-colors group-hover:text-wa-deep">
                 {post.data.title}
               </h3>
-              <span class="mt-2 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-muted">
+              <span class="type-meta mt-2 inline-flex items-center gap-1.5 font-medium text-muted">
                 <Clock class="h-4 w-4" />
                 {post.data.readTime} baca
               </span>
@@ -121,7 +135,7 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
       </div>
       <a
         href="/blog"
-        class="inline-flex min-h-10 shrink-0 items-center gap-1.5 text-[0.875rem] font-bold text-wa-deep underline decoration-wa-deep/30 underline-offset-4 hover:decoration-wa-deep"
+        class="type-body-sm inline-flex min-h-10 shrink-0 items-center gap-1.5 font-bold text-wa-deep underline decoration-wa-deep/30 underline-offset-4 hover:decoration-wa-deep"
       >
         Semua artikel
         <ArrowRight class="h-4 w-4" />
@@ -167,10 +181,6 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
       paint();
     }
     let frame = 0;
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchStartScrollLeft = 0;
-    let horizontalSwipe = false;
     function updateActive() {
       const cards = Array.from(track.querySelectorAll<HTMLElement>("[data-article-card]"));
       if (!cards.length) return;
@@ -189,24 +199,6 @@ const fallback = visualMap["banjir-tidak-selalu-dijamin"];
     }
     updateActive();
     track.addEventListener("scroll", onScroll, { passive: true });
-    track.addEventListener("touchstart", function (e) {
-      const touch = e.touches[0];
-      if (!touch) return;
-      touchStartX = touch.clientX;
-      touchStartY = touch.clientY;
-      touchStartScrollLeft = track.scrollLeft;
-      horizontalSwipe = false;
-    }, { passive: true });
-    track.addEventListener("touchmove", function (e) {
-      const touch = e.touches[0];
-      if (!touch) return;
-      const dx = touch.clientX - touchStartX;
-      const dy = touch.clientY - touchStartY;
-      if (!horizontalSwipe && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) horizontalSwipe = true;
-      if (!horizontalSwipe) return;
-      e.preventDefault();
-      track.scrollLeft = touchStartScrollLeft - dx;
-    }, { passive: false });
     window.addEventListener("resize", onScroll);
     if (prev) prev.addEventListener("click", function () { goTo(active - 1); });
     if (next) next.addEventListener("click", function () { goTo(active + 1); });

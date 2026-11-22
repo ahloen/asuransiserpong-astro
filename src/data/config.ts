@@ -21,31 +21,31 @@ export const MESSAGES = {
   /** Header */
   header: "Halo Aditya, saya ingin bertanya soal asuransi. Bisa dibantu?",
   /** Hero */
-  banjir: "Halo Aditya, polis mobil saya mau habis. Foto halaman depan polisnya saya kirim setelah ini. Tolong cek banjir, biaya sendiri, dan masa berlaku All Risk-nya.",
+  banjir: "Halo Aditya, polis mobil saya mau habis. Tolong bantu cek.",
   /** Sticky bar mobile */
   sticky: "Halo Aditya, saya ingin bertanya soal asuransi. Bisa dibantu?",
   /** Di bawah contoh balasan */
-  contoh: "Halo Aditya, saya ingin minta penawaran asuransi mobil. Data mobil dan wilayah pelat bisa saya kirim setelah ini.",
+  contoh: "Halo Aditya, saya ingin minta penawaran asuransi mobil.",
   /** Sudah punya tawaran dealer/bank */
-  dealer: "Halo Aditya, saya sudah dapat penawaran asuransi dari dealer atau bank. Bisa bantu cek manfaat, biaya sendiri, dan pilihan bengkelnya? Penawarannya saya kirim setelah ini.",
+  dealer: "Halo Aditya, saya sudah dapat penawaran asuransi dari dealer atau bank. Bisa bantu cek?",
   /** Setelah 3 kartu risiko */
-  cekTiga: "Halo Aditya, saya mau minta cek polis mobil saya (fotonya saya kirim setelah ini). Tolong cek: banjir, masa berlaku all risk, dan bengkel rekanannya.",
-  mobil: "Halo Aditya, saya ingin minta estimasi premi asuransi mobil. Data mobil dan wilayah pelat bisa saya kirim setelah ini.",
-  properti: "Halo Aditya, saya ingin cek estimasi premi asuransi properti. Jenis bangunan dan area lokasinya bisa saya kirim setelah ini.",
-  travel: "Halo Aditya, saya ingin cek premi asuransi perjalanan. Tujuan, tanggal berangkat dan pulang, serta jumlah peserta bisa saya kirim setelah ini.",
-  travelVisa: "Halo Aditya, saya sedang menyiapkan pengajuan visa Schengen. Bisa bantu cek pilihan polis dan dokumennya sesuai persyaratan visa saya?",
-  bisnis: "Halo Aditya, saya ingin berkonsultasi tentang asuransi bisnis. Saya bisa ceritakan jenis usaha dan perlindungan yang saya butuhkan.",
+  cekTiga: "Halo Aditya, saya mau minta cek polis mobil saya.",
+  mobil: "Halo Aditya, saya ingin minta estimasi premi asuransi mobil.",
+  properti: "Halo Aditya, saya ingin cek estimasi premi asuransi properti.",
+  travel: "Halo Aditya, saya ingin cek premi asuransi perjalanan.",
+  travelVisa: "Halo Aditya, saya sedang menyiapkan pengajuan visa Schengen. Bisa bantu cek pilihan polis?",
+  bisnis: "Halo Aditya, saya ingin berkonsultasi tentang asuransi bisnis.",
   /** Dari bagian profil */
   profil: "Halo Aditya, saya mau tanya-tanya dulu soal asuransi.",
   /** Dari FAQ */
-  faq: "Halo Aditya, saya punya pertanyaan yang belum tercantum di FAQ. Bisa dibantu?",
+  faq: "Halo Aditya, saya punya pertanyaan. Bisa dibantu?",
   /** CTA penutup */
   penutup: "Halo Aditya, saya ingin cek apakah polis mobil saya mencakup banjir, berapa biaya sendiri, dan bengkel mana yang bisa dipilih.",
   /** Chip di kartu mobil */
   allRisk: "Halo Aditya, bedanya All Risk dan TLO apa ya? Mana yang cocok untuk mobil saya?",
   cakupan: "Halo Aditya, di asuransi mobil all risk, apa saja yang tercakup dan tidak?",
-  derek: "Halo Aditya, asuransi mobil yang sudah termasuk derek dan road assistance itu yang mana ya?",
-  bengkel: "Halo Aditya, bengkel rekanan terdekat di area saya ada di mana? Saya bisa kirim nama area atau lokasi setelah ini.",
+  derek: "Halo Aditya, yang sudah termasuk derek dan road assistance itu yang mana ya?",
+  bengkel: "Halo Aditya, bengkel rekanan terdekat di area saya ada di mana?",
 } as const;
 
 /**
@@ -57,8 +57,8 @@ export const SOCIAL_PROOF = {
   countLabel: "pemilik mobil di Serpong sudah dibantu cek polisnya",
   testimonial: {
     quote: "Ternyata polis lama saya belum termasuk banjir. Untung dicek sebelum perpanjang.",
-    name: "Bu Rina",
-    detail: "Xpander · BSD",
+    name: "Bu Dian",
+    detail: "Ertiga · BSD",
   },
 } as const;
 
@@ -85,13 +85,14 @@ export const SERVICE_LINKS = [
 /** Tautan informasi umum di footer; tautan section khusus homepage tidak ditampilkan global. */
 export const FOOTER_LINKS = [
   { href: "/#tentang", label: "Siapa di balik ini" },
+  { href: "/bengkel-rekanan-asuransi-mobil", label: "Bengkel Rekanan" },
 ] as const;
 
 export const BLOG_LINK = { href: "/blog", label: "Artikel" } as const;
 
 export const WORKING_HOURS =
-  "Jam kerja: Senin–Jumat 09.00–18.00, Sabtu 09.00–14.00. Chat di luar jam itu tetap boleh, saya balas pada jam kerja berikutnya.";
+  "Jam kerja: Senin–Jumat 09.00–18.00, Sabtu 09.00–14.00. Chat di luar jam itu, saya balas pada jam kerja berikutnya.";
 
 /** Versi ringkas untuk hero, CTA penutup, dan bawah tombol. */
 export const RESPONSE_TIME =
-  "Dibalas langsung oleh Aditya, dalam 1 sampai 2 jam kerja (Senin sampai Sabtu).";
+  "Dibalas langsung oleh Aditya, dalam 1-2 jam kerja.";

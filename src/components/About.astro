@@ -12,7 +12,7 @@ const { message = MESSAGES.profil } = Astro.props as Props;
 
 <section id="tentang" class="bg-paper px-5 py-14 md:py-20">
   <div class="mx-auto max-w-4xl">
-    <p class="inline-flex items-center gap-2 text-[0.75rem] font-semibold tracking-[0.1em] text-wa-deep uppercase">
+    <p class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
       <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
       Siapa di balik ini
     </p>
@@ -28,11 +28,11 @@ const { message = MESSAGES.profil } = Astro.props as Props;
           class="aspect-[4/3] w-full object-cover object-[50%_25%] md:aspect-auto md:h-full"
         />
         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent p-5 pt-16 text-white">
-          <p class="font-display text-[1.625rem] leading-none font-bold tracking-[-0.025em]">Aditya</p>
-          <p class="mt-1.5 text-[0.8125rem] font-medium text-white/85">Mitra Pemasar Asuransi · Serpong</p>
+          <p class="type-subsection leading-none">Aditya</p>
+          <p class="type-meta mt-1.5 font-medium text-white/85">Mitra Pemasar Asuransi · Serpong</p>
         </div>
         <div id="wa-status" hidden class="absolute top-4 left-4">
-          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[0.75rem] font-semibold text-ink shadow">
+          <span class="type-fine inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 font-semibold text-ink shadow">
             <span class="relative flex h-2 w-2">
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-wa opacity-75 motion-reduce:animate-none"></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-wa"></span>
@@ -43,25 +43,25 @@ const { message = MESSAGES.profil } = Astro.props as Props;
       </div>
 
       <div class="p-5 md:p-8">
-        <p class="font-display text-[1.25rem] leading-[1.42] font-semibold tracking-[-0.015em] text-balance md:text-[1.5rem]">
+        <p class="type-subsection leading-[1.35] font-semibold">
           &ldquo;Saya Aditya, tinggal di Serpong. Saya jelaskan sampai Anda paham isinya, dan saya bantu sampai
           pengajuan klaim.&rdquo;
         </p>
 
         <ul class="mt-5 grid grid-cols-2 gap-2.5">
-          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+          <li class="type-meta flex items-start gap-2 rounded-xl bg-paper p-2.5 font-semibold">
             <span class="mt-px shrink-0 text-wa-deep"><Home class="h-4 w-4" /></span>
             Tinggal di Serpong
           </li>
-          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+          <li class="type-meta flex items-start gap-2 rounded-xl bg-paper p-2.5 font-semibold">
             <span class="mt-px shrink-0 text-wa-deep"><MessageCircle class="h-4 w-4" /></span>
             Dibalas sendiri, bukan call center
           </li>
-          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+          <li class="type-meta flex items-start gap-2 rounded-xl bg-paper p-2.5 font-semibold">
             <span class="mt-px shrink-0 text-wa-deep"><Handshake class="h-4 w-4" /></span>
             Bantu sampai pengajuan klaim
           </li>
-          <li class="flex items-start gap-2 rounded-xl bg-paper p-2.5 text-[0.8125rem] leading-[1.35] font-semibold">
+          <li class="type-meta flex items-start gap-2 rounded-xl bg-paper p-2.5 font-semibold">
             <span class="mt-px shrink-0 text-wa-deep"><Link2 class="h-4 w-4" /></span>
             Bayar lewat link resmi
           </li>
@@ -73,14 +73,14 @@ const { message = MESSAGES.profil } = Astro.props as Props;
             id="komisi-toggle"
             aria-expanded="false"
             aria-controls="komisi"
-            class="flex min-h-13 w-full items-center justify-between gap-3 px-4 text-left text-[0.9375rem] font-bold tracking-[-0.01em]"
+            class="flex min-h-13 w-full items-center justify-between gap-3 px-4 text-left text-[1rem] font-bold"
           >
             Kalau gratis, Aditya dapat apa?
             <ChevronDown id="komisi-chevron" class="h-5 w-5 shrink-0 text-muted transition-transform duration-300" />
           </button>
           <div id="komisi" class="grid transition-[grid-template-rows] duration-300 grid-rows-[0fr]">
             <div class="overflow-hidden">
-              <div class="space-y-2.5 px-4 pb-4 text-[0.9375rem] leading-[1.6] text-muted">
+              <div class="type-card-body space-y-2.5 px-4 pb-4 text-muted">
                 <p>
                   <strong class="font-semibold text-ink">Konsultasinya gratis.</strong> Kalau Anda akhirnya beli, komisi saya dibayar asuransi, bukan Anda. Premi Anda tidak bertambah.
                 </p>

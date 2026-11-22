@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
+import FaqSection from "../components/FaqSection.astro";
 import ProductHero from "../components/ProductHero.astro";
 import WaButton from "../components/WaButton.astro";
 import {
@@ -83,36 +85,36 @@ const priceItems = [
 
     <section aria-label="Contoh biaya asuransi rumah" class="border-b border-line bg-white px-5 py-8 md:py-10">
       <div class="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Contoh: bangunan Rp1 miliar, premi dasar sekitar Rp500.000 per tahun. Banjir, gempa, dan isi rumah dihitung terpisah.</p>
-        <a href="#biaya" class="inline-flex min-h-11 shrink-0 items-center gap-2 text-[0.875rem] font-bold text-wa-deep hover:text-ink">Lihat rincian <ArrowRight class="h-4 w-4" /></a>
+        <p class="type-section-lead max-w-3xl text-muted">Contoh: bangunan Rp1 miliar, premi dasar sekitar Rp500.000 per tahun. Banjir, gempa, dan isi rumah dihitung terpisah.</p>
+        <a href="#biaya" class="type-body-sm inline-flex min-h-11 shrink-0 items-center gap-2 font-bold text-wa-deep hover:text-ink">Lihat rincian <ArrowRight class="h-4 w-4" /></a>
       </div>
     </section>
 
     <section id="risiko" class="px-5 py-16 md:py-24">
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Kenapa perlu perlindungan?</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Tiga hal yang sering terlewat</h2>
-          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Rumah dan ruko di Alam Sutera, BSD, dan Gading Serpong dapat terdampak risiko yang biaya pemulihannya tidak kecil.</p>
+          <p class="type-eyebrow text-wa-deep">Kenapa perlu perlindungan?</p>
+          <h2 class="type-section mt-3">Tiga hal yang sering terlewat</h2>
+          <p class="type-section-lead mt-4 text-muted">Rumah dan ruko di Alam Sutera, BSD, dan Gading Serpong dapat terdampak risiko yang biaya pemulihannya tidak kecil.</p>
         </div>
         <div class="mt-8 grid gap-4 md:grid-cols-3">
           <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
             <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><CloudRain class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Banjir tidak ikut otomatis.</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Polis dasar kebakaran tidak menjamin banjir. Perluasannya harus diminta.</p>
+            <h3 class="type-card-title mt-4">Banjir tidak ikut otomatis.</h3>
+            <p class="type-card-body mt-2 text-muted">Polis dasar kebakaran tidak menjamin banjir. Perluasannya harus diminta.</p>
           </article>
           <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
             <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Building2 class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Nilai bangunan dihitung terlalu rendah.</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Kalau nilai pertanggungan di bawah biaya bangun, klaim bisa dikurangi secara proporsional sesuai polis.</p>
+            <h3 class="type-card-title mt-4">Nilai bangunan dihitung terlalu rendah.</h3>
+            <p class="type-card-body mt-2 text-muted">Kalau nilai pertanggungan di bawah biaya bangun, klaim bisa dikurangi secara proporsional sesuai polis.</p>
           </article>
           <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
             <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><House class="h-5 w-5" /></span>
-            <h3 class="mt-4 font-display text-[1.125rem] font-bold">Bangunan berubah.</h3>
-            <p class="mt-2 text-[0.875rem] leading-[1.7] text-muted">Renovasi, tambah lantai, atau ganti fungsi bangunan sebaiknya diinformasikan ke asuransi, karena bisa mengubah nilai dan risikonya.</p>
+            <h3 class="type-card-title mt-4">Bangunan berubah.</h3>
+            <p class="type-card-body mt-2 text-muted">Renovasi, tambah lantai, atau ganti fungsi bangunan sebaiknya diinformasikan ke asuransi, karena bisa mengubah nilai dan risikonya.</p>
           </article>
         </div>
-        <div class="mt-5 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-[0.875rem] leading-[1.65] text-wa-deep md:p-5">
+        <div class="type-body-sm mt-5 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-wa-deep md:p-5">
           <House class="mt-0.5 h-5 w-5 shrink-0" />
           <p><strong>Proses menyesuaikan jenis properti.</strong> Rumah tinggal dapat dikonsultasikan online lewat WhatsApp tanpa survei awal. Untuk ruko dan tempat usaha, survei lokasi biasanya dijadwalkan lebih dulu.</p>
         </div>
@@ -122,24 +124,24 @@ const priceItems = [
     <section id="perlindungan" class="border-y border-line bg-white px-5 py-16 md:py-24">
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Bandingkan manfaat</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.8rem]">Pilih perlindungan sesuai risiko properti Anda.</h2>
+          <p class="type-eyebrow text-wa-deep">Bandingkan manfaat</p>
+          <h2 class="type-section mt-3">Pilih perlindungan sesuai risiko properti Anda.</h2>
         </div>
         <div class="mt-8 grid gap-4 md:grid-cols-3">
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
-            <h3 class="font-display text-[1.25rem] font-bold">FLEXAS</h3>
-            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-muted">Menjamin risiko yang disebut satu per satu di polis: kebakaran, petir, ledakan, pesawat jatuh, asap. Banjir dan risiko lain harus ditambah.</p>
+            <h3 class="type-panel-title">FLEXAS</h3>
+            <p class="type-card-body mt-2 text-muted">Menjamin risiko yang disebut satu per satu di polis: kebakaran, petir, ledakan, pesawat jatuh, asap. Banjir dan risiko lain harus ditambah.</p>
           </article>
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
-            <h3 class="font-display text-[1.25rem] font-bold">PAR (Property All Risks)</h3>
-            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-muted">Menjamin kerusakan fisik dari sebab apa pun, kecuali yang dikecualikan di polis. Cakupan lebih luas, premi biasanya lebih tinggi.</p>
+            <h3 class="type-panel-title">PAR (Property All Risks)</h3>
+            <p class="type-card-body mt-2 text-muted">Menjamin kerusakan fisik dari sebab apa pun, kecuali yang dikecualikan di polis. Cakupan lebih luas, premi biasanya lebih tinggi.</p>
           </article>
           <article class="rounded-3xl border border-wa-deep/20 bg-wa-soft p-5 md:p-6">
-            <h3 class="font-display text-[1.25rem] font-bold">Mana yang cocok?</h3>
-            <p class="mt-2 text-[0.9375rem] leading-[1.7] text-ink/80">Kirim jenis bangunan dan alamatnya. Saya jelaskan mana yang masuk akal.</p>
+            <h3 class="type-panel-title">Mana yang cocok?</h3>
+            <p class="type-card-body mt-2 text-ink/80">Kirim jenis bangunan dan alamatnya. Saya jelaskan mana yang masuk akal.</p>
           </article>
         </div>
-        <p class="mt-4 text-[0.9375rem] leading-[1.6] text-muted">Cakupan, sublimit, perluasan, dan pengecualian mengikuti wording polis. &ldquo;All Risks&rdquo; tidak berarti semua penyebab otomatis dijamin.</p>
+        <p class="type-section-lead mt-4 text-muted">Cakupan, sublimit, perluasan, dan pengecualian mengikuti wording polis. &ldquo;All Risks&rdquo; tidak berarti semua penyebab otomatis dijamin.</p>
         <WaButton message={consultationMessage} class="mt-5 w-full sm:w-auto">Tanya pilihan perlindungan</WaButton>
       </div>
     </section>
@@ -147,14 +149,14 @@ const priceItems = [
     <section id="biaya" class="px-5 py-16 md:py-24">
       <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
         <div>
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Simulasi biaya</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] text-balance md:text-[2.5rem]">Kira-kira berapa premi properti?</h2>
-          <p class="mt-4 text-[0.9375rem] leading-[1.7] text-muted">Contoh estimasi untuk rumah tinggal dengan nilai bangunan Rp1 miliar. Ini ilustrasi tarif dasar, bukan penawaran atau jaminan tarif dan tidak memastikan perluasan tertentu sudah termasuk.</p>
+          <p class="type-eyebrow text-wa-deep">Simulasi biaya</p>
+          <h2 class="type-section mt-3">Kira-kira berapa premi properti?</h2>
+          <p class="type-section-lead mt-4 text-muted">Contoh estimasi untuk rumah tinggal dengan nilai bangunan Rp1 miliar. Ini ilustrasi tarif dasar, bukan penawaran atau jaminan tarif dan tidak memastikan perluasan tertentu sudah termasuk.</p>
         </div>
         <div>
           <div class="overflow-hidden rounded-3xl border border-line bg-white">
             <div class="hidden sm:block">
-              <table class="w-full border-collapse text-left text-[0.875rem]">
+              <table class="type-table w-full border-collapse text-left">
                 <caption class="sr-only">Contoh estimasi premi asuransi properti rumah tinggal senilai satu miliar rupiah</caption>
                 <thead class="bg-ink text-white"><tr><th scope="col" class="px-5 py-4 font-bold">Komponen</th><th scope="col" class="px-5 py-4 font-bold">Contoh</th></tr></thead>
                 <tbody class="divide-y divide-line text-muted">
@@ -165,21 +167,21 @@ const priceItems = [
             <dl class="grid gap-2.5 p-3 sm:hidden">
               {priceItems.map((item) => (
                 <div class="rounded-2xl border border-line bg-paper p-4">
-                  <dt class="text-[0.75rem] font-semibold text-muted">{item.label}</dt>
-                  <dd class="mt-1 text-[0.875rem] font-bold leading-[1.5] text-ink">{item.value}</dd>
+                  <dt class="type-fine font-semibold text-muted">{item.label}</dt>
+                  <dd class="type-body-sm mt-1 font-bold text-ink">{item.value}</dd>
                 </div>
               ))}
             </dl>
-            <p class="border-t border-line px-4 py-3 text-[0.9375rem] leading-[1.6] text-muted md:px-5">Ilustrasi premi Rp500.000 per tahun, belum termasuk biaya polis dan materai. Cakupan dan premi final harus dilihat pada penawaran.</p>
+            <p class="type-card-body border-t border-line px-4 py-3 text-muted md:px-5">Ilustrasi premi Rp500.000 per tahun, belum termasuk biaya polis dan materai. Cakupan dan premi final harus dilihat pada penawaran.</p>
           </div>
-          <p class="mt-3 text-[0.75rem] leading-[1.6] text-muted">Premi final bergantung pada kondisi dan lokasi bangunan, perluasan yang dipilih, ketentuan perusahaan, serta hasil penilaian risiko.</p>
+          <p class="type-fine mt-3 text-muted">Premi final bergantung pada kondisi dan lokasi bangunan, perluasan yang dipilih, ketentuan perusahaan, serta hasil penilaian risiko.</p>
           <WaButton message={estimateMessage} class="mt-5 w-full sm:w-auto">Tanya estimasi properti saya</WaButton>
 
           <details class="group mt-5 rounded-2xl border border-line bg-white px-4 py-3.5 md:px-5">
-            <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
+            <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[1rem] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
               Ketentuan penting sebelum menghitung nilai pertanggungan<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
             </summary>
-            <ul class="grid gap-3 pt-3 pr-7 text-[0.8125rem] leading-[1.65] text-muted">
+            <ul class="type-card-body grid gap-3 pt-3 pr-7 text-muted">
               <li><strong class="text-ink">Kelas konstruksi:</strong> Contoh ini menggunakan Kelas Konstruksi 1, dengan dinding, lantai, dan atap dari bahan yang tidak mudah terbakar seperti beton dan bata. Klasifikasi akhir mengikuti penilaian perusahaan asuransi.</li>
               <li><strong class="text-ink">Nilai pertanggungan:</strong> dihitung dari nilai fisik bangunan atau biaya membangun kembali, tidak termasuk harga tanah.</li>
               <li><strong class="text-ink">Risiko sendiri (deductible):</strong> bagian biaya klaim yang menjadi tanggungan pemegang polis, sesuai jumlah dan ketentuan di polis.</li>
@@ -192,54 +194,37 @@ const priceItems = [
     <section id="cara-kerja" class="border-y border-line bg-white px-5 py-16 md:py-24">
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">Cara kerja</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.8rem]">Tiga langkah, dari chat sampai polis terbit.</h2>
+          <p class="type-eyebrow text-wa-deep">Cara kerja</p>
+          <h2 class="type-section mt-3">Tiga langkah, dari chat sampai polis terbit.</h2>
         </div>
         <div class="mt-8 grid gap-3 md:grid-cols-3">
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
             <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">01</span>
-            <h3 class="mt-4 font-display text-[1.0625rem] font-bold">Mulai dengan bertanya</h3>
-            <p class="mt-2 text-[0.8125rem] leading-[1.65] text-muted">Ceritakan kebutuhan Anda lewat WhatsApp. Untuk penawaran, saya akan bantu menyiapkan data seperti lokasi, ukuran, fungsi, dan spesifikasi bangunan.</p>
+            <h3 class="type-card-title mt-4">Mulai dengan bertanya</h3>
+            <p class="type-card-body mt-2 text-muted">Ceritakan kebutuhan Anda lewat WhatsApp. Untuk penawaran, saya akan bantu menyiapkan data seperti lokasi, ukuran, fungsi, dan spesifikasi bangunan.</p>
           </article>
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
             <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">02</span>
-            <h3 class="mt-4 font-display text-[1.0625rem] font-bold">Terima penawaran</h3>
-            <p class="mt-2 text-[0.8125rem] leading-[1.65] text-muted">Saya bantu bandingkan pilihan dari perusahaan rekanan dan jelaskan manfaat serta ketentuan utamanya.</p>
+            <h3 class="type-card-title mt-4">Terima penawaran</h3>
+            <p class="type-card-body mt-2 text-muted">Saya bantu bandingkan pilihan dari perusahaan rekanan dan jelaskan manfaat serta ketentuan utamanya.</p>
           </article>
           <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
             <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">03</span>
-            <h3 class="mt-4 font-display text-[1.0625rem] font-bold">Polis diterbitkan</h3>
-            <p class="mt-2 text-[0.8125rem] leading-[1.65] text-muted">Setelah menyetujui penawaran dan pembayaran terverifikasi, polis elektronik dikirim melalui email.</p>
+            <h3 class="type-card-title mt-4">Polis diterbitkan</h3>
+            <p class="type-card-body mt-2 text-muted">Setelah menyetujui penawaran dan pembayaran terverifikasi, polis elektronik dikirim melalui email.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="bg-paper px-5 py-12 md:py-16">
-      <div class="mx-auto max-w-4xl">
-        <p class="max-w-3xl text-[0.9375rem] leading-[1.7] text-muted">Konsultasi gratis. Kalau Anda akhirnya beli lewat saya, komisi dibayar perusahaan asuransi dan premi Anda tidak bertambah. Pembayaran lewat link resmi, bukan ke saya.</p>
-        <a href="/#tentang" class="mt-2 inline-flex min-h-11 items-center text-[0.875rem] font-bold text-wa-deep underline decoration-wa-deep/40 underline-offset-4 hover:decoration-wa-deep">Tentang Aditya</a>
-      </div>
-    </section>
+    <About message={consultationMessage} />
 
-    <section id="faq" class="px-5 py-16 md:py-24">
-      <div class="mx-auto grid max-w-6xl gap-7 md:grid-cols-[0.65fr_1.35fr] md:gap-14">
-        <div>
-          <p class="text-[0.75rem] font-bold tracking-[0.14em] text-wa-deep uppercase">FAQ</p>
-          <h2 class="mt-3 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.04em] md:text-[2.5rem]">Pertanyaan yang sering muncul</h2>
-        </div>
-        <div class="grid content-start gap-2.5">
-          {faqs.map((faq) => (
-            <details class="group rounded-2xl border border-line bg-white px-4 py-3.5 open:bg-white md:px-5">
-              <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[0.9375rem] font-bold leading-[1.45] marker:hidden [&::-webkit-details-marker]:hidden">
-                {faq.question}<ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
-              </summary>
-              <p class="pt-2 pr-7 text-[0.8125rem] leading-[1.65] text-muted">{faq.answer}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <FaqSection
+      faqs={faqs}
+      title="FAQ asuransi properti"
+      description="Jawaban umum soal nilai bangunan, banjir, survei, dan klaim. Penawaran dan polis resmi tetap menjadi acuan."
+      cta={{ message: consultationMessage, label: "Tanya soal properti via WhatsApp" }}
+    />
 
   </article>
 

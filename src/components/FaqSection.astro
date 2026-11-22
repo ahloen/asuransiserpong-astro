@@ -1,0 +1,53 @@
+---
+import { ChevronDown } from "lucide-astro";
+import WaButton from "./WaButton.astro";
+
+interface FaqItem {
+  question: string;
+  answer: string;
+  link?: { href: string; label: string };
+}
+
+interface Props {
+  faqs: readonly FaqItem[];
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  cta?: { message: string; label: string };
+  id?: string;
+}
+
+const {
+  faqs,
+  eyebrow = "Yang sering ditanyakan",
+  title,
+  description,
+  cta,
+  id = "faq",
+} = Astro.props as Props;
+---
+
+<section id={id} class="px-5 py-16 md:py-24">
+  <div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-14">
+    <div>
+      <p class="type-eyebrow text-wa-deep">{eyebrow}</p>
+      <h2 class="type-section mt-3">{title}</h2>
+      {description && <p class="type-section-lead mt-4 text-muted">{description}</p>}
+      {cta && <WaButton message={cta.message} class="mt-5 w-full">{cta.label}</WaButton>}
+    </div>
+    <div class="grid content-start gap-3">
+      {faqs.map((faq) => (
+        <details class="group rounded-2xl border border-line bg-white p-5 open:border-wa-deep/30">
+          <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-display text-[1rem] leading-[1.45] font-bold marker:hidden [&::-webkit-details-marker]:hidden">
+            {faq.question}
+            <ChevronDown class="h-5 w-5 shrink-0 text-muted transition group-open:rotate-180" />
+          </summary>
+          <p class="type-card-body pt-3 pr-7 text-muted">
+            {faq.answer}
+            {faq.link && <> Baca juga: <a href={faq.link.href} class="font-semibold text-wa-deep underline underline-offset-2">{faq.link.label}</a>.</>}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

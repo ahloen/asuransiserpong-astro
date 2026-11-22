@@ -1,0 +1,640 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import About from "./About.astro";
+import FinalCta from "./FinalCta.astro";
+import FaqSection from "./FaqSection.astro";
+import ProductHero from "./ProductHero.astro";
+import WaButton from "./WaButton.astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+import { MESSAGES } from "../data/config";
+import {
+  ASURANSI_LABEL,
+  BENGKEL,
+  JAKARTA_RAYA_CITIES,
+  KATEGORI_LABEL,
+  TANGERANG_RAYA_CITIES,
+  type Bengkel,
+} from "../data/bengkel";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  Handshake,
+  Info,
+  MapPin,
+  Phone,
+  Search,
+  ShieldCheck,
+  Wrench,
+} from "lucide-astro";
+
+type AreaKey = "tangerang" | "jakarta";
+
+interface Props {
+  area: AreaKey;
+}
+
+const { area } = Astro.props as Props;
+
+const AREA_CONFIG = {
+  tangerang: {
+    label: "Tangerang Raya",
+    cities: TANGERANG_RAYA_CITIES,
+    slug: "/bengkel-rekanan-asuransi-mobil",
+  },
+  jakarta: {
+    label: "Jakarta Raya",
+    cities: JAKARTA_RAYA_CITIES,
+    slug: "/bengkel-rekanan-asuransi-mobil/jakarta-raya",
+  },
+} as const;
+
+const currentArea = AREA_CONFIG[area];
+const otherAreaKey: AreaKey = area === "tangerang" ? "jakarta" : "tangerang";
+const otherArea = AREA_CONFIG[otherAreaKey];
+
+const directoryMessage = MESSAGES.bengkel;
+const claimMessage =
+  "Halo Aditya, mobil saya perlu perbaikan. Bisa bantu cek bengkel rekanan dan proses klaimnya?";
+const checkMessage =
+  "Halo Aditya, saya mau pastikan bengkel pilihan saya termasuk rekanan asuransi saya.";
+
+const items = BENGKEL.filter((b) => currentArea.cities.includes(b.wilayah));
+const otherItems = BENGKEL.filter((b) => otherArea.cities.includes(b.wilayah));
+const total = items.length;
+const otherTotal = otherItems.length;
+
+const countByKategori = items.reduce<Record<string, number>>((acc, b) => {
+  acc[b.kategori] = (acc[b.kategori] ?? 0) + 1;
+  return acc;
+}, {});
+
+const countByAsuransi = items.reduce<Record<string, number>>((acc, b) => {
+  for (const name of b.rekanan_asuransi) {
+    acc[name] = (acc[name] ?? 0) + 1;
+  }
+  return acc;
+}, {});
+
+const asuransiSummary = ["ACA", "Zurich Syariah", "Asuransi Astra (Garda Oto)", "Sinarmas"].map((name) => ({
+  name,
+  label: ASURANSI_LABEL[name] ?? name,
+  count: countByAsuransi[name] ?? 0,
+}));
+
+const lastUpdated = "2026-07-21";
+const lastUpdatedLabel = new Intl.DateTimeFormat("id-ID", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "Asia/Jakarta",
+}).format(new Date(`${lastUpdated}T00:00:00+07:00`));
+
+function sortBengkel(a: Bengkel, b: Bengkel) {
+  if (a.is_area_prioritas !== b.is_area_prioritas) {
+    return a.is_area_prioritas ? -1 : 1;
+  }
+  return a.nama_bengkel.localeCompare(b.nama_bengkel, "id");
+}
+
+function searchText(b: Bengkel) {
+  return [
+    b.nama_bengkel,
+    b.wilayah,
+    b.area_kecamatan,
+    b.alamat,
+    b.merk_khusus.join(" "),
+    b.rekanan_asuransi.join(" "),
+    b.kategori,
+    KATEGORI_LABEL[b.kategori] ?? "",
+    b.catatan_khusus ?? "",
+  ]
+    .join(" ")
+    .toLowerCase();
+}
+
+function merkLabel(b: Bengkel) {
+  return b.merk_khusus.map((m) => (m === "Semua Merk" ? "Semua merek" : m)).join(", ");
+}
+
+function telHref(phone: string) {
+  const mainNumber = phone.split(/\s+ext\.?\s+/i)[0] ?? phone;
+  return `tel:${mainNumber.replace(/[^\d+]/g, "")}`;
+}
+
+function waHref(number: string) {
+  return `https://wa.me/${number.replace(/\D/g, "")}`;
+}
+
+const cityGroups = currentArea.cities
+  .map((city) => ({ city, items: items.filter((b) => b.wilayah === city).sort(sortBengkel) }))
+  .filter((group) => group.items.length > 0);
+
+const kategoriBadge: Record<string, string> = {
+  Authorized: "bg-wa-soft text-wa-deep",
+  Umum: "bg-paper text-muted ring-1 ring-line",
+  Spesialis: "bg-[#fff3dc] text-[#8a5a19]",
+};
+
+const filterPillClass =
+  "type-meta inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-white px-3 font-bold text-muted transition hover:border-wa-deep/40 hover:text-ink aria-pressed:border-wa-deep aria-pressed:bg-wa-soft aria-pressed:text-wa-deep";
+
+const stats = [
+  { label: "Total bengkel", value: total, note: currentArea.label },
+  { label: "Kota / kabupaten", value: currentArea.cities.length, note: "Area tercakup" },
+  { label: "Bengkel resmi", value: countByKategori.Authorized ?? 0, note: "Authorized / ATPM" },
+  {
+    label: "Umum & spesialis",
+    value: (countByKategori.Umum ?? 0) + (countByKategori.Spesialis ?? 0),
+    note: "Non-ATPM",
+  },
+];
+
+const steps = [
+  {
+    title: "Cek bengkel di daftar",
+    body: "Saring berdasarkan area, kategori, atau asuransi rekanan. Catat 1–2 pilihan dan nomor teleponnya. Ini shortlist, bukan penunjukan resmi.",
+  },
+  {
+    title: "Lapor klaim",
+    body: "Lapor secepatnya; tenggat mengikuti polis. Langsung ke hotline asuransi, atau minta saya ajukan klaimnya — saya kirim dokumen yang diminta dan proses pengajuannya. Sebutkan bengkel pilihan Anda di tahap ini.",
+  },
+  {
+    title: "Tunggu SPK, lalu ke bengkel",
+    body: "SPK bisa mengunci bengkel pilihan Anda atau menunjuk bengkel lain. Bawa STNK, SIM, polis, foto kerusakan, dan kronologi. Jangan mulai perbaikan sebelum SPK keluar.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Apa itu bengkel rekanan asuransi?",
+    answer:
+      "Bengkel yang bekerja sama dengan perusahaan asuransi untuk perbaikan kendaraan yang diajukan klaim. Perbaikan umumnya mengikuti penunjukan, SPK, dan prosedur dari asuransi.",
+  },
+  {
+    question: "Apakah semua bengkel di daftar ini bekerja sama dengan semua asuransi?",
+    answer:
+      "Tidak. Setiap bengkel mencantumkan asuransi tertentu di data. Status kerja sama juga bisa berubah, jadi konfirmasikan bengkel pilihan Anda ke asuransi sebelum perbaikan.",
+  },
+  {
+    question: "Bagaimana kalau bengkel langganan saya tidak ada di daftar?",
+    answer:
+      "Tanyakan ke asuransi apakah bengkel tersebut bisa ditunjuk. Beberapa polis mengizinkan bengkel non-rekanan dengan ketentuan tertentu, misalnya persetujuan surveyor atau batas biaya.",
+  },
+  {
+    question: "Boleh langsung memperbaiki mobil sebelum menghubungi asuransi?",
+    answer:
+      "Sebaiknya tidak. Lapor lebih dulu — langsung ke asuransi atau minta saya ajukan — lalu tunggu penunjukan atau SPK. Perbaikan yang dimulai tanpa persetujuan berisiko tidak dijamin sesuai polis.",
+  },
+  {
+    question: "Bengkel resmi atau bengkel umum, mana yang lebih baik?",
+    answer:
+      "Bergantung pada usia mobil, jenis klaim, dan ketentuan polis. Bengkel resmi umumnya memakai standar dan suku cadang merek, sedangkan bengkel umum bisa lebih fleksibel. Cek juga biaya sendiri dan ketersediaan suku cadang.",
+  },
+  {
+    question: "Seberapa sering data bengkel diperbarui?",
+    answer: `Terakhir diperbarui ${lastUpdatedLabel}. Namun status rekanan dapat berubah kapan saja. Selalu konfirmasi ke asuransi atau bengkel sebelum datang.`,
+  },
+  {
+    question: "Apakah Aditya bisa membantu proses klaim?",
+    answer:
+      "Bisa. Untuk polis yang dibeli lewat saya, saya kirim daftar dokumen klaimnya dan saya yang ajukan. Keputusan tetap mengikuti pemeriksaan dan ketentuan perusahaan asuransi.",
+  },
+];
+---
+
+<BaseLayout
+  title={`Bengkel Rekanan Asuransi Mobil ${currentArea.label} | Aditya`}
+  description={`Daftar ${total} bengkel rekanan asuransi mobil di ${currentArea.label}. Filter bengkel resmi, umum, merek, dan asuransi rekanannya.`}
+  stickyMessage={directoryMessage}
+  faqs={faqs}
+>
+  <article class="overflow-hidden bg-paper">
+    <ProductHero
+      product="Bengkel Rekanan"
+      eyebrow={`Bengkel rekanan · ${currentArea.label}`}
+      titleLead="Bengkel rekanan asuransi mobil untuk"
+      titleAccent={`${currentArea.label}.`}
+      lead={`${total} bengkel dari data internal, termasuk bengkel resmi dan umum, di ${currentArea.label}. Saring berdasarkan kategori, nama, atau asuransi, lalu konfirmasi statusnya sebelum perbaikan.`}
+      message={directoryMessage}
+      ctaLabel="Tanya bengkel terdekat"
+      secondary={{ href: "#daftar", label: "Lihat direktori bengkel" }}
+      checks={["Filter kategori, asuransi & nama", "Nomor telepon dan peta", "Konfirmasi status ke asuransi"]}
+      summary={{
+        icon: MapPin,
+        eyebrow: "Isi direktori",
+        title: `Bengkel di ${currentArea.label}`,
+        items: [
+          { icon: MapPin, label: `${total} bengkel di ${currentArea.label}` },
+          { icon: MapPin, label: `${currentArea.cities.length} kota / kabupaten` },
+          { icon: Wrench, label: `${countByKategori.Authorized ?? 0} bengkel resmi (ATPM)` },
+        ],
+        note: `Terakhir diperbarui ${lastUpdatedLabel}. Status rekanan bisa berubah.`,
+      }}
+      emergency={{
+        heading: "Keadaan Darurat Hubungi",
+        items: [
+          { href: "/nomor-darurat-zurich", label: "Zurich", number: "1500456" },
+          { href: "/nomor-darurat-aca", label: "ACA", number: "1500737" },
+          { href: "/nomor-darurat-garda-oto", label: "Garda Oto", number: "1500112" },
+        ],
+      }}
+    />
+
+    <nav aria-label="Di halaman ini" class="border-b border-line bg-white px-5 py-3">
+      <div class="type-body-sm mx-auto flex max-w-6xl gap-2 overflow-x-auto font-semibold">
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#pengertian">Apa itu bengkel rekanan</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#daftar">Direktori bengkel</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#cara-klaim">Cara klaim</a>
+        <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#faq">FAQ</a>
+        <a class="ml-auto min-h-11 shrink-0 rounded-full px-3 py-3 font-bold text-ink hover:bg-paper" href={otherArea.slug}>
+          Bengkel {otherArea.label} ({otherTotal})
+        </a>
+      </div>
+    </nav>
+
+    <section aria-label="Ringkasan data bengkel" class="border-b border-line bg-white px-5 py-8 md:py-10">
+      <div class="mx-auto max-w-6xl">
+        <dl class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <div class="rounded-2xl border border-line bg-paper p-4">
+              <dt class="type-fine font-bold tracking-[0.14em] text-muted uppercase">{stat.label}</dt>
+              <dd class="type-feature mt-1">{stat.value}</dd>
+              <p class="type-meta mt-1 text-muted">{stat.note}</p>
+            </div>
+          ))}
+        </dl>
+        <p class="type-fine mt-4 text-muted">
+          Terakhir diperbarui {lastUpdatedLabel}. Jumlah dan status rekanan dapat berubah. Konfirmasikan ke asuransi sebelum memperbaiki kendaraan.
+        </p>
+      </div>
+    </section>
+
+    <section id="pengertian" class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow text-wa-deep">Sebelum memilih bengkel</p>
+          <h2 class="type-section mt-3">Rekanan bukan sekadar daftar alamat.</h2>
+          <p class="type-section-lead mt-4 text-muted">
+            Bengkel rekanan membantu perbaikan klaim berjalan lebih terarah. Tapi status rekanan, cakupan biaya, dan suku cadang tetap mengikuti polis serta persetujuan asuransi.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><Handshake class="h-5 w-5" /></span>
+            <h3 class="type-card-title mt-4">Bekerja sama dengan asuransi</h3>
+            <p class="type-card-body mt-2 text-muted">
+              Bengkel rekanan menerima perbaikan yang diajukan melalui klaim. Tidak semua bengkel punya kerja sama dengan semua perusahaan.
+            </p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><ClipboardCheck class="h-5 w-5" /></span>
+            <h3 class="type-card-title mt-4">Klaim tetap lewat asuransi</h3>
+            <p class="type-card-body mt-2 text-muted">
+              Lapor lebih dulu lewat hotline asuransi, atau minta saya ajukan klaimnya. Ikuti arahan, penunjukan bengkel, dan tunggu SPK sebelum perbaikan dimulai.
+            </p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-wa-soft text-wa-deep"><ShieldCheck class="h-5 w-5" /></span>
+            <h3 class="type-card-title mt-4">Resmi belum tentu rekanan</h3>
+            <p class="type-card-body mt-2 text-muted">
+              Bengkel resmi merek tertentu bisa ada di daftar, tetapi tetap cek apakah asuransi Anda menunjuk bengkel tersebut untuk klaim ini.
+            </p>
+          </article>
+        </div>
+
+        <div class="type-body-sm mt-5 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-wa-deep md:p-5">
+          <Info class="mt-0.5 h-5 w-5 shrink-0" />
+          <p>
+            <strong>Gunakan daftar ini sebagai titik awal.</strong> Sebelum berangkat, telepon bengkel dan konfirmasi ke asuransi: apakah bengkel masih rekanan, apakah suku cadang tersedia, dan berapa biaya sendiri yang berlaku.
+          </p>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-line bg-white p-4 md:p-5">
+          <p class="type-fine font-bold tracking-[0.14em] text-muted uppercase">Asuransi yang tercantum di direktori</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {asuransiSummary.map((item) => (
+              <span class="type-meta inline-flex items-center gap-2 rounded-full border border-line bg-paper px-3 py-1.5 font-semibold text-ink">
+                <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+                {item.label} <span class="text-muted">· {item.count} bengkel</span>
+              </span>
+            ))}
+          </div>
+          <p class="type-fine mt-3 text-muted">
+            Jumlah di atas hanya menghitung bengkel yang mencantumkan nama asuransi tersebut di data direktori, bukan angka resmi jaringan asuransi.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="daftar" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow text-wa-deep">Direktori bengkel</p>
+          <h2 class="type-section mt-3">Cari bengkel di {currentArea.label}.</h2>
+          <p class="type-section-lead mt-4 text-muted">
+            Saring berdasarkan kategori atau merek asuransi, atau ketik nama bengkel, kecamatan, dan merek mobil. Daftar di bawah disusun dari data internal dan perlu dikonfirmasi ulang.
+          </p>
+          <a href={otherArea.slug} class="type-body-sm mt-4 inline-flex min-h-10 items-center gap-2 rounded-full border border-line bg-white px-4 font-bold text-wa-deep transition hover:border-wa-deep hover:text-ink">
+            Lihat {otherTotal} bengkel {otherArea.label}
+            <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+
+        <div class="mt-7 rounded-3xl border border-line bg-paper p-4 md:p-5">
+          <div class="grid gap-3 lg:grid-cols-[1fr_15rem]">
+            <label class="block">
+              <span class="type-fine font-bold tracking-[0.14em] text-muted uppercase">Cari bengkel</span>
+              <span class="relative mt-1.5 block">
+                <Search class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted" />
+                <input
+                  id="bengkel-search"
+                  type="search"
+                  placeholder="Nama bengkel, kecamatan, merek, atau asuransi"
+                  class="type-body-sm min-h-11 w-full rounded-2xl border border-line bg-white py-2.5 pr-3 pl-9 text-ink outline-none placeholder:text-muted/70 focus:border-wa-deep focus:ring-2 focus:ring-wa-deep/20"
+                />
+              </span>
+            </label>
+            <label class="block">
+              <span class="type-fine font-bold tracking-[0.14em] text-muted uppercase">Kategori</span>
+              <select
+                id="bengkel-kategori"
+                class="type-body-sm mt-1.5 min-h-11 w-full rounded-2xl border border-line bg-white px-3 text-ink outline-none focus:border-wa-deep focus:ring-2 focus:ring-wa-deep/20"
+              >
+                <option value="semua">Semua kategori</option>
+                {Object.entries(KATEGORI_LABEL).map(([value, label]) => (
+                  <option value={value}>{label} ({countByKategori[value] ?? 0})</option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <span class="type-fine font-bold tracking-[0.14em] text-muted uppercase">Merek asuransi</span>
+            <div role="group" aria-label="Filter merek asuransi" class="flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                data-asuransi-filter="semua"
+                aria-pressed="true"
+                class={filterPillClass}
+              >
+                Semua merek <span class="font-medium opacity-70">{total}</span>
+              </button>
+              {asuransiSummary.map((item) => (
+                <button
+                  type="button"
+                  data-asuransi-filter={item.name}
+                  aria-pressed="false"
+                  class={filterPillClass}
+                >
+                  {item.label} <span class="font-medium opacity-70">{item.count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3">
+            <p id="bengkel-count" aria-live="polite" class="type-body-sm font-semibold text-muted">
+              Menampilkan {total} bengkel
+            </p>
+            <button
+              type="button"
+              id="bengkel-reset"
+              hidden
+              class="type-meta inline-flex min-h-9 items-center rounded-full border border-line bg-white px-3 font-bold text-wa-deep transition hover:border-wa-deep hover:bg-wa-soft"
+            >
+              Reset filter
+            </button>
+          </div>
+        </div>
+
+        <div id="bengkel-list" class="mt-8 grid gap-10">
+          {cityGroups.map((group) => (
+            <section data-bengkel-group>
+              <div class="flex flex-wrap items-end justify-between gap-2 border-b border-line pb-3">
+                <div>
+                  <h3 class="type-subsection">{group.city}</h3>
+                  <p class="type-meta mt-1 text-muted">
+                    {currentArea.label} · {group.items.length} bengkel
+                  </p>
+                </div>
+                <p class="type-fine font-semibold text-muted">Konfirmasi status rekanan sebelum perbaikan</p>
+              </div>
+
+              <div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {group.items.map((b) => (
+                  <article
+                    data-bengkel-card
+                    data-kategori={b.kategori}
+                    data-asuransi={b.rekanan_asuransi.join("|")}
+                    data-search={searchText(b)}
+                    class="flex h-full flex-col rounded-2xl border border-line bg-white p-4 md:p-5"
+                  >
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="min-w-0">
+                        <h4 class="type-card-title">{b.nama_bengkel}</h4>
+                        <p class="type-meta mt-1.5 flex items-start gap-1.5 text-muted">
+                          <MapPin class="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                          <span>{b.area_kecamatan}, {b.wilayah}</span>
+                        </p>
+                      </div>
+                      <span class:list={["type-fine shrink-0 rounded-full px-2.5 py-1 font-bold", kategoriBadge[b.kategori] ?? "bg-paper text-muted ring-1 ring-line"]}>
+                        {KATEGORI_LABEL[b.kategori] ?? b.kategori}
+                      </span>
+                    </div>
+
+                    <p class="type-body-sm mt-3 text-muted">{b.alamat}</p>
+
+                    {b.merk_khusus.length > 0 && (
+                      <p class="type-meta mt-2 text-muted">
+                        <span class="font-bold text-ink">Merek:</span> {merkLabel(b)}
+                      </p>
+                    )}
+                    {b.catatan_khusus && (
+                      <p class="type-meta mt-1 text-muted">{b.catatan_khusus}</p>
+                    )}
+
+                    <div class="mt-3">
+                      <p class="type-fine font-bold tracking-[0.12em] text-muted uppercase">Rekanan asuransi</p>
+                      <div class="mt-1.5 flex flex-wrap gap-1.5">
+                        {b.rekanan_asuransi.map((name) => (
+                          <span class="type-fine inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 font-semibold text-ink">
+                            <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+                            {ASURANSI_LABEL[name] ?? name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-3">
+                      {b.telepon.map((phone) => (
+                        <a href={telHref(phone)} class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink">
+                          <Phone class="h-3.5 w-3.5 shrink-0" /> {phone}
+                        </a>
+                      ))}
+                      {b.whatsapp && (
+                        <a
+                          href={waHref(b.whatsapp)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
+                        >
+                          <WhatsAppIcon class="h-3.5 w-3.5 shrink-0" /> WhatsApp
+                        </a>
+                      )}
+                      <a
+                        href={b.google_maps_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
+                      >
+                        <MapPin class="h-3.5 w-3.5 shrink-0" /> Peta
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <div id="bengkel-empty" hidden class="mt-8 rounded-3xl border border-dashed border-line bg-paper p-8 text-center">
+          <p class="type-panel-title">Bengkel tidak ditemukan.</p>
+          <p class="type-body-sm mx-auto mt-2 max-w-md text-muted">
+            Coba kata kunci lain atau reset filter. Kalau bengkel yang Anda cari belum ada, tanyakan langsung ke Aditya.
+          </p>
+          <WaButton message={checkMessage} size="md" class="mt-4">Tanya bengkel via WA</WaButton>
+        </div>
+
+        <p class="type-fine mt-6 text-muted">
+          Daftar ini bukan penunjukan resmi bengkel oleh asuransi. Keputusan perbaikan, penunjukan bengkel, dan persetujuan klaim tetap mengikuti ketentuan perusahaan asuransi serta polis yang berlaku.
+        </p>
+      </div>
+    </section>
+
+    <section id="cara-klaim" class="px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow text-wa-deep">Cara klaim di bengkel rekanan</p>
+          <h2 class="type-section mt-3">Tiga langkah sebelum mobil diperbaiki.</h2>
+          <p class="type-section-lead mt-4 text-muted">
+            Urutan ini membantu Anda menghindari perbaikan yang tidak disetujui asuransi.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-3 md:grid-cols-3">
+          {steps.map((step, index) => (
+            <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white">0{index + 1}</span>
+              <h3 class="type-card-title mt-4">{step.title}</h3>
+              <p class="type-card-body mt-2 text-muted">{step.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-line bg-white p-4 md:flex md:items-center md:justify-between md:gap-6 md:p-5">
+          <div>
+            <p class="text-[1rem] font-bold">Sudah tahu bengkelnya, tapi belum yakin soal klaim?</p>
+            <p class="type-card-body mt-1 text-muted">
+              Kirim nama bengkel dan asuransi Anda. Saya bantu cek langkah awalnya, atau sekalian saya ajukan klaimnya.
+            </p>
+          </div>
+          <WaButton message={claimMessage} size="md" class="mt-3.5 w-full shrink-0 md:mt-0 md:w-auto">
+            Tanya proses klaim
+          </WaButton>
+        </div>
+
+        <div class="type-body-sm mt-4 flex gap-3 rounded-2xl border border-wa-deep/15 bg-wa-soft p-4 text-wa-deep md:p-5">
+          <ShieldCheck class="mt-0.5 h-5 w-5 shrink-0" />
+          <p>
+            <strong>Simpan bukti sebelum kendaraan diperbaiki.</strong> Foto kondisi mobil, catat kronologi, dan simpan komunikasi dengan asuransi. Dokumen ini membantu proses klaim bila ada pertanyaan.
+          </p>
+        </div>
+
+        <a href="/asuransi-mobil" class="type-body-sm mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-wa-deep transition hover:text-ink">
+          Belum punya asuransi mobil? Lihat panduan All Risk &amp; TLO <ArrowRight class="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+
+    <About message={directoryMessage} />
+
+    <FaqSection
+      faqs={faqs}
+      title="FAQ bengkel rekanan asuransi"
+      description="Jawaban umum soal status rekanan, penunjukan bengkel, dan klaim. Status dan prosedur akhir tetap mengikuti asuransi serta polis Anda."
+      cta={{ message: checkMessage, label: "Tanya bengkel via WhatsApp" }}
+    />
+  </article>
+
+  <FinalCta
+    title="Butuh bengkel rekanan yang cocok dengan polis Anda?"
+    message={directoryMessage}
+    ctaLabel="Tanya bengkel via WA"
+  />
+</BaseLayout>
+
+<script>
+  const search = document.getElementById("bengkel-search") as HTMLInputElement | null;
+  const kategori = document.getElementById("bengkel-kategori") as HTMLSelectElement | null;
+  const count = document.getElementById("bengkel-count");
+  const empty = document.getElementById("bengkel-empty");
+  const reset = document.getElementById("bengkel-reset") as HTMLButtonElement | null;
+  const asuransiButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-asuransi-filter]"));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-bengkel-card]"));
+  const groups = Array.from(document.querySelectorAll<HTMLElement>("[data-bengkel-group]"));
+  let asuransi = "semua";
+
+  function applyFilters() {
+    const query = (search?.value ?? "").trim().toLowerCase();
+    const kategoriValue = kategori?.value ?? "semua";
+    let visible = 0;
+
+    for (const card of cards) {
+      const matchesKategori = kategoriValue === "semua" || card.dataset.kategori === kategoriValue;
+      const matchesAsuransi =
+        asuransi === "semua" || (card.dataset.asuransi ?? "").split("|").includes(asuransi);
+      const matchesQuery = !query || (card.dataset.search ?? "").includes(query);
+      const show = matchesKategori && matchesAsuransi && matchesQuery;
+
+      card.hidden = !show;
+      if (show) visible++;
+    }
+
+    for (const group of groups) {
+      group.hidden = !group.querySelector("[data-bengkel-card]:not([hidden])");
+    }
+
+    if (count) {
+      count.textContent = `Menampilkan ${visible} dari ${cards.length} bengkel`;
+    }
+    if (empty) {
+      empty.hidden = visible !== 0;
+    }
+    if (reset) {
+      reset.hidden = asuransi === "semua" && !query && kategoriValue === "semua";
+    }
+  }
+
+  asuransiButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      asuransi = button.dataset.asuransiFilter ?? "semua";
+      asuransiButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      applyFilters();
+    });
+  });
+
+  search?.addEventListener("input", applyFilters);
+  kategori?.addEventListener("change", applyFilters);
+
+  reset?.addEventListener("click", () => {
+    if (search) search.value = "";
+    if (kategori) kategori.value = "semua";
+    asuransi = "semua";
+    asuransiButtons.forEach((item) => item.setAttribute("aria-pressed", String(item.dataset.asuransiFilter === "semua")));
+    applyFilters();
+    search?.focus();
+  });
+
+  applyFilters();
+</script>

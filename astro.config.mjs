@@ -6,7 +6,7 @@ export default defineConfig({
   output: 'static',
   site: 'https://asuransiserpong.com',
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/archive/') })],
   vite: {
     plugins: [tailwindcss()],
   },

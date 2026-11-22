@@ -27,6 +27,7 @@ interface Props {
   schemaType?: "home" | "page" | "article";
   article?: ArticleSchema;
   faqs?: readonly FAQ[];
+  noindex?: boolean;
 }
 
 const {
@@ -38,6 +39,7 @@ const {
   schemaType = "page",
   article,
   faqs,
+  noindex = false,
 } = Astro.props;
 const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 ---
@@ -61,7 +63,7 @@ const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href :
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {canonicalUrl && <meta name="twitter:url" content={canonicalUrl} />}
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow"} />
     {canonicalUrl && <Schema type={schemaType} url={canonicalUrl} title={title} description={description} article={article} faqs={faqs} />}
     <script is:inline>
       window.dataLayer = window.dataLayer || [];

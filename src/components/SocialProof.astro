@@ -2,7 +2,17 @@
 import { SOCIAL_PROOF } from "../data/config";
 import { Star } from "lucide-astro";
 
-const { count, countLabel, testimonial } = SOCIAL_PROOF;
+interface Props {
+  count?: string;
+  countLabel?: string;
+  testimonial?: { quote: string; name: string; detail: string };
+}
+
+const {
+  count = SOCIAL_PROOF.count,
+  countLabel = SOCIAL_PROOF.countLabel,
+  testimonial = SOCIAL_PROOF.testimonial,
+} = Astro.props as Props;
 ---
 
 <section aria-label="Bukti sosial" class="bg-paper px-5 pb-14 md:pb-20">
@@ -15,14 +25,14 @@ const { count, countLabel, testimonial } = SOCIAL_PROOF;
         <img src="/avatar-4.jpg" alt="" width="48" height="48" class="relative h-12 w-12 rounded-full border-2 border-white object-cover" />
       </div>
       <p class="min-w-0 leading-snug">
-        <span class="block font-display text-[1.75rem] leading-none font-extrabold tracking-[-0.03em] text-ink tabular-nums">{count}</span>
-        <span class="mt-1.5 block text-[0.875rem] leading-[1.35] font-medium text-muted">{countLabel}</span>
+        <span class="type-subsection block leading-none text-ink tabular-nums">{count}</span>
+        <span class="type-body-sm mt-1.5 block font-medium text-muted">{countLabel}</span>
       </p>
     </div>
     <figure class="border-t border-line bg-wa-soft/55 p-5 md:w-1/2 md:border-t-0 md:border-l md:p-6">
       <div class="flex gap-0.5 text-amber-500" aria-label="5 dari 5 bintang">{Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-current" />)}</div>
-      <blockquote class="mt-2.5 text-[0.9375rem] leading-[1.5] font-semibold tracking-[-0.01em] text-ink">&ldquo;{testimonial.quote}&rdquo;</blockquote>
-      <figcaption class="mt-2 text-[0.8125rem] font-medium text-muted"><span class="font-bold text-ink">{testimonial.name}</span> · {testimonial.detail}</figcaption>
+      <blockquote class="type-card-body mt-2.5 font-semibold text-ink">&ldquo;{testimonial.quote}&rdquo;</blockquote>
+      <figcaption class="type-meta mt-2 font-medium text-muted"><span class="font-bold text-ink">{testimonial.name}</span> · {testimonial.detail}</figcaption>
     </figure>
   </div>
 </section>

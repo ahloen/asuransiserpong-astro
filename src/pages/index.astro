@@ -1,32 +1,681 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import ChatSample from "../components/ChatSample.astro";
-import SocialProof from "../components/SocialProof.astro";
-import Risks from "../components/Risks.astro";
-import Options from "../components/Options.astro";
-import HowItWorks from "../components/HowItWorks.astro";
 import About from "../components/About.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
+import ChatSample from "../components/ChatSample.astro";
 import Faq from "../components/Faq.astro";
 import FinalCta from "../components/FinalCta.astro";
-import BlogTeaser from "../components/BlogTeaser.astro";
-import { homeFaqs } from "../data/home-faqs";
+import SocialProof from "../components/SocialProof.astro";
+import WaButton from "../components/WaButton.astro";
+import { waLink } from "../data/config";
+import {
+  AlertTriangle,
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  Calculator,
+  Camera,
+  CarFront,
+  Check,
+  Droplets,
+  FileText,
+  House,
+  MessageCircle,
+  Plane,
+  ShieldCheck,
+  Wrench,
+} from "lucide-astro";
+
+const heroMessage =
+  "Halo Aditya, mobil saya saat ini belum ada asuransi. Boleh bantu hitung estimasi preminya? Tipe & tahun mobil saya: ";
+const tableMessage =
+  "Halo Aditya, saya lihat tabel simulasi di website. Boleh minta hitungan premi TLO dan All Risk untuk mobil saya? Tipe & tahun: ";
+const quoteMessage =
+  "Halo Aditya, saya ingin minta penawaran asuransi mobil. Data mobil dan wilayah pelat bisa saya kirim setelah ini";
+const policyMessage =
+  "Halo Aditya, saya sudah punya polis dan mau cek klausul banjir sebelum perpanjang. Foto polisnya saya kirim di sini.";
+const dealerMessage =
+  "Halo Aditya, saya sudah punya tawaran dari dealer, bank, atau polis lama. Bisa bantu cek?";
+const closingMessage =
+  "Halo Aditya, saya ingin minta estimasi premi asuransi mobil. Tipe & tahun mobil saya: ";
+const serviceMessage =
+  "Halo Aditya, saya mau tanya soal asuransi mobil. Tipe & tahun mobil saya: ";
+const missedMessage =
+  "Halo Aditya, saya mau minta bantu hitungkan atau cek polis lama saya.";
+const profileMessage = "Halo Aditya, saya mau tanya-tanya dulu soal asuransi mobil.";
+
+const priceRows = [
+  {
+    price: "Rp120 – 160 Juta",
+    examples: "Brio, Avanza, Xenia, Ertiga (2015–2018)",
+    tlo: "± Rp800 rb – Rp1 Juta / thn",
+    tloDaily: "setara ~Rp2.500/hari",
+    allRisk: "± Rp3,9 – Rp4,3 Juta / thn",
+    allRiskDaily: "setara ~Rp12.000/hari",
+  },
+  {
+    price: "Rp170 – 250 Juta",
+    examples: "Xpander, HR-V, Innova Reborn, Raize (2018–2022)",
+    tlo: "± Rp800 rb – Rp1,1 Juta / thn",
+    tloDaily: "setara ~Rp3.000/hari",
+    allRisk: "± Rp4,5 – Rp5,6 Juta / thn",
+    allRiskDaily: "setara ~Rp15.000/hari",
+  },
+  {
+    price: "Rp260 – 400 Juta",
+    examples: "Innova Zenix, Fortuner, Pajero, CR-V, Creta",
+    tlo: "± Rp1,1 – Rp1,6 Juta / thn",
+    tloDaily: "setara ~Rp4.500/hari",
+    allRisk: "± Rp5,6 – Rp9,9 Juta / thn",
+    allRiskDaily: "setara ~Rp27.000/hari",
+  },
+];
+
+const mobilChecks = [
+  {
+    icon: ShieldCheck,
+    title: "All Risk atau TLO",
+    text: "Mana yang paling pas untuk usia dan pemakaian mobil Anda.",
+  },
+  {
+    icon: Calculator,
+    title: "Estimasi premi mobil lunas",
+    text: "Hitungan cepat untuk mobil yang sedang tanpa asuransi.",
+  },
+  {
+    icon: Droplets,
+    title: "Perluasan banjir & pihak ketiga",
+    text: "Perlindungan ekstra untuk jalanan Jabodetabek.",
+  },
+  {
+    icon: Wrench,
+    title: "Di mana bengkel terdekat",
+    text: "Cek jaringan bengkel rekanan di area BSD & Serpong.",
+  },
+];
+
+const layananLain = [
+  {
+    icon: House,
+    title: "Asuransi Properti",
+    text: "Pahami perlindungan bangunan, isi rumah, dan pilihan perluasan untuk rumah KPR lunas.",
+    href: "/asuransi-properti",
+  },
+  {
+    icon: Plane,
+    title: "Asuransi Perjalanan",
+    text: "Bandingkan manfaat untuk perjalanan domestik dan internasional.",
+    href: "/asuransi-travel",
+  },
+  {
+    icon: Building2,
+    title: "Asuransi Bisnis",
+    text: "Konsultasi perlindungan untuk aset, karyawan, dan operasional usaha.",
+    href: "/asuransi-bisnis",
+  },
+];
+
+const steps = [
+  {
+    icon: MessageCircle,
+    title: "Chat saya.",
+    body: "Sebutkan tipe & tahun mobil. Untuk hitungan awal, KTP/STNK belum perlu.",
+  },
+  {
+    icon: FileText,
+    title: "Baca penawarannya.",
+    body: "Saya kirimkan penawaran resmi lengkap dengan rincian manfaat, dan bengkel rekanan. Lanjut atau tidak, Anda yang putuskan.",
+  },
+  {
+    icon: Camera,
+    title: "Cocok? Saya pandu prosesnya.",
+    body: "Saya kirimkan panduan foto kondisi mobil dari garasi rumah Anda. Bayarnya nanti setelah pengajuan disetujui.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Apakah tanya-tanya dan minta hitungan premi ini benar-benar gratis?",
+    answer:
+      "Beneran gratis. Simulasi premi, cek polis lama, dan penjelasannya tidak dipungut biaya apa pun.",
+  },
+  {
+    question:
+      "Mobil saya sudah lunas dan lama tidak diasuransikan, apakah perlu survei fisik?",
+    answer:
+      "Iya. Karena statusnya sedang tidak diasuransikan, perusahaan asuransi wajib memastikan kondisi mobil sehat sebelum polis aktif. Tapi Anda tidak perlu repot ke kantor cabang. Cukup ikuti panduan foto dan video keliling mobil dari garasi rumah Anda.",
+  },
+  {
+    question: "Apa bedanya All Risk dan TLO?",
+    answer:
+      "All Risk menjamin kerusakan sebagian (lecet, penyok, tabrakan) maupun kehilangan/kerusakan total. TLO (Total Loss Only) hanya berlaku kalau mobil hilang dicuri atau kerusakannya sangat parah (biaya perbaikan ≥75% harga mobil). Premi TLO jauh lebih murah, cocok untuk menjaga aset utama mobil lunas.",
+  },
+  {
+    question: "Apakah polis otomatis menjamin banjir dan menabrak mobil orang lain?",
+    answer:
+      "Belum tentu. Banjir dan Tanggung Jawab Hukum Pihak Ketiga (TJH) biasanya berupa perluasan yang ditambahkan ke polis dasar. Saat memberi penawaran, saya selalu cantumkan opsi ini secara terpisah agar Anda bisa memilih sesuai kebutuhan.",
+  },
+  {
+    question: "Apa itu biaya sendiri (risiko sendiri)?",
+    answer:
+      "Bagian yang Anda tanggung setiap kali klaim (misalnya Rp300 rb per kejadian untuk kerusakan sebagian). Besarnya berbeda tiap polis dan selalu saya jelaskan di depan sebelum Anda memutuskan membeli.",
+  },
+  {
+    question: "Sudah dapat tawaran dari dealer, bank, atau agen lain, apa perlu dicek juga?",
+    answer:
+      "Perlu, dan gratis. Kirim saja tawarannya ke saya. Saya bantu bandingkan manfaat, dan bengkel rekanannya. Kalau memang sudah baik, saya bilang baik.",
+  },
+  {
+    question: "Dokumen apa saja yang perlu disiapkan kalau mau tanya dulu?",
+    answer:
+      "Untuk hitung premi awal, KTP dan STNK belum perlu. Cukup sebutkan merk, tipe, tahun pembuatan, dan wilayah pelat mobil Anda.",
+  },
+  {
+    question: "Kapan jam operasionalnya?",
+    answer:
+      "Jam kerja: Senin–Jumat 9–18, Sabtu 9–14. Chat di luar jam itu tetap boleh, saya balas pada jam kerja berikutnya.",
+  },
+  {
+    question: "Bagaimana kalau suatu saat saya perlu klaim?",
+    answer:
+      "Utamakan keselamatan Anda, lalu hubungi nomor darurat 24 jam perusahaan asuransi di polis. Setelah situasi aman, hubungi saya lewat WA—saya dampingi penyiapan formulir, pengajuan klaim, hingga koordinasi dengan bengkel rekanan di Serpong.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Cek Polis Mobil Gratis di BSD & Gading Serpong | Aditya"
-  description="Polis mobil mau habis? Kirim foto halaman depan polis, saya cek banjir, biaya sendiri, dan bengkelnya. Gratis. BSD, Gading Serpong, Alam Sutera."
-  schemaType="home"
-  faqs={homeFaqs}
+  title="Mobil Tanpa Asuransi? Cek Estimasi Premi | Aditya"
+  description="Mobil sudah lunas tapi belum diasuransikan? Lihat kisaran premi TLO dan All Risk pelat B, lalu minta hitungan untuk tipe & tahun mobil Anda."
+  stickyMessage={heroMessage}
+  faqs={faqs}
 >
-  <Hero />
-  <ChatSample />
-  <SocialProof />
-  <Risks />
-  <Options />
-  <HowItWorks />
-  <About />
-  <Faq />
-  <FinalCta title="Sebelum puncak hujan Desember sampai Februari, pastikan banjir sudah masuk polis Anda." />
-  <BlogTeaser />
+  <article class="overflow-hidden bg-paper">
+    <!-- 1. Hero -->
+    <section
+      id="hero"
+      class="relative isolate overflow-hidden bg-ink px-5 pt-8 pb-10 text-white md:pt-10 md:pb-16"
+    >
+      <div aria-hidden="true" class="rain pointer-events-none -z-10 opacity-40"></div>
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-28 -right-24 -z-10 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"
+      ></div>
+      <div class="mx-auto max-w-6xl">
+        <div
+          class="grid items-center gap-9 pb-8 md:grid-cols-[1.1fr_0.9fr] md:gap-14 md:pb-12"
+        >
+          <div class="min-w-0">
+            <p
+              class="type-eyebrow inline-flex max-w-full items-center gap-2 text-sky-300/95"
+            >
+              <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-sky-300" aria-hidden="true"></span>
+              <span class="min-w-0">Asuransi mobil &amp; rumah · BSD · Gading Serpong · Alam Sutera</span>
+            </p>
+
+            <h1
+              class="type-hero mt-4 max-w-3xl"
+            >
+              Mobil tanpa asuransi?{" "}
+              <span class="hero-accent text-sky-300">Cek dulu estimasi preminya.</span>
+            </h1>
+
+            <p class="type-lead mt-5 max-w-[58ch] text-white/75">
+              Anda bisa menyetir hati-hati, tapi risiko tertabrak pengendara lain
+              selalu ada. Melindungi mobil Anda cukup mulai dari Rp800ribuan
+              per tahun.
+            </p>
+
+            <div class="mt-7">
+              <WaButton message={heroMessage} class="w-full sm:w-auto md:px-8">
+                Hitung Estimasi Premi Mobil Saya
+              </WaButton>
+            </div>
+            <p class="type-meta mt-2.5 font-medium text-white/65">
+              Dibalas langsung oleh Aditya, maks. 1–2 jam kerja (Senin–Sabtu).
+            </p>
+
+            <div class="mt-5 flex items-start gap-3.5">
+              <img
+                src="/avatar-aditya.jpg"
+                alt="Potret Aditya, mitra pemasar asuransi di Serpong"
+                width="48"
+                height="48"
+                class="h-12 w-12 shrink-0 rounded-full object-cover object-[50%_20%] ring-2 ring-wa"
+              />
+              <ul class="type-meta grid gap-y-2 font-medium text-white/85">
+                <li class="flex items-start gap-1.5">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-wa" stroke-width={2.75} />
+                  <span>Konsultasi &amp; hitung premi gratis</span>
+                </li>
+                <li class="flex items-start gap-1.5">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-wa" stroke-width={2.75} />
+                  <span>KTP/STNK belum perlu di awal</span>
+                </li>
+                <li class="flex items-start gap-1.5">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-wa" stroke-width={2.75} />
+                  <a
+                    href={waLink(policyMessage)}
+                    data-wa-message={policyMessage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline decoration-white/35 underline-offset-4 transition hover:text-white hover:decoration-wa"
+                  >
+                    Sudah punya polis? Kirim foto polisnya{" "}
+                    <span class="whitespace-nowrap">
+                      di sini <ArrowRight class="inline h-3.5 w-3.5" />
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <aside
+            class="rounded-[2rem] border border-white/15 bg-white/[0.07] p-5 shadow-2xl shadow-black/20 backdrop-blur-sm md:p-7"
+            aria-label="Simulasi cepat premi mobil pelat B"
+          >
+            <div class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-wa text-wa-ink">
+                <Calculator class="h-6 w-6" />
+              </span>
+              <div>
+                <p class="type-eyebrow text-white/70">Simulasi cepat</p>
+                <h2 class="type-panel-title mt-1">Pelat B</h2>
+              </div>
+            </div>
+
+            <div class="mt-5 grid gap-2.5">
+              <div class="rounded-2xl bg-white/[0.06] p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="type-eyebrow text-sky-300">TLO</p>
+                    <p class="type-body-sm mt-1 font-semibold text-white/80">Hilang / Rusak Total</p>
+                  </div>
+                  <ShieldCheck class="h-5 w-5 shrink-0 text-wa" />
+                </div>
+                <p class="type-panel-title mt-3">
+                  Mulai ± Rp750 rb – Rp1,6 jt
+                  <span class="type-meta font-medium text-white/60"> / thn</span>
+                </p>
+              </div>
+
+              <div class="rounded-2xl bg-white/[0.06] p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="type-eyebrow text-sky-300">All Risk</p>
+                    <p class="type-body-sm mt-1 font-semibold text-white/80">Lecet &amp; Tabrakan</p>
+                  </div>
+                  <CarFront class="h-5 w-5 shrink-0 text-wa" />
+                </div>
+                <p class="type-panel-title mt-3">
+                  Mulai ± Rp3,6 – Rp6,8 jt
+                  <span class="type-meta font-medium text-white/60"> / thn</span>
+                </p>
+              </div>
+            </div>
+
+            <p class="type-body-sm mt-4 rounded-xl bg-white/[0.06] p-3 font-semibold text-white/85">
+              Cukup sebutkan tipe &amp; tahun mobil untuk hitungan pastinya.
+            </p>
+            <p class="type-fine mt-2 text-white/55">
+              Estimasi awal, bukan penawaran final. Wilayah pelat B.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Simulasi kisaran harga -->
+    <section id="simulasi" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow text-wa-deep">
+            Polis terjangkau
+          </p>
+          <h2
+            class="type-section mt-3"
+          >
+            Tidak semahal yang dikira:
+            <br />
+            Asuransi mobil ternyata terjangkau.
+          </h2>
+          <p class="type-section-lead mt-4 text-muted">
+            Banyak pemilik mobil menunda beli asuransi karena terbayang biaya jutaan rupiah seperti saat
+            kredit dulu. Padahal, setelah lunas Anda bebas memilih perlindungan sesuai kebutuhan. Mulai dari paket TLO yang sangat ringan hingga All Risk penuh.
+          </p>
+        </div>
+
+        <div class="mt-8 overflow-hidden rounded-3xl border border-line bg-paper">
+          <div class="hidden md:block">
+            <table class="type-table w-full border-collapse text-left">
+              <caption class="sr-only">
+                Kisaran premi asuransi mobil untuk wilayah pelat B
+              </caption>
+              <thead class="bg-ink text-white">
+                <tr>
+                  <th scope="col" class="px-5 py-4 font-bold">Kisaran harga pasar mobil</th>
+                  <th scope="col" class="px-5 py-4 font-bold">Contoh tipe mobil</th>
+                  <th scope="col" class="px-5 py-4 font-bold">Estimasi TLO<br /><span class="type-fine font-medium text-white/65">Hilang / rusak parah ≥75%</span></th>
+                  <th scope="col" class="px-5 py-4 font-bold">Estimasi All Risk<br /><span class="type-fine font-medium text-white/65">Lecet, penyok, tabrakan</span></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-line">
+                {priceRows.map((row) => (
+                  <tr class="align-top">
+                    <th scope="row" class="px-5 py-5 font-display text-[1rem] leading-snug font-bold text-ink">
+                      {row.price}
+                    </th>
+                    <td class="px-5 py-5 text-muted">{row.examples}</td>
+                    <td class="px-5 py-5">
+                      <span class="block font-semibold text-ink">{row.tlo}</span>
+                      <span class="type-fine mt-1 block text-muted">{row.tloDaily}</span>
+                    </td>
+                    <td class="px-5 py-5">
+                      <span class="block font-semibold text-ink">{row.allRisk}</span>
+                      <span class="type-fine mt-1 block text-muted">{row.allRiskDaily}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid gap-3 p-3 md:hidden">
+            {priceRows.map((row) => (
+              <article class="rounded-2xl border border-line bg-white p-4">
+                <p class="type-card-title text-ink">{row.price}</p>
+                <p class="type-meta mt-1 text-muted">{row.examples}</p>
+                <dl class="mt-4 grid gap-2.5">
+                  <div class="rounded-xl bg-paper p-3">
+                    <dt class="type-eyebrow text-wa-deep">
+                      TLO · Hilang / rusak parah ≥75%
+                    </dt>
+                    <dd class="type-card-body mt-1.5 font-semibold text-ink">{row.tlo}</dd>
+                    <dd class="type-fine text-muted">{row.tloDaily}</dd>
+                  </div>
+                  <div class="rounded-xl bg-paper p-3">
+                    <dt class="type-eyebrow text-wa-deep">
+                      All Risk · Lecet, penyok, tabrakan
+                    </dt>
+                    <dd class="type-card-body mt-1.5 font-semibold text-ink">{row.allRisk}</dd>
+                    <dd class="type-fine text-muted">{row.allRiskDaily}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="type-body-sm mt-4 flex gap-3 rounded-2xl border border-amber-300/60 bg-[#fff8e8] p-4 text-[#6b4d16] md:p-5">
+          <AlertTriangle class="mt-0.5 h-5 w-5 shrink-0" />
+          <p>
+            <strong class="font-bold">Angka di atas adalah estimasi awal</strong> untuk pelat B. Premi final mengikuti
+            harga kendaraan, tahun, dan pilihan yang Anda ambil.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-6">
+            <span class="type-eyebrow inline-flex items-center gap-2 text-[#8a5a19]">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#c98a2e]" aria-hidden="true"></span>
+              Kapan cukup ambil TLO?
+            </span>
+            <p class="type-section-lead mt-3 text-muted">
+              Cocok jika usia mobil di atas 5 tahun atau Anda hanya ingin menjaga aset utama dari risiko
+              pencurian dan kecelakaan fatal (biaya perbaikan ≥75% nilai mobil). Usia Mobil maksimal 20 tahun.
+            </p>
+          </article>
+          <article class="rounded-3xl border border-line bg-wa-soft/60 p-5 md:p-6">
+            <span class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
+              <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+              Kapan sebaiknya ambil All Risk?
+            </span>
+            <p class="type-section-lead mt-3 text-muted">
+              Cocok jika mobil dipakai harian di rute padat Serpong–Jakarta dan Anda tidak mau keluar uang
+              jutaan setiap kali bodi terserempet, penyok, atau tertabrak. Usia Mobil maksimal 10 tahun.
+            </p>
+          </article>
+        </div>
+
+        <div class="mt-6 rounded-3xl bg-ink p-6 text-white md:flex md:items-center md:justify-between md:gap-8 md:p-8">
+          <p class="type-lead max-w-xl font-semibold">
+            Mau tahu angka pasti untuk mobil Anda?
+          </p>
+          <WaButton message={tableMessage} class="mt-4 w-full shrink-0 md:mt-0 md:w-auto md:px-8">
+            <span class="sm:hidden">Minta Hitungan via WA</span>
+            <span class="hidden sm:inline">Minta Hitungan Mobil Saya via WA</span>
+          </WaButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Contoh balasan WA -->
+    <ChatSample message={quoteMessage} dealerMessage={dealerMessage} variant="tanpa-asuransi" />
+
+    <!-- 4. Bukti sosial & yang sering terlewat -->
+    <SocialProof
+      count="140+"
+      countLabel="pemilik mobil di Serpong sudah dibantu hitung & cek polisnya"
+      testimonial={{
+        quote:
+          "Kredit mobil sudah lunas 2 tahun dan sempat jalan tanpa asuransi. Ternyata ambil TLO biayanya ringan banget, proses foto unitnya juga dipandu dari rumah.",
+        name: "Pak Hendra",
+        detail: "Innova · Gading Serpong",
+      }}
+    />
+
+    <section class="bg-paper px-5 pb-14 md:pb-20">
+      <div class="mx-auto max-w-5xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
+            <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+            Yang sering terlewat
+          </p>
+          <h2
+            class="type-section mt-2.5"
+          >
+            Sebelum membeli atau memperpanjang, perhatikan 3 hal ini.
+          </h2>
+        </div>
+
+        <div class="mt-7 grid gap-3 md:grid-cols-3">
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span
+              class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white tabular-nums"
+            >
+              01
+            </span>
+            <h3 class="type-card-title mt-4">
+              Kredit 4 tahun, All Risk belum tentu 4 tahun.
+            </h3>
+            <p class="type-card-body mt-2 text-muted">
+              Banyak paket kredit hanya memberi All Risk di tahun pertama, sisanya TLO. Dan saat kredit lunas,
+              perlindungan langsung berhenti total jika tidak diperpanjang mandiri.
+            </p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span
+              class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white tabular-nums"
+            >
+              02
+            </span>
+            <h3 class="type-card-title mt-4">
+              All Risk belum tentu termasuk banjir.
+            </h3>
+            <p class="type-card-body mt-2 text-muted">
+              Banjir dan tanggung jawab hukum pihak ketiga (jika Anda tidak sengaja menabrak mobil orang lain)
+              biasanya opsi perluasan yang dipilih saat pengajuan.
+            </p>
+          </article>
+          <article class="rounded-3xl border border-line bg-white p-5 md:p-6">
+            <span
+              class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-[0.875rem] font-extrabold text-white tabular-nums"
+            >
+              03
+            </span>
+            <h3 class="type-card-title mt-4">
+              Bengkel rekanan beda di tiap asuransi.
+            </h3>
+            <p class="type-card-body mt-2 text-muted">
+              Bengkel langganan Anda di area Serpong belum tentu masuk daftar. Cek daftarnya:
+              <a
+                href="/bengkel-rekanan-asuransi-mobil#daftar"
+                class="font-semibold text-wa-deep underline underline-offset-2 hover:decoration-wa-deep"
+              >
+                Bengkel rekanan Tangerang Raya
+              </a>.
+            </p>
+          </article>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-line bg-white p-4 md:flex md:items-center md:justify-between md:gap-6 md:p-5">
+          <div>
+            <p class="text-[1rem] font-bold">
+              Mau saya bantu hitungkan atau cek polis lama Anda?
+            </p>
+          </div>
+          <WaButton message={missedMessage} size="md" class="mt-3.5 w-full shrink-0 md:mt-0 md:w-auto">
+            Tanya Aditya via WA
+          </WaButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Layanan -->
+    <section id="layanan" class="border-y border-line bg-white px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <p class="type-eyebrow text-wa-deep">Mulai dari sini</p>
+          <h2
+            class="type-section mt-3"
+          >
+            Pilih yang mau dicek
+          </h2>
+        </div>
+
+        <div class="mt-8 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+          <article class="rounded-3xl border border-line bg-paper p-5 md:p-7">
+            <div class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-ink text-wa">
+                <CarFront class="h-6 w-6" />
+              </span>
+              <div>
+                <p class="type-eyebrow text-wa-deep">
+                  Mobil · paling sering ditanya
+                </p>
+                <h3 class="type-panel-title mt-0.5">
+                  Asuransi mobil
+                </h3>
+              </div>
+            </div>
+
+            <ul class="mt-5 grid gap-2.5">
+              {mobilChecks.map(({ icon: Icon, title, text }) => (
+                <li class="flex items-start gap-3 rounded-2xl bg-white p-3.5">
+                  <Icon class="mt-0.5 h-5 w-5 shrink-0 text-wa-deep" />
+                  <div>
+                    <p class="type-body-sm font-bold text-ink">{title}</p>
+                    <p class="type-meta mt-0.5 text-muted">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <p class="type-fine mt-4 rounded-xl bg-white p-3 font-semibold text-wa-deep">
+              Paling cepat: sebutkan tipe &amp; tahun mobil (atau kirim foto polis jika sudah punya).
+            </p>
+            <WaButton message={serviceMessage} class="mt-4 w-full sm:w-auto">
+              Tanya Aditya via WA
+            </WaButton>
+          </article>
+
+          <div class="grid gap-3">
+            {layananLain.map(({ icon: Icon, title, text, href }) => (
+              <article class="rounded-3xl border border-line bg-paper p-5">
+                <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-wa-deep">
+                  <Icon class="h-5 w-5" />
+                </span>
+                <h3 class="type-card-title mt-3">{title}</h3>
+                <p class="type-card-body mt-1.5 text-muted">{text}</p>
+                <a
+                  href={href}
+                  class="type-body-sm mt-3 inline-flex min-h-9 items-center gap-1.5 font-bold text-wa-deep transition hover:text-ink"
+                >
+                  Lihat informasi
+                  <ArrowRight class="h-4 w-4" />
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Cara kerja -->
+    <section id="cara-kerja" class="bg-paper px-5 py-16 md:py-24">
+      <div class="mx-auto max-w-5xl">
+        <p class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
+          <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+          Cara kerja
+        </p>
+        <h2
+          class="type-section mt-2.5"
+        >
+          Tiga langkah, semuanya bisa dari HP.
+        </h2>
+
+        <ol class="mt-8 md:grid md:grid-cols-3 md:gap-7">
+          {steps.map(({ icon: Icon, title, body }, i) => (
+            <li class="relative flex gap-4 pb-8 last:pb-0 md:block md:pb-0">
+              {i < steps.length - 1 && (
+                <span
+                  aria-hidden="true"
+                  class="absolute top-12 bottom-1 left-[1.4375rem] w-0.5 bg-gradient-to-b from-ink/30 to-ink/5 md:hidden"
+                ></span>
+              )}
+              <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink text-wa ring-4 ring-paper">
+                <Icon class="h-5.5 w-5.5" />
+              </span>
+              <div class="md:mt-4">
+                <h3 class="type-card-title">
+                  {title}
+                </h3>
+                <p class="type-card-body mt-1.5 text-muted">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <div class="mt-9 flex items-start gap-3 rounded-2xl border border-wa-deep/20 bg-wa-soft p-4">
+          <BadgeCheck class="mt-0.5 h-5.5 w-5.5 shrink-0 text-wa-deep" />
+          <p class="type-card-body font-semibold text-wa-ink">
+            Konsultasi awal bisa lewat WA. Perusahaan asuransi dapat meminta dokumen atau survei foto/video
+            sesuai kondisi kendaraan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Profil -->
+    <About message={profileMessage} />
+
+    <!-- 8. FAQ -->
+    <Faq faqs={faqs} />
+
+    <!-- 9. CTA penutup -->
+    <FinalCta
+      eyebrow="Langkah pertama sederhana"
+      title="Baik belum punya asuransi maupun mau perpanjang, cek dulu hitungannya sebelum memutuskan."
+      message={closingMessage}
+    />
+
+    <!-- 10. Blog -->
+    <BlogTeaser
+      eyebrow="Blog"
+      title="Tips & Informasi"
+      subtitle="Baca sebentar, lebih siap sebelum membeli atau memperpanjang polis."
+      limit={5}
+      leadId="kredit-mobil-lunas-asuransi-mobil-mandiri"
+    />
+  </article>
 </BaseLayout>
