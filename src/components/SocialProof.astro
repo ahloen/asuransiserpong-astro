@@ -30,7 +30,7 @@ const {
       </p>
     </div>
     <figure class="border-t border-line bg-wa-soft/55 p-5 md:w-1/2 md:border-t-0 md:border-l md:p-6">
-      <div class="flex gap-0.5 text-amber-500" aria-label="5 dari 5 bintang">{Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-current" />)}</div>
+      <div role="img" class="flex gap-0.5 text-amber-500" aria-label="5 dari 5 bintang">{Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-current" />)}</div>
       <blockquote class="type-card-body mt-2.5 font-semibold text-ink">&ldquo;{testimonial.quote}&rdquo;</blockquote>
       <figcaption class="type-meta mt-2 font-medium text-muted"><span class="font-bold text-ink">{testimonial.name}</span> · {testimonial.detail}</figcaption>
     </figure>
