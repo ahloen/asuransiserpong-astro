@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
 import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
 import FaqSection from "../components/FaqSection.astro";
@@ -193,5 +194,13 @@ const faqs: { question: string; answer: string; link?: { href: string; label: st
     title="Cek premi perjalanan Anda sebelum berangkat."
     message={message}
     ctaLabel="Cek Premi via WhatsApp"
+  />
+
+  <BlogTeaser
+    eyebrow="Blog"
+    title="Tips & Informasi"
+    subtitle="Hal yang perlu dicek sebelum berangkat, dari visa sampai bagasi."
+    limit={5}
+    leadId="kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga"
   />
 </BaseLayout>

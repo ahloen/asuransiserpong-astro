@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
 import About from "../components/About.astro";
 import ChatSample from "../components/ChatSample.astro";
 import FinalCta from "../components/FinalCta.astro";
@@ -299,5 +300,13 @@ const exclusions = [
   <FinalCta
     title="Cek perlindungan dan bengkel terdekat sebelum memilih polis."
     message={quoteMessage}
+  />
+
+  <BlogTeaser
+    eyebrow="Blog"
+    title="Tips & Informasi"
+    subtitle="Baca sebentar, lebih siap sebelum membeli atau memperpanjang polis mobil."
+    limit={5}
+    leadId="asuransi-mobil-banjir-bsd-gading-serpong"
   />
 </BaseLayout>

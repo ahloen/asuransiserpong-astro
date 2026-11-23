@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
 import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
 import FaqSection from "../components/FaqSection.astro";
@@ -199,5 +200,12 @@ const faqs = [
     title="Belum tahu asuransi mana yang cocok? Ceritakan kebutuhan usaha Anda."
     message={heroMessage}
     ctaLabel="Ceritakan usaha Anda"
+  />
+
+  <BlogTeaser
+    eyebrow="Blog"
+    title="Tips & Informasi"
+    subtitle="Baca sebentar, lebih siap sebelum memilih perlindungan usaha Anda."
+    limit={5}
   />
 </BaseLayout>

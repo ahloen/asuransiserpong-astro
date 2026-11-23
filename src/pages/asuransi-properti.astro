@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogTeaser from "../components/BlogTeaser.astro";
 import About from "../components/About.astro";
 import FinalCta from "../components/FinalCta.astro";
 import FaqSection from "../components/FaqSection.astro";
@@ -13,9 +14,9 @@ import {
   House,
 } from "lucide-astro";
 
-const consultationMessage = "Halo Aditya, saya ingin cek estimasi premi asuransi properti. Jenis bangunan dan area lokasinya bisa saya kirim setelah ini.";
-const rumahMessage = "Halo Aditya, saya ingin cek premi asuransi rumah tinggal. Alamat atau area, luas bangunan, dan tahun bangun bisa saya kirim setelah ini.";
-const rukoMessage = "Halo Aditya, saya ingin cek asuransi ruko atau tempat usaha dan menjadwalkan survei. Alamat dan fungsi bangunan bisa saya kirim setelah ini.";
+const consultationMessage = "Halo Aditya, saya ingin cek estimasi premi asuransi properti.";
+const rumahMessage = "Halo Aditya, saya ingin cek premi asuransi rumah tinggal.";
+const rukoMessage = "Halo Aditya, saya ingin cek asuransi ruko atau tempat usaha.";
 const estimateMessage = consultationMessage;
 
 const faqs = [
@@ -63,9 +64,9 @@ const priceItems = [
       titleAccent="dihitung dari biaya bangun, bukan harga tanah."
       lead="Saya bantu hitung nilai bangunannya, pilih perlindungan yang pas, dan cek apakah banjir bisa ditambahkan."
       message={rumahMessage}
-      ctaLabel="Rumah tinggal, cek premi"
+      ctaLabel="Cek Premi Rumah"
       secondaryMessage={rukoMessage}
-      secondaryLabel="Ruko atau usaha, jadwalkan survei"
+      secondaryLabel="Jadwalkan Survei Ruko"
       helperLine="Punya polis dari bank untuk KPR? Kirim saja, saya cek apa yang dijamin dan apakah banjir ikut."
       checks={["Konsultasi gratis, tidak harus beli", "Aditya tinggal di Serpong"]}
       stackChecks
@@ -231,5 +232,13 @@ const priceItems = [
   <FinalCta
     title="Ada pertanyaan soal asuransi properti? Tanya Aditya dulu."
     message={consultationMessage}
+  />
+
+  <BlogTeaser
+    eyebrow="Blog"
+    title="Tips & Informasi"
+    subtitle="Panduan singkat soal nilai bangunan, KPR lunas, dan jaminan banjir."
+    limit={5}
+    leadId="panduan-asuransi-rumah-tinggal-bsd-alam-sutera"
   />
 </BaseLayout>
