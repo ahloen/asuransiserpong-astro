@@ -47,14 +47,24 @@ const { message = MESSAGES.sticky } = Astro.props;
       if (visible) bar.removeAttribute("inert");
       else bar.setAttribute("inert", "");
     }
-    function update() {
-      const y = window.scrollY;
+    // Ukur posisi absolut sekali saat load/resize, lalu bandingkan dengan
+    // scrollY. Tidak ada getBoundingClientRect() di dalam loop scroll sehingga
+    // tidak ada forced reflow.
+    let heroBottom = 0;
+    let secondTop = Infinity;
+    function measure() {
       const hero = document.getElementById("hero");
       const second = document.getElementById("contoh");
-      var reachedSecond = !!second && second.getBoundingClientRect().top <= 80;
-      const pastHero = hero ? hero.getBoundingClientRect().bottom <= 80 : y > 320;
+      heroBottom = hero ? hero.getBoundingClientRect().bottom + window.scrollY : 0;
+      secondTop = second ? second.getBoundingClientRect().top + window.scrollY : Infinity;
+    }
+    function update() {
+      const y = window.scrollY;
+      const pastHero = heroBottom ? y + 80 >= heroBottom : y > 320;
+      const reachedSecond = y + 80 >= secondTop;
       setVisible(pastHero || reachedSecond);
     }
+    measure();
     update();
     let frame = 0;
     function onScroll() {
@@ -62,7 +72,9 @@ const { message = MESSAGES.sticky } = Astro.props;
       frame = requestAnimationFrame(function () { update(); frame = 0; });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", function () { measure(); update(); }, { passive: true });
+    window.addEventListener("load", function () { measure(); update(); }, { once: true });
+    if ("fonts" in document) document.fonts.ready.then(function () { measure(); update(); });
     window.addEventListener("pageshow", update);
   })();
 </script>
