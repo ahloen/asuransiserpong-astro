@@ -10,7 +10,7 @@ export const TANGERANG_RAYA_CITIES: string[] = [
   "Kab. Tangerang",
 ];
 
-export const JAKARTA_RAYA_CITIES: string[] = [
+export const DKI_JAKARTA_CITIES: string[] = [
   "Jakarta Selatan",
   "Jakarta Barat",
   "Jakarta Pusat",
@@ -32,6 +32,6 @@ export const ASURANSI_LABEL: Record<string, string> = {
 };
 
 export const BENGKEL_TANGERANG = BENGKEL.filter((b) => TANGERANG_RAYA_CITIES.includes(b.wilayah));
-export const BENGKEL_JAKARTA = BENGKEL.filter((b) => JAKARTA_RAYA_CITIES.includes(b.wilayah));
+export const BENGKEL_JAKARTA = BENGKEL.filter((b) => DKI_JAKARTA_CITIES.includes(b.wilayah));
 
 export const BENGKEL_RELEVAN = [...BENGKEL_TANGERANG, ...BENGKEL_JAKARTA];

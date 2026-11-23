@@ -10,13 +10,14 @@ import { MESSAGES } from "../data/config";
 import {
   ASURANSI_LABEL,
   BENGKEL,
-  JAKARTA_RAYA_CITIES,
+  DKI_JAKARTA_CITIES,
   KATEGORI_LABEL,
   TANGERANG_RAYA_CITIES,
   type Bengkel,
 } from "../data/bengkel";
 import {
   ArrowRight,
+  ChevronDown,
   ClipboardCheck,
   Handshake,
   Info,
@@ -27,30 +28,22 @@ import {
   Wrench,
 } from "lucide-astro";
 
-type AreaKey = "tangerang" | "jakarta";
-
-interface Props {
-  area: AreaKey;
-}
-
-const { area } = Astro.props as Props;
-
-const AREA_CONFIG = {
-  tangerang: {
+const REGIONS = [
+  {
+    key: "tangerang",
     label: "Tangerang Raya",
     cities: TANGERANG_RAYA_CITIES,
-    slug: "/bengkel-rekanan-asuransi-mobil",
   },
-  jakarta: {
-    label: "Jakarta Raya",
-    cities: JAKARTA_RAYA_CITIES,
-    slug: "/bengkel-rekanan-asuransi-mobil/jakarta-raya",
+  {
+    key: "jakarta",
+    label: "DKI Jakarta",
+    cities: DKI_JAKARTA_CITIES,
   },
-} as const;
+] as const;
 
-const currentArea = AREA_CONFIG[area];
-const otherAreaKey: AreaKey = area === "tangerang" ? "jakarta" : "tangerang";
-const otherArea = AREA_CONFIG[otherAreaKey];
+const AREA_LABEL = REGIONS.map((region) => region.label).join(" & ");
+
+const allCities = REGIONS.flatMap((region) => region.cities);
 
 const directoryMessage = MESSAGES.bengkel;
 const claimMessage =
@@ -58,10 +51,8 @@ const claimMessage =
 const checkMessage =
   "Halo Aditya, saya mau pastikan bengkel pilihan saya termasuk rekanan asuransi saya.";
 
-const items = BENGKEL.filter((b) => currentArea.cities.includes(b.wilayah));
-const otherItems = BENGKEL.filter((b) => otherArea.cities.includes(b.wilayah));
+const items = BENGKEL.filter((b) => allCities.includes(b.wilayah));
 const total = items.length;
-const otherTotal = otherItems.length;
 
 const countByKategori = items.reduce<Record<string, number>>((acc, b) => {
   acc[b.kategori] = (acc[b.kategori] ?? 0) + 1;
@@ -125,9 +116,17 @@ function waHref(number: string) {
   return `https://wa.me/${number.replace(/\D/g, "")}`;
 }
 
-const cityGroups = currentArea.cities
-  .map((city) => ({ city, items: items.filter((b) => b.wilayah === city).sort(sortBengkel) }))
-  .filter((group) => group.items.length > 0);
+const regionGroups = REGIONS.map((region) => {
+  const regionItems = items.filter((b) => region.cities.includes(b.wilayah));
+  return {
+    key: region.key,
+    label: region.label,
+    total: regionItems.length,
+    cities: region.cities
+      .map((city) => ({ city, items: regionItems.filter((b) => b.wilayah === city).sort(sortBengkel) }))
+      .filter((group) => group.items.length > 0),
+  };
+}).filter((region) => region.cities.length > 0);
 
 const kategoriBadge: Record<string, string> = {
   Authorized: "bg-wa-soft text-wa-deep",
@@ -139,8 +138,8 @@ const filterPillClass =
   "type-meta inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-white px-3 font-bold text-muted transition hover:border-wa-deep/40 hover:text-ink aria-pressed:border-wa-deep aria-pressed:bg-wa-soft aria-pressed:text-wa-deep";
 
 const stats = [
-  { label: "Total bengkel", value: total, note: currentArea.label },
-  { label: "Kota / kabupaten", value: currentArea.cities.length, note: "Area tercakup" },
+  { label: "Total bengkel", value: total, note: AREA_LABEL },
+  { label: "Kota / kabupaten", value: allCities.length, note: "Area tercakup" },
   { label: "Bengkel resmi", value: countByKategori.Authorized ?? 0, note: "Authorized / ATPM" },
   {
     label: "Umum & spesialis",
@@ -203,18 +202,18 @@ const faqs = [
 ---
 
 <BaseLayout
-  title={`Bengkel Rekanan Asuransi Mobil ${currentArea.label} | Aditya`}
-  description={`Daftar ${total} bengkel rekanan asuransi mobil di ${currentArea.label}. Filter bengkel resmi, umum, merek, dan asuransi rekanannya.`}
+  title={`Bengkel Rekanan Asuransi Mobil ${AREA_LABEL} | Aditya`}
+  description={`Daftar ${total} bengkel rekanan asuransi mobil di ${AREA_LABEL}. Filter bengkel resmi, umum, merek, dan asuransi rekanannya.`}
   stickyMessage={directoryMessage}
   faqs={faqs}
 >
   <article class="overflow-hidden bg-paper">
     <ProductHero
       product="Bengkel Rekanan"
-      eyebrow={`Bengkel rekanan · ${currentArea.label}`}
+      eyebrow={`Bengkel rekanan · ${AREA_LABEL}`}
       titleLead="Bengkel rekanan asuransi mobil untuk"
-      titleAccent={`${currentArea.label}.`}
-      lead={`${total} bengkel dari data internal, termasuk bengkel resmi dan umum, di ${currentArea.label}. Saring berdasarkan kategori, nama, atau asuransi, lalu konfirmasi statusnya sebelum perbaikan.`}
+      titleAccent={`${AREA_LABEL}.`}
+      lead={`${total} bengkel dari data internal, termasuk bengkel resmi dan umum, di ${AREA_LABEL}. Saring berdasarkan kategori, nama, atau asuransi, lalu konfirmasi statusnya sebelum perbaikan.`}
       message={directoryMessage}
       ctaLabel="Tanya bengkel terdekat"
       secondary={{ href: "#daftar", label: "Lihat direktori bengkel" }}
@@ -222,10 +221,10 @@ const faqs = [
       summary={{
         icon: MapPin,
         eyebrow: "Isi direktori",
-        title: `Bengkel di ${currentArea.label}`,
+        title: `Bengkel di ${AREA_LABEL}`,
         items: [
-          { icon: MapPin, label: `${total} bengkel di ${currentArea.label}` },
-          { icon: MapPin, label: `${currentArea.cities.length} kota / kabupaten` },
+          { icon: MapPin, label: `${total} bengkel di ${AREA_LABEL}` },
+          { icon: MapPin, label: `${allCities.length} kota / kabupaten` },
           { icon: Wrench, label: `${countByKategori.Authorized ?? 0} bengkel resmi (ATPM)` },
         ],
         note: `Terakhir diperbarui ${lastUpdatedLabel}. Status rekanan bisa berubah.`,
@@ -246,9 +245,13 @@ const faqs = [
         <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#daftar">Direktori bengkel</a>
         <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#cara-klaim">Cara klaim</a>
         <a class="min-h-11 shrink-0 rounded-full px-3 py-3 text-wa-deep hover:bg-wa-soft" href="#faq">FAQ</a>
-        <a class="ml-auto min-h-11 shrink-0 rounded-full px-3 py-3 font-bold text-ink hover:bg-paper" href={otherArea.slug}>
-          Bengkel {otherArea.label} ({otherTotal})
-        </a>
+        <div class="ml-auto flex shrink-0 gap-2">
+          {regionGroups.map((region) => (
+            <a class="min-h-11 shrink-0 rounded-full px-3 py-3 font-bold whitespace-nowrap text-ink hover:bg-paper" href={`#wilayah-${region.key}`}>
+              {region.label} ({region.total})
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
 
@@ -331,14 +334,18 @@ const faqs = [
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
           <p class="type-eyebrow text-wa-deep">Direktori bengkel</p>
-          <h2 class="type-section mt-3">Cari bengkel di {currentArea.label}.</h2>
+          <h2 class="type-section mt-3">Cari bengkel di {AREA_LABEL}.</h2>
           <p class="type-section-lead mt-4 text-muted">
-            Saring berdasarkan kategori atau merek asuransi, atau ketik nama bengkel, kecamatan, dan merek mobil. Daftar di bawah disusun dari data internal dan perlu dikonfirmasi ulang.
+            Saring berdasarkan wilayah, kategori, atau merek asuransi, atau ketik nama bengkel, kecamatan, dan merek mobil. Daftar di bawah disusun dari data internal dan perlu dikonfirmasi ulang.
           </p>
-          <a href={otherArea.slug} class="type-body-sm mt-4 inline-flex min-h-10 items-center gap-2 rounded-full border border-line bg-white px-4 font-bold text-wa-deep transition hover:border-wa-deep hover:text-ink">
-            Lihat {otherTotal} bengkel {otherArea.label}
-            <ArrowRight class="h-4 w-4" aria-hidden="true" />
-          </a>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {regionGroups.map((region) => (
+              <a href={`#wilayah-${region.key}`} class="type-body-sm inline-flex min-h-10 items-center gap-2 rounded-full border border-line bg-white px-4 font-bold text-wa-deep transition hover:border-wa-deep hover:text-ink">
+                {region.total} bengkel {region.label}
+                <ArrowRight class="h-4 w-4" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
         </div>
 
         <div class="mt-7 rounded-3xl border border-line bg-paper p-4 md:p-5">
@@ -369,7 +376,47 @@ const faqs = [
             </label>
           </div>
 
-          <div class="mt-4 flex flex-wrap items-center gap-2">
+          <details id="bengkel-wilayah" class="group mt-3 overflow-hidden rounded-2xl border border-line bg-white">
+            <summary class="flex min-h-11 cursor-pointer list-none items-center gap-2.5 px-3 py-2.5 [&::-webkit-details-marker]:hidden">
+              <MapPin class="h-4 w-4 shrink-0 text-muted" aria-hidden="true" />
+              <span class="type-fine shrink-0 font-bold tracking-[0.14em] text-muted uppercase">Wilayah</span>
+              <span id="bengkel-wilayah-summary" class="type-body-sm truncate font-semibold text-ink">Semua wilayah</span>
+              <ChevronDown class="ml-auto h-4 w-4 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+            </summary>
+            <div class="grid gap-4 border-t border-line p-3 sm:grid-cols-2 md:p-4">
+              {regionGroups.map((region) => (
+                <div data-wilayah-group={region.key}>
+                  <label class="flex min-h-9 cursor-pointer items-center gap-2.5 text-[0.9375rem] font-bold tracking-[-0.01em] text-ink">
+                    <input
+                      type="checkbox"
+                      data-wilayah-all={region.key}
+                      data-region-label={region.label}
+                      class="h-4 w-4 shrink-0 accent-wa-deep"
+                    />
+                    <span class="flex-1">{region.label}</span>
+                    <span class="type-meta font-semibold text-muted">{region.total}</span>
+                  </label>
+                  <ul class="mt-1 ml-2 grid gap-0.5 border-l border-line pl-4">
+                    {region.cities.map((group) => (
+                      <li>
+                        <label class="flex min-h-8 cursor-pointer items-center gap-2.5 text-[0.875rem] font-medium text-muted">
+                          <input
+                            type="checkbox"
+                            data-wilayah={group.city}
+                            class="h-4 w-4 shrink-0 accent-wa-deep"
+                          />
+                          <span class="flex-1">{group.city}</span>
+                          <span class="type-fine font-semibold text-muted">{group.items.length}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+
+          <div class="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
             <span class="type-fine font-bold tracking-[0.14em] text-muted uppercase">Merek asuransi</span>
             <div role="group" aria-label="Filter merek asuransi" class="flex flex-wrap gap-1.5">
               <button
@@ -408,93 +455,109 @@ const faqs = [
           </div>
         </div>
 
-        <div id="bengkel-list" class="mt-8 grid gap-10">
-          {cityGroups.map((group) => (
-            <section data-bengkel-group>
-              <div class="flex flex-wrap items-end justify-between gap-2 border-b border-line pb-3">
+        <div id="bengkel-list" class="mt-8 grid gap-12">
+          {regionGroups.map((region) => (
+            <div data-bengkel-region id={`wilayah-${region.key}`} class="scroll-mt-24">
+              <div class="flex flex-wrap items-end justify-between gap-2 border-b-2 border-line pb-3">
                 <div>
-                  <h3 class="type-subsection">{group.city}</h3>
+                  <h3 class="type-subsection">{region.label}</h3>
                   <p class="type-meta mt-1 text-muted">
-                    {currentArea.label} · {group.items.length} bengkel
+                    {region.total} bengkel · {region.cities.length} kota / kabupaten
                   </p>
                 </div>
                 <p class="type-fine font-semibold text-muted">Konfirmasi status rekanan sebelum perbaikan</p>
               </div>
 
-              <div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {group.items.map((b) => (
-                  <article
-                    data-bengkel-card
-                    data-kategori={b.kategori}
-                    data-asuransi={b.rekanan_asuransi.join("|")}
-                    data-search={searchText(b)}
-                    class="flex h-full flex-col rounded-2xl border border-line bg-white p-4 md:p-5"
-                  >
-                    <div class="flex items-start justify-between gap-3">
-                      <div class="min-w-0">
-                        <h4 class="type-card-title">{b.nama_bengkel}</h4>
-                        <p class="type-meta mt-1.5 flex items-start gap-1.5 text-muted">
-                          <MapPin class="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                          <span>{b.area_kecamatan}, {b.wilayah}</span>
+              <div class="mt-6 grid gap-10">
+                {region.cities.map((group) => (
+                  <section data-bengkel-group>
+                    <div class="flex flex-wrap items-end justify-between gap-2 border-b border-line pb-3">
+                      <div>
+                        <h4 class="type-panel-title">{group.city}</h4>
+                        <p class="type-meta mt-1 text-muted">
+                          {region.label} · {group.items.length} bengkel
                         </p>
                       </div>
-                      <span class:list={["type-fine shrink-0 rounded-full px-2.5 py-1 font-bold", kategoriBadge[b.kategori] ?? "bg-paper text-muted ring-1 ring-line"]}>
-                        {KATEGORI_LABEL[b.kategori] ?? b.kategori}
-                      </span>
                     </div>
 
-                    <p class="type-body-sm mt-3 text-muted">{b.alamat}</p>
-
-                    {b.merk_khusus.length > 0 && (
-                      <p class="type-meta mt-2 text-muted">
-                        <span class="font-bold text-ink">Merek:</span> {merkLabel(b)}
-                      </p>
-                    )}
-                    {b.catatan_khusus && (
-                      <p class="type-meta mt-1 text-muted">{b.catatan_khusus}</p>
-                    )}
-
-                    <div class="mt-3">
-                      <p class="type-fine font-bold tracking-[0.12em] text-muted uppercase">Rekanan asuransi</p>
-                      <div class="mt-1.5 flex flex-wrap gap-1.5">
-                        {b.rekanan_asuransi.map((name) => (
-                          <span class="type-fine inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 font-semibold text-ink">
-                            <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
-                            {ASURANSI_LABEL[name] ?? name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-3">
-                      {b.telepon.map((phone) => (
-                        <a href={telHref(phone)} class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink">
-                          <Phone class="h-3.5 w-3.5 shrink-0" /> {phone}
-                        </a>
-                      ))}
-                      {b.whatsapp && (
-                        <a
-                          href={waHref(b.whatsapp)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
+                    <div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                      {group.items.map((b) => (
+                        <article
+                          data-bengkel-card
+                          data-kategori={b.kategori}
+                          data-wilayah={b.wilayah}
+                          data-asuransi={b.rekanan_asuransi.join("|")}
+                          data-search={searchText(b)}
+                          class="flex h-full flex-col rounded-2xl border border-line bg-white p-4 md:p-5"
                         >
-                          <WhatsAppIcon class="h-3.5 w-3.5 shrink-0" /> WhatsApp
-                        </a>
-                      )}
-                      <a
-                        href={b.google_maps_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
-                      >
-                        <MapPin class="h-3.5 w-3.5 shrink-0" /> Peta
-                      </a>
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                              <h5 class="type-card-title">{b.nama_bengkel}</h5>
+                              <p class="type-meta mt-1.5 flex items-start gap-1.5 text-muted">
+                                <MapPin class="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                                <span>{b.area_kecamatan}, {b.wilayah}</span>
+                              </p>
+                            </div>
+                            <span class:list={["type-fine shrink-0 rounded-full px-2.5 py-1 font-bold", kategoriBadge[b.kategori] ?? "bg-paper text-muted ring-1 ring-line"]}>
+                              {KATEGORI_LABEL[b.kategori] ?? b.kategori}
+                            </span>
+                          </div>
+
+                          <p class="type-body-sm mt-3 text-muted">{b.alamat}</p>
+
+                          {b.merk_khusus.length > 0 && (
+                            <p class="type-meta mt-2 text-muted">
+                              <span class="font-bold text-ink">Merek:</span> {merkLabel(b)}
+                            </p>
+                          )}
+                          {b.catatan_khusus && (
+                            <p class="type-meta mt-1 text-muted">{b.catatan_khusus}</p>
+                          )}
+
+                          <div class="mt-3">
+                            <p class="type-fine font-bold tracking-[0.12em] text-muted uppercase">Rekanan asuransi</p>
+                            <div class="mt-1.5 flex flex-wrap gap-1.5">
+                              {b.rekanan_asuransi.map((name) => (
+                                <span class="type-fine inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 font-semibold text-ink">
+                                  <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+                                  {ASURANSI_LABEL[name] ?? name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-3">
+                            {b.telepon.map((phone) => (
+                              <a href={telHref(phone)} class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink">
+                                <Phone class="h-3.5 w-3.5 shrink-0" /> {phone}
+                              </a>
+                            ))}
+                            {b.whatsapp && (
+                              <a
+                                href={waHref(b.whatsapp)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
+                              >
+                                <WhatsAppIcon class="h-3.5 w-3.5 shrink-0" /> WhatsApp
+                              </a>
+                            )}
+                            <a
+                              href={b.google_maps_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="type-meta inline-flex items-center gap-1.5 font-semibold text-wa-deep transition hover:text-ink"
+                            >
+                              <MapPin class="h-3.5 w-3.5 shrink-0" /> Peta
+                            </a>
+                          </div>
+                        </article>
+                      ))}
                     </div>
-                  </article>
+                  </section>
                 ))}
               </div>
-            </section>
+            </div>
           ))}
         </div>
 
@@ -583,11 +646,61 @@ const faqs = [
   const asuransiButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-asuransi-filter]"));
   const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-bengkel-card]"));
   const groups = Array.from(document.querySelectorAll<HTMLElement>("[data-bengkel-group]"));
+  const regions = Array.from(document.querySelectorAll<HTMLElement>("[data-bengkel-region]"));
+  const wilayahBoxes = Array.from(document.querySelectorAll<HTMLInputElement>("[data-wilayah]"));
+  const wilayahAllBoxes = Array.from(document.querySelectorAll<HTMLInputElement>("[data-wilayah-all]"));
+  const wilayahSummary = document.getElementById("bengkel-wilayah-summary");
   let asuransi = "semua";
+
+  function cityBoxesForRegion(key: string) {
+    const group = document.querySelector<HTMLElement>(`[data-wilayah-group="${key}"]`);
+    return Array.from(group?.querySelectorAll<HTMLInputElement>("[data-wilayah]") ?? []);
+  }
+
+  function syncRegionBoxes() {
+    for (const box of wilayahAllBoxes) {
+      const cities = cityBoxesForRegion(box.dataset.wilayahAll ?? "");
+      const checked = cities.filter((city) => city.checked).length;
+      box.checked = cities.length > 0 && checked === cities.length;
+      box.indeterminate = checked > 0 && checked < cities.length;
+    }
+  }
+
+  function updateWilayahSummary(selectedCities: Set<string>) {
+    if (!wilayahSummary) return;
+
+    if (selectedCities.size === 0 || selectedCities.size === wilayahBoxes.length) {
+      wilayahSummary.textContent = "Semua wilayah";
+      return;
+    }
+
+    const fullRegions = wilayahAllBoxes
+      .filter((box) => box.checked)
+      .map((box) => box.dataset.regionLabel ?? "")
+      .filter(Boolean);
+    const coveredByFullRegions = wilayahAllBoxes
+      .filter((box) => box.checked)
+      .reduce((sum, box) => sum + cityBoxesForRegion(box.dataset.wilayahAll ?? "").length, 0);
+
+    if (fullRegions.length > 0 && coveredByFullRegions === selectedCities.size) {
+      wilayahSummary.textContent = fullRegions.join(" & ");
+      return;
+    }
+
+    if (selectedCities.size === 1) {
+      wilayahSummary.textContent = [...selectedCities][0] ?? "1 kota dipilih";
+      return;
+    }
+
+    wilayahSummary.textContent = `${selectedCities.size} kota dipilih`;
+  }
 
   function applyFilters() {
     const query = (search?.value ?? "").trim().toLowerCase();
     const kategoriValue = kategori?.value ?? "semua";
+    const selectedCities = new Set(
+      wilayahBoxes.filter((box) => box.checked).map((box) => box.dataset.wilayah ?? ""),
+    );
     let visible = 0;
 
     for (const card of cards) {
@@ -595,7 +708,8 @@ const faqs = [
       const matchesAsuransi =
         asuransi === "semua" || (card.dataset.asuransi ?? "").split("|").includes(asuransi);
       const matchesQuery = !query || (card.dataset.search ?? "").includes(query);
-      const show = matchesKategori && matchesAsuransi && matchesQuery;
+      const matchesWilayah = selectedCities.size === 0 || selectedCities.has(card.dataset.wilayah ?? "");
+      const show = matchesKategori && matchesAsuransi && matchesQuery && matchesWilayah;
 
       card.hidden = !show;
       if (show) visible++;
@@ -605,14 +719,20 @@ const faqs = [
       group.hidden = !group.querySelector("[data-bengkel-card]:not([hidden])");
     }
 
+    for (const region of regions) {
+      region.hidden = !region.querySelector("[data-bengkel-card]:not([hidden])");
+    }
+
     if (count) {
       count.textContent = `Menampilkan ${visible} dari ${cards.length} bengkel`;
     }
     if (empty) {
       empty.hidden = visible !== 0;
     }
+    updateWilayahSummary(selectedCities);
     if (reset) {
-      reset.hidden = asuransi === "semua" && !query && kategoriValue === "semua";
+      reset.hidden =
+        asuransi === "semua" && !query && kategoriValue === "semua" && selectedCities.size === 0;
     }
   }
 
@@ -620,6 +740,23 @@ const faqs = [
     button.addEventListener("click", () => {
       asuransi = button.dataset.asuransiFilter ?? "semua";
       asuransiButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      applyFilters();
+    });
+  });
+
+  wilayahBoxes.forEach((box) => {
+    box.addEventListener("change", () => {
+      syncRegionBoxes();
+      applyFilters();
+    });
+  });
+
+  wilayahAllBoxes.forEach((box) => {
+    box.addEventListener("change", () => {
+      for (const city of cityBoxesForRegion(box.dataset.wilayahAll ?? "")) {
+        city.checked = box.checked;
+      }
+      syncRegionBoxes();
       applyFilters();
     });
   });
@@ -632,9 +769,14 @@ const faqs = [
     if (kategori) kategori.value = "semua";
     asuransi = "semua";
     asuransiButtons.forEach((item) => item.setAttribute("aria-pressed", String(item.dataset.asuransiFilter === "semua")));
+    wilayahBoxes.forEach((box) => {
+      box.checked = false;
+    });
+    syncRegionBoxes();
     applyFilters();
     search?.focus();
   });
 
+  syncRegionBoxes();
   applyFilters();
 </script>
