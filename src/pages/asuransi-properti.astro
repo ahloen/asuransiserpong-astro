@@ -7,7 +7,7 @@ import FaqSection from "../components/FaqSection.astro";
 import ProductHero from "../components/ProductHero.astro";
 import WaButton from "../components/WaButton.astro";
 import {
-  ArrowRight,
+  ArrowDown,
   Building2,
   ChevronDown,
   CloudRain,
@@ -42,12 +42,20 @@ const faqs = [
   },
 ];
 
-const priceItems = [
-  { label: "Nilai bangunan", value: "Rp1.000.000.000" },
-  { label: "Jenis bangunan", value: "Rumah tinggal (Kelas Konstruksi 1)" },
-  { label: "Estimasi rate premi", value: "0,05% per tahun" },
-  { label: "Estimasi premi", value: "Rp500.000 per tahun" },
+const rupiah = (value: number) => `Rp${new Intl.NumberFormat("id-ID").format(value)}`;
+
+const premiDasar = 500000;
+const tambahanTetap = [
+  { label: "Kerusuhan dan huru hara", amount: 2000 },
+  { label: "Risiko lainnya (termasuk tertabrak kendaraan dan bongkaran)", amount: 2000 },
 ];
+const biayaLainnya = { label: "Biaya admin", amount: 120000 };
+const perluasan = [
+  { id: "banjir", label: "Banjir, Angin Topan, Badai dan kerusakan akibat air", amount: 800000 },
+  { id: "gempa", label: "Gempa Bumi, Letusan Gunung Berapi dan Tsunami", amount: 2200000 },
+];
+const totalDasar =
+  premiDasar + tambahanTetap.reduce((sum, item) => sum + item.amount, 0) + biayaLainnya.amount;
 ---
 
 <BaseLayout
@@ -84,10 +92,33 @@ const priceItems = [
       }}
     />
 
-    <section aria-label="Contoh biaya asuransi rumah" class="border-b border-line bg-white px-5 py-8 md:py-10">
-      <div class="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <p class="type-section-lead max-w-3xl text-muted">Contoh: bangunan Rp1 miliar, premi dasar sekitar Rp500.000 per tahun. Banjir, gempa, dan isi rumah dihitung terpisah.</p>
-        <a href="#biaya" class="type-body-sm inline-flex min-h-11 shrink-0 items-center gap-2 font-bold text-wa-deep hover:text-ink">Lihat rincian <ArrowRight class="h-4 w-4" /></a>
+    <section aria-label="Contoh biaya asuransi rumah" class="bg-paper px-5 py-10 md:py-14">
+      <div class="mx-auto max-w-6xl">
+        <div class="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-br from-ink via-ink to-ink-2 p-7 text-white shadow-2xl shadow-ink/30 ring-1 ring-white/10 md:p-11">
+          <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <div class="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-wa/15 blur-3xl"></div>
+            <div class="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl"></div>
+            <svg viewBox="0 0 600 500" fill="none" class="absolute -right-10 bottom-0 h-[115%] w-auto max-w-none text-white/[0.06] md:-right-4" preserveAspectRatio="xMaxYMax meet">
+              <path d="M35 460V255L160 155L285 255V460M85 460V290H235V460M160 155V65L255 125V230M285 460V205L405 120L535 205V460M330 460V235H490V460M35 460H570" stroke="currentColor" stroke-width="2" />
+              <path d="M115 325H205V390H115zM360 275H410V330H360zM435 275H465V330H435zM380 460V375H450V460" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+
+          <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center md:gap-11">
+            <p class="type-subsection max-w-2xl text-white/95">
+              Banyak pemilik rumah mengira asuransi properti itu mahal. Padahal, bangunan senilai <span class="whitespace-nowrap text-sky-300">Rp1,4 miliar</span> premi dasarnya hanya <span class="relative inline-block whitespace-nowrap font-extrabold text-wa"><span aria-hidden="true" class="absolute inset-x-0 bottom-0.5 -z-10 h-2.5 rounded-full bg-wa/25 md:h-3"></span>Rp500ribu</span> per tahun.
+            </p>
+
+            <div class="md:border-l md:border-dashed md:border-white/20 md:pl-11">
+              <a href="#biaya" class="group inline-flex min-h-[3.5rem] w-full shrink-0 items-center justify-center gap-3 self-start rounded-full bg-white py-2.5 pl-6 pr-2.5 font-display text-[0.9375rem] font-extrabold text-ink shadow-xl shadow-black/40 transition hover:bg-wa-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wa focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:w-auto">
+                Coba Simulasi Sekarang
+                <span aria-hidden="true" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-wa-deep text-white transition-transform group-hover:translate-y-0.5">
+                  <ArrowDown class="h-4 w-4" stroke-width={2.75} />
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -152,28 +183,68 @@ const priceItems = [
         <div>
           <p class="type-eyebrow text-wa-deep">Simulasi biaya</p>
           <h2 class="type-section mt-3">Kira-kira berapa premi properti?</h2>
-          <p class="type-section-lead mt-4 text-muted">Contoh estimasi untuk rumah tinggal dengan nilai bangunan Rp1 miliar. Ini ilustrasi tarif dasar, bukan penawaran atau jaminan tarif dan tidak memastikan perluasan tertentu sudah termasuk.</p>
+          <p class="type-section-lead mt-4 text-muted">Contoh estimasi untuk rumah tinggal dengan nilai bangunan Rp1,4 miliar. Ini ilustrasi premi, bukan penawaran atau jaminan tarif dan tidak memastikan perluasan tertentu sudah termasuk.</p>
         </div>
         <div>
-          <div class="overflow-hidden rounded-3xl border border-line bg-white">
-            <div class="hidden sm:block">
-              <table class="type-table w-full border-collapse text-left">
-                <caption class="sr-only">Contoh estimasi premi asuransi properti rumah tinggal senilai satu miliar rupiah</caption>
-                <thead class="bg-ink text-white"><tr><th scope="col" class="px-5 py-4 font-bold">Komponen</th><th scope="col" class="px-5 py-4 font-bold">Contoh</th></tr></thead>
-                <tbody class="divide-y divide-line text-muted">
-                  {priceItems.map((item) => <tr><th scope="row" class="px-5 py-4 font-semibold text-ink">{item.label}</th><td class="px-5 py-4">{item.value}</td></tr>)}
-                </tbody>
-              </table>
+          <div class="overflow-hidden rounded-3xl border border-line bg-white" data-premi-base={totalDasar}>
+            <div class="border-b border-line bg-paper px-4 py-4 md:px-5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <p class="type-eyebrow text-wa-deep">Simulasi premi</p>
+                <span class="type-fine rounded-full border border-line bg-white px-3 py-1 font-semibold text-muted">Kelas Konstruksi 1</span>
+              </div>
+              <p class="type-card-title mt-2">Rumah tinggal Rp1,4 miliar</p>
+              <p class="type-body-sm mt-1 font-semibold text-wa-deep">Estimasi Property All Risks (PAR)</p>
+              <p class="type-fine mt-1 text-muted">Nilai bangunan {rupiah(1400000000)}, tidak termasuk harga tanah.</p>
             </div>
-            <dl class="grid gap-2.5 p-3 sm:hidden">
-              {priceItems.map((item) => (
-                <div class="rounded-2xl border border-line bg-paper p-4">
-                  <dt class="type-fine font-semibold text-muted">{item.label}</dt>
-                  <dd class="type-body-sm mt-1 font-bold text-ink">{item.value}</dd>
+            <div class="divide-y divide-line">
+              <div class="px-4 py-3.5 md:px-5">
+                <div class="flex items-baseline justify-between gap-4">
+                  <span class="type-body-sm text-muted">Premi dasar</span>
+                  <span class="type-body-sm shrink-0 font-bold text-ink tabular-nums">{rupiah(premiDasar)}</span>
+                </div>
+                <p class="type-fine mt-1 text-muted">Tarif dasar setara FLEXAS (Asuransi Kebakaran). Dengan tambahan perluasan di bawah, cakupan sudah naik ke Property All Risks.</p>
+              </div>
+
+              <p class="type-eyebrow bg-paper px-4 py-2.5 text-wa-deep md:px-5">Tambahan perlindungan</p>
+              {tambahanTetap.map((item) => (
+                <div class="flex items-start justify-between gap-4 px-4 py-3.5 md:px-5">
+                  <span class="type-body-sm text-muted">{item.label}</span>
+                  <span class="type-body-sm shrink-0 font-bold text-ink tabular-nums">{rupiah(item.amount)}</span>
                 </div>
               ))}
-            </dl>
-            <p class="type-card-body border-t border-line px-4 py-3 text-muted md:px-5">Ilustrasi premi Rp500.000 per tahun, belum termasuk biaya polis dan materai. Cakupan dan premi final harus dilihat pada penawaran.</p>
+
+              <div class="bg-paper px-4 py-2.5 md:px-5">
+                <p class="type-eyebrow text-wa-deep">Pilih perluasan</p>
+                <p class="type-fine mt-1 text-muted">Centang untuk menambahkan. Total di bawah ikut berubah.</p>
+              </div>
+              {perluasan.map((item) => (
+                <label class="flex cursor-pointer items-start gap-3 px-4 py-3.5 transition hover:bg-wa-soft/60 md:px-5">
+                  <input
+                    id={`opsi-${item.id}`}
+                    type="checkbox"
+                    data-premi-add={item.amount}
+                    class="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-wa-deep"
+                  />
+                  <span class="type-body-sm min-w-0 flex-1 text-ink">{item.label}</span>
+                  <span class="type-body-sm shrink-0 font-bold text-ink tabular-nums">+{rupiah(item.amount)}</span>
+                </label>
+              ))}
+
+              <p class="type-eyebrow bg-paper px-4 py-2.5 text-wa-deep md:px-5">Biaya lainnya</p>
+              <div class="flex items-baseline justify-between gap-4 px-4 py-3.5 md:px-5">
+                <span class="type-body-sm text-muted">{biayaLainnya.label}</span>
+                <span class="type-body-sm shrink-0 font-bold text-ink tabular-nums">{rupiah(biayaLainnya.amount)}</span>
+              </div>
+
+              <div class="flex items-center justify-between gap-3 bg-ink px-4 py-4 text-white md:px-5">
+                <div>
+                  <p class="type-body-sm font-semibold">Total estimasi premi</p>
+                  <p class="type-fine text-white/70">per tahun</p>
+                </div>
+                <p id="premi-total" aria-live="polite" class="type-panel-title tabular-nums">{rupiah(totalDasar)}</p>
+              </div>
+            </div>
+            <p class="type-card-body border-t border-line px-4 py-3 text-muted md:px-5">Total sudah termasuk biaya admin, belum termasuk materai dan biaya polis lain. Cakupan dan premi final mengikuti penawaran.</p>
           </div>
           <p class="type-fine mt-3 text-muted">Premi final bergantung pada kondisi dan lokasi bangunan, perluasan yang dipilih, ketentuan perusahaan, serta hasil penilaian risiko.</p>
           <WaButton message={estimateMessage} class="mt-5 w-full sm:w-auto">Tanya estimasi properti saya</WaButton>
@@ -242,3 +313,26 @@ const priceItems = [
     leadId="panduan-asuransi-rumah-tinggal-bsd-alam-sutera"
   />
 </BaseLayout>
+
+<script>
+  (function () {
+    const card = document.querySelector<HTMLElement>("[data-premi-base]");
+    const totalEl = document.getElementById("premi-total");
+    if (!card || !totalEl) return;
+
+    const base = Number(card.dataset.premiBase || 0);
+    const addons = card.querySelectorAll<HTMLInputElement>("input[data-premi-add]");
+    const format = (value: number) => "Rp" + new Intl.NumberFormat("id-ID").format(value);
+
+    const update = () => {
+      let total = base;
+      addons.forEach((input) => {
+        if (input.checked) total += Number(input.dataset.premiAdd || 0);
+      });
+      totalEl.textContent = format(total);
+    };
+
+    addons.forEach((input) => input.addEventListener("change", update));
+    update();
+  })();
+</script>
