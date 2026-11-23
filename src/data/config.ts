@@ -72,6 +72,7 @@ export const EMERGENCY_NUMBER_LINKS = {
 /** Tautan langsung di header; layanan tampil sebagai dropdown tersendiri. */
 export const TOP_LINKS = {
   artikel: { href: "/blog", label: "Artikel" },
+  bengkelRekanan: { href: "/bengkel-rekanan-asuransi-mobil", label: "Bengkel Rekanan" },
 } as const;
 
 /** Sub-menu Layanan: masing-masing ke halaman produknya. */
