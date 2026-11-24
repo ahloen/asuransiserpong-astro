@@ -1,0 +1,159 @@
+---
+import { ChevronDown, LifeBuoy, Scale, ShieldCheck } from "lucide-astro";
+import { MESSAGES } from "../data/config";
+import WaButton from "./WaButton.astro";
+
+interface Props {
+  message?: string;
+}
+
+const { message = MESSAGES.profil } = Astro.props as Props;
+
+const reasons = [
+  {
+    icon: Scale,
+    title: "Bandingkan Opsi dan Bengkel di Area Serpong",
+    body: "Tanpa paksaan satu paket. Hitungan disesuaikan dengan usia mobil, pemakaian, dan bengkel rekanan di BSD, Gading Serpong, maupun Alam Sutera. Kalau penawaran yang Anda pegang ternyata sudah bagus, Anda akan mendapat jawaban jujur.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Privasi Terjaga, Bebas Telepon dari Sales",
+    body: "Diskusi langsung lewat WhatsApp. Nomor dan data Anda tidak diberikan ke telemarketing, dan hitungan awal tidak mewajibkan KTP atau STNK.",
+  },
+  {
+    icon: LifeBuoy,
+    title: "Didampingi Sampai Klaim dan Perpanjangan",
+    body: "Tidak dilepas begitu polis terbit. Aditya membantu menyiapkan dokumen klaim, berkoordinasi dengan bengkel rekanan saat terjadi insiden, dan menyesuaikan polis menjelang jatuh tempo.",
+  },
+];
+---
+
+<section id="tentang" class="bg-paper px-5 py-14 md:py-20">
+  <div class="mx-auto max-w-5xl">
+    <div class="max-w-3xl">
+      <p class="type-eyebrow inline-flex items-center gap-2 text-wa-deep">
+        <span class="h-1.5 w-1.5 rounded-full bg-wa-deep" aria-hidden="true"></span>
+        Siapa di balik ini
+      </p>
+      <h2 class="type-section mt-2.5">
+        Satu Kontak di Serpong, dari Hitung Premi hingga Urusan Klaim
+      </h2>
+      <p class="type-lead mt-4 text-muted">
+        Bandingkan opsi dengan tenang, tanpa tekanan, dan punya pegangan yang jelas saat mobil Anda butuh penanganan.
+      </p>
+    </div>
+
+    <article class="mt-6 overflow-hidden rounded-3xl border border-line bg-white shadow-xl shadow-ink/5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      <div class="relative">
+        <img
+          src="/aditya.jpg"
+          alt="Aditya, mitra pemasar asuransi di Serpong, tersenyum sambil memegang HP"
+          width="640"
+          height="640"
+          loading="lazy"
+          class="aspect-[4/3] w-full object-cover object-[50%_25%] md:aspect-auto md:h-full"
+        />
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent p-5 pt-16 text-white">
+          <p class="type-subsection leading-none">Aditya</p>
+          <p class="type-meta mt-1.5 font-medium text-white/85">Mitra Pemasar Asuransi · Serpong</p>
+        </div>
+        <div id="wa-status" hidden class="absolute top-4 left-4">
+          <span class="type-fine inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 font-semibold text-ink shadow">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-wa opacity-75 motion-reduce:animate-none"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-wa"></span>
+            </span>
+            Online di WhatsApp
+          </span>
+        </div>
+      </div>
+
+      <div class="p-5 md:p-8">
+        <blockquote class="type-lead font-semibold">
+          &ldquo;Saya Aditya, tinggal di Serpong. Saya bantu jelaskan isi polis sampai Anda benar-benar paham, dan tetap mendampingi saat proses klaim berjalan. Pembayaran dilakukan langsung ke kanal resmi setelah pengajuan disetujui.&rdquo;
+        </blockquote>
+
+        <p class="type-eyebrow mt-5 text-wa-deep">Kenapa lewat Aditya?</p>
+        <ul class="mt-3 grid gap-2.5">
+          {reasons.map(({ icon: Icon, title, body }) => (
+            <li class="flex items-start gap-3 rounded-2xl bg-paper p-4">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-wa-deep">
+                <Icon class="h-5 w-5" />
+              </span>
+              <div class="min-w-0">
+                <h3 class="type-card-title">{title}</h3>
+                <p class="type-body-sm mt-1.5 text-muted">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-4 overflow-hidden rounded-2xl border border-line">
+          <button
+            type="button"
+            id="komisi-toggle"
+            aria-expanded="false"
+            aria-controls="komisi"
+            class="flex min-h-13 w-full items-center justify-between gap-3 px-4 text-left text-[1rem] font-bold"
+          >
+            Kalau gratis, Aditya dapat apa?
+            <ChevronDown id="komisi-chevron" class="h-5 w-5 shrink-0 text-muted transition-transform duration-300" />
+          </button>
+          <div id="komisi" class="grid transition-[grid-template-rows] duration-300 grid-rows-[0fr]">
+            <div class="overflow-hidden">
+              <div class="type-card-body space-y-2.5 px-4 pb-4 text-muted">
+                <p>
+                  <strong class="font-semibold text-ink">Konsultasinya gratis.</strong> Kalau Anda akhirnya beli, komisi saya dibayar asuransi, bukan Anda. Premi Anda tidak bertambah.
+                </p>
+                <p>
+                  <strong class="font-semibold text-ink">Pembayaran lewat link resmi</strong>, bukan ke saya.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <WaButton message={message} class="mt-5 w-full">
+          Tanya Aditya via WA
+        </WaButton>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  const waStatus = document.getElementById("wa-status");
+  const jakartaTime = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+
+  function updateWaAvailability() {
+    const parts = Object.fromEntries(jakartaTime.formatToParts(new Date()).map(({ type, value }) => [type, value]));
+    const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+    const isAvailable = parts.weekday !== "Sun" && minutes >= 8 * 60 && minutes < 20 * 60;
+
+    if (waStatus) waStatus.hidden = !isAvailable;
+  }
+
+  updateWaAvailability();
+  window.setInterval(updateWaAvailability, 30_000);
+
+  (function () {
+    const toggle = document.getElementById("komisi-toggle");
+    const panel = document.getElementById("komisi");
+    const chevron = document.getElementById("komisi-chevron");
+    if (!toggle || !panel) return;
+    let openKomisi = false;
+    toggle.addEventListener("click", function () {
+      openKomisi = !openKomisi;
+      toggle.setAttribute("aria-expanded", String(openKomisi));
+      panel.classList.toggle("grid-rows-[1fr]", openKomisi);
+      panel.classList.toggle("grid-rows-[0fr]", !openKomisi);
+      if (chevron) chevron.classList.toggle("rotate-180", openKomisi);
+    });
+  })();
+</script>

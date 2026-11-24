@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import About from "../components/About.astro";
 import BlogTeaser from "../components/BlogTeaser.astro";
 import ChatSample from "../components/ChatSample.astro";
 import Faq from "../components/Faq.astro";
 import FinalCta from "../components/FinalCta.astro";
 import SocialProof from "../components/SocialProof.astro";
 import WaButton from "../components/WaButton.astro";
+import WhyAditya from "../components/WhyAditya.astro";
 import { waLink } from "../data/config";
 import {
   AlertTriangle,
@@ -651,8 +651,8 @@ const faqs = [
       </div>
     </section>
 
-    <!-- 7. Profil -->
-    <About message={profileMessage} />
+    <!-- 7. Profil & kenapa lewat Aditya -->
+    <WhyAditya message={profileMessage} />
 
     <!-- 8. FAQ -->
     <Faq faqs={faqs} />
