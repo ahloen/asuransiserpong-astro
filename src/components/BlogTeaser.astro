@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { blogCategories } from "../data/blog";
+import { blogCategories, sortBlogNewest } from "../data/blog";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-astro";
 import BlogArt from "./BlogArt.astro";
 
@@ -21,7 +21,7 @@ const {
 } = Astro.props as Props;
 
 let posts = await getCollection("blog");
-posts.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+posts.sort(sortBlogNewest);
 
 if (leadId) {
   const leadIndex = posts.findIndex((post) => post.id === leadId);

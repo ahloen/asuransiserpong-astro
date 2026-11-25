@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight, Clock, ListOr
 import BlogArt from "../../components/BlogArt.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import WaButton from "../../components/WaButton.astro";
-import { blogCategories } from "../../data/blog";
+import { blogCategories, sortBlogNewest } from "../../data/blog";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -21,7 +21,7 @@ const { Content, headings } = await render(post);
 const { title, excerpt, tldr, metaTitle, metaDescription, category, topic, date, dateModified, readTime, bullets } = post.data;
 const currentCategory = blogCategories.find(({ id }) => id === category)!;
 const related = await getCollection("blog", ({ id, data }) => id !== post.id && data.category === category);
-related.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+related.sort(sortBlogNewest);
 const message = `Halo Aditya, saya baru membaca artikel tentang ${topic ?? currentCategory.service.label} dan mau bertanya soal ${currentCategory.service.label.toLowerCase()}.`;
 const faqSection = (post.body ?? "").split(/^## Pertanyaan yang sering muncul\s*$/m)[1]?.split(/^## /m)[0] ?? "";
 const articleFaqs = faqSection
@@ -211,15 +211,15 @@ const shareUrl = `/blog/${post.id}`;
           </aside>
         </div>
 
-        {/* Sidebar sticky — desktop */}
-        <aside class="hidden min-w-0 lg:block">
-          <div class="sticky top-20 space-y-5">
+        {/* Sidebar sticky — desktop (sticky harus di aside, bukan div dalam, supaya range nempelnya setinggi kolom artikel) */}
+        <aside class="hidden min-w-0 self-start lg:sticky lg:top-20 lg:block">
+          <div class="space-y-5">
             {toc.length > 0 && (
               <nav aria-label="Daftar isi" class="rounded-3xl border border-line bg-white p-5">
                 <p class="type-fine flex items-center gap-2 font-bold tracking-wider text-muted uppercase">
                   <ListOrdered class="size-4 text-wa-deep" aria-hidden="true" /> Daftar isi
                 </p>
-                <ol class="mt-3 space-y-1">
+                <ol class="mt-3 max-h-[38dvh] space-y-1 overflow-y-auto pr-1 [scrollbar-width:thin]">
                   {toc.map((h, i) => (
                     <li>
                       <a

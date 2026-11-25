@@ -12,6 +12,7 @@ bullets:
   - "Periksa biaya sendiri, pengecualian, dan batas waktu pelaporan klaim."
   - "Simpan nomor layanan darurat dan klaim perusahaan asuransi."
 order: 0
+featured: true
 ---
 
 Hujan deras belum reda, dan Anda sedang dalam perjalanan pulang lewat BSD City, Gading Serpong, atau Alam Sutera. Di depan akses masuk perumahan, jalan sudah tergenang dan Anda tidak tahu seberapa dalam.

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { ArrowRight, BookOpen, Building2, CarFront, ChevronRight, House, LayoutGrid, Plane, Search, ShieldCheck } from "lucide-astro";
-import { blogCategories, type BlogCategory } from "../data/blog";
+import { blogCategories, sortBlogNewest, type BlogCategory } from "../data/blog";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogCard from "./BlogCard.astro";
 import WaButton from "./WaButton.astro";
@@ -13,7 +13,11 @@ interface Props {
 const { category } = Astro.props;
 const active = blogCategories.find(({ id }) => id === category);
 const posts = await getCollection("blog", ({ data }) => !category || data.category === category);
-posts.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+posts.sort(sortBlogNewest);
+// Halaman utama: 1 kartu featured ("Pilihan editor") + sisanya terbaru.
+// Halaman kategori: semuanya terbaru, tanpa featured.
+const featuredPost = !active ? (posts.find((p) => p.data.featured) ?? posts[0]) : undefined;
+const restPosts = featuredPost ? posts.filter((p) => p.id !== featuredPost.id) : posts;
 
 const tabs = [
   { id: undefined, label: "Semua", href: "/blog", Icon: LayoutGrid },
@@ -76,7 +80,8 @@ const description = active
     {posts.length > 0 ? (
       <>
         <div id="blog-grid" class="mt-5 grid gap-5 sm:grid-cols-2">
-          {posts.map((post, index) => <BlogCard post={post} featured={!active && index === 0} />)}
+          {featuredPost && <BlogCard post={featuredPost} featured />}
+          {restPosts.map((post) => <BlogCard post={post} />)}
         </div>
         <div id="blog-no-results" hidden class="mt-5 rounded-3xl border border-line bg-white px-5 py-9 text-center">
           <p class="type-panel-title">Artikel tidak ditemukan</p>

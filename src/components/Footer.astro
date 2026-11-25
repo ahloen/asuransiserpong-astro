@@ -1,6 +1,6 @@
 ---
 import { BLOG_LINK, EMERGENCY_NUMBER_LINKS, FOOTER_LINKS, SERVICE_LINKS, WORKING_HOURS } from "../data/config";
-import { Clock, MapPin } from "lucide-astro";
+import { ChevronDown, Clock, MapPin } from "lucide-astro";
 import Wordmark from "./Wordmark.astro";
 ---
 
@@ -28,57 +28,87 @@ import Wordmark from "./Wordmark.astro";
         </ul>
       </div>
 
-      <div class="grid grid-cols-2 gap-8 md:col-span-2">
-        <nav aria-label="Menu halaman">
-          <h2 class="type-eyebrow text-white/65">Menu</h2>
-          <ul class="type-body-sm mt-3.5 space-y-1">
-            {FOOTER_LINKS.map((l) => (
-              <li>
-                <a href={l.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
-                  {l.label}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href={BLOG_LINK.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
-                {BLOG_LINK.label}
-              </a>
-            </li>
-          </ul>
+      <div class="grid gap-1 md:col-span-2 md:grid-cols-2 md:gap-8">
+        <nav aria-label="Menu halaman" data-footer-acc class="border-b border-white/10 md:border-0">
+          <h2>
+            <button
+              type="button"
+              data-footer-toggle
+              aria-expanded="false"
+              aria-controls="footer-panel-menu"
+              class="flex min-h-11 w-full items-center justify-between gap-3 py-2 text-left md:pointer-events-none md:py-0"
+            >
+              <span class="type-eyebrow text-white/65">Menu</span>
+              <ChevronDown data-footer-chevron class="h-5 w-5 shrink-0 text-white/60 transition-transform duration-300 md:hidden" />
+            </button>
+          </h2>
+          <div id="footer-panel-menu" data-footer-panel inert class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 md:grid-rows-[1fr]">
+            <div class="overflow-hidden">
+              <ul class="type-body-sm space-y-1 pt-1.5 pb-4 md:mt-3.5 md:pt-0 md:pb-0">
+                {FOOTER_LINKS.map((l) => (
+                  <li>
+                    <a href={l.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a href={BLOG_LINK.href} class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white">
+                    {BLOG_LINK.label}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
 
-        <div>
-          <h2 class="type-eyebrow text-white/65">Layanan</h2>
-          <ul class="type-body-sm mt-3.5 space-y-1">
-            {SERVICE_LINKS.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div data-footer-acc class="border-b border-white/10 md:border-0">
+          <h2>
+            <button
+              type="button"
+              data-footer-toggle
+              aria-expanded="false"
+              aria-controls="footer-panel-layanan"
+              class="flex min-h-11 w-full items-center justify-between gap-3 py-2 text-left md:pointer-events-none md:py-0"
+            >
+              <span class="type-eyebrow text-white/65">Layanan</span>
+              <ChevronDown data-footer-chevron class="h-5 w-5 shrink-0 text-white/60 transition-transform duration-300 md:hidden" />
+            </button>
+          </h2>
+          <div id="footer-panel-layanan" data-footer-panel inert class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 md:grid-rows-[1fr]">
+            <div class="overflow-hidden">
+              <ul class="type-body-sm space-y-1 pt-1.5 md:mt-3.5 md:pt-0">
+                {SERVICE_LINKS.map((item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      class="inline-flex min-h-9 items-center font-medium text-white/75 transition hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
 
-          <div class="mt-4 border-t border-white/10 pt-3">
-            <p class="type-eyebrow text-white/65">
-              Nomor Darurat
-            </p>
-            <p class="type-meta mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-medium">
-              <a href={EMERGENCY_NUMBER_LINKS.zurich} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
-                Zurich
-              </a>
-              <span aria-hidden="true" class="text-white/30">·</span>
-              <a href={EMERGENCY_NUMBER_LINKS.aca} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
-                ACA
-              </a>
-              <span aria-hidden="true" class="text-white/30">·</span>
-              <a href={EMERGENCY_NUMBER_LINKS.gardaOto} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
-                Garda Oto
-              </a>
-            </p>
+              <div class="mt-4 border-t border-white/10 pt-3 pb-4 md:pb-0">
+                <p class="type-eyebrow text-white/65">
+                  Nomor Darurat
+                </p>
+                <p class="type-meta mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-medium">
+                  <a href={EMERGENCY_NUMBER_LINKS.zurich} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                    Zurich
+                  </a>
+                  <span aria-hidden="true" class="text-white/30">·</span>
+                  <a href={EMERGENCY_NUMBER_LINKS.aca} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                    ACA
+                  </a>
+                  <span aria-hidden="true" class="text-white/30">·</span>
+                  <a href={EMERGENCY_NUMBER_LINKS.gardaOto} class="text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white">
+                    Garda Oto
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -105,3 +135,66 @@ import Wordmark from "./Wordmark.astro";
     </div>
   </div>
 </footer>
+
+<style>
+  [data-footer-acc].open [data-footer-chevron] {
+    transform: rotate(180deg);
+  }
+  [data-footer-acc].open [data-footer-panel] {
+    grid-template-rows: 1fr;
+  }
+  @media (min-width: 48rem) {
+    [data-footer-acc] [data-footer-panel] {
+      grid-template-rows: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-footer-panel] {
+      transition: none;
+    }
+    [data-footer-chevron] {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const accs = Array.from(document.querySelectorAll("[data-footer-acc]"));
+    if (!accs.length) return;
+    const mq = window.matchMedia("(min-width: 48rem)");
+    const isDesktop = () => mq.matches;
+
+    function syncAcc(acc: Element, open: boolean) {
+      acc.classList.toggle("open", open);
+      const toggle = acc.querySelector("[data-footer-toggle]");
+      const panel = acc.querySelector("[data-footer-panel]");
+      if (toggle) toggle.setAttribute("aria-expanded", String(open || isDesktop()));
+      if (panel) {
+        // Di desktop panel selalu terekspos ke AT; di mobile ikut state open.
+        if (open || isDesktop()) panel.removeAttribute("inert");
+        else panel.setAttribute("inert", "");
+      }
+    }
+
+    function isOpen(acc: Element) {
+      return acc.classList.contains("open");
+    }
+
+    accs.forEach((acc) => {
+      const toggle = acc.querySelector("[data-footer-toggle]");
+      if (!toggle) return;
+      // Tertutup secara default di mobile (hemat ruang), selalu terbuka di desktop via CSS.
+      syncAcc(acc, false);
+      toggle.addEventListener("click", () => {
+        if (isDesktop()) return;
+        syncAcc(acc, !isOpen(acc));
+      });
+    });
+
+    function syncAll() {
+      accs.forEach((acc) => syncAcc(acc, isOpen(acc)));
+    }
+    mq.addEventListener("change", syncAll);
+  })();
+</script>
