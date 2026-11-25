@@ -321,17 +321,23 @@ const shareUrl = `/blog/${post.id}`;
     if (faqH2) {
       let cur: HTMLDetailsElement | null = null;
       let node: Element | null = faqH2.nextElementSibling;
-      const toMove: Element[] = [faqH2];
+      const toMove: Element[] = [];
       while (node && node.tagName !== "H2") {
         const next = node.nextElementSibling;
         toMove.push(node);
         node = next;
       }
+      // Lepas dulu semua node FAQ dari DOM agar tidak ada duplikat H3 tertinggal.
+      toMove.forEach((el) => el.remove());
       const wrap = document.createElement("div");
       wrap.className = "faq-wrap";
       faqH2.replaceWith(wrap);
+      // Kembalikan judul FAQ sebagai H2 biasa (tanpa nomor bab).
+      const faqTitle = document.createElement("h2");
+      faqTitle.className = "faq-title";
+      faqTitle.textContent = faqH2.textContent?.trim() ?? "Pertanyaan yang sering muncul";
+      wrap.appendChild(faqTitle);
       for (const el of toMove) {
-        if (el === faqH2) continue;
         if (el.tagName === "H3") {
           cur = document.createElement("details");
           cur.className = "faq-item";
@@ -488,7 +494,9 @@ const shareUrl = `/blog/${post.id}`;
   .article-copy :global(tbody tr:last-child th), .article-copy :global(tbody tr:last-child td) { border-bottom: 0; }
 
   /* FAQ accordion hasil enhancement JS */
-  .article-copy :global(.faq-wrap) { display: grid; gap: 0.7rem; margin-top: 1em; }
+  .article-copy :global(.faq-wrap) { display: grid; gap: 0.7rem; margin-top: 1em; counter-increment: none; }
+  .article-copy :global(.faq-wrap > .faq-title) { counter-increment: none; display: block; }
+  .article-copy :global(.faq-wrap > .faq-title::before) { content: none; }
   .article-copy :global(.faq-item) {
     border: 1px solid var(--color-line); border-radius: 1rem;
     background: #fff; overflow: hidden;
