@@ -15,7 +15,9 @@ bullets:
 order: 3
 ---
 
-Kalau rumah Anda rusak berat karena kebakaran, yang Anda butuhkan adalah biaya membangunnya lagi, bukan harga jualnya. Itu pun baru bangunannya. Kitchen set, AC, furnitur, sampai peralatan kerja juga harus dibeli ulang, dan polis yang menanggung bangunan belum tentu ikut menanggung semua itu.
+Kalau rumah Anda rusak berat karena kebakaran, yang Anda butuhkan adalah biaya membangunnya lagi, bukan harga jualnya. Itu pun baru bangunannya.
+
+Kitchen set, AC, furnitur, sampai peralatan kerja juga harus dibeli ulang, dan polis yang menanggung bangunan belum tentu ikut menanggung semua itu.
 
 Jadi setelah KPR lunas, atau setelah beli rumah tunai di BSD City, Gading Serpong, dan Alam Sutera, pertanyaan pertamanya sederhana: perlindungan apa yang sebenarnya sudah ada, dan risiko mana yang masih Anda tanggung sendiri?
 
@@ -23,17 +25,29 @@ Jadi setelah KPR lunas, atau setelah beli rumah tunai di BSD City, Gading Serpon
 
 ## Cek dulu polis bawaan KPR
 
-Polis yang menyertai KPR bisa saja hanya berfokus pada bangunan, dengan klausul yang menempatkan bank sebagai pihak berkepentingan. Ada dua hal yang perlu Anda lihat. Pertama, nilai bangunan yang tertulis. Angka itu belum tentu cukup untuk membangun ulang rumah hari ini, apalagi kalau Anda pernah menambah lantai atau renovasi. Kedua, isi rumah, yang tidak otomatis ikut dijamin.
+Polis yang menyertai KPR bisa saja hanya berfokus pada bangunan, dengan klausul yang menempatkan bank sebagai pihak berkepentingan. Ada dua hal yang perlu Anda lihat.
 
-KPR yang sudah lunas juga tidak otomatis mengakhiri polis. Minta ikhtisar polis beserta lampirannya, lalu tanyakan ke bank dan perusahaan asuransi: apakah polis masih berlaku setelah pelunasan, dan apakah klausul bank perlu diubah? Kalau Anda beli rumah tunai, cek dulu apakah bangunannya sudah punya polis sebelum mulai membandingkan penawaran baru.
+Pertama, nilai bangunan yang tertulis. Angka itu belum tentu cukup untuk membangun ulang rumah hari ini, apalagi kalau Anda pernah menambah lantai atau renovasi.
+
+Kedua, isi rumah, yang tidak otomatis ikut dijamin.
+
+KPR yang sudah lunas juga tidak otomatis mengakhiri polis. Minta ikhtisar polis beserta lampirannya, lalu tanyakan ke bank dan perusahaan asuransi: apakah polis masih berlaku setelah pelunasan, dan apakah klausul bank perlu diubah?
+
+Kalau Anda beli rumah tunai, cek dulu apakah bangunannya sudah punya polis sebelum mulai membandingkan penawaran baru.
 
 ## FLEXAS dan Property All Risks (PAR), apa bedanya?
 
-Polis kebakaran standar (FLEXAS) menjamin risiko yang disebut satu per satu: kebakaran, petir, ledakan, kejatuhan pesawat, dan asap, sesuai ketentuan polis. Kalau Anda ingin isi rumah ikut terlindungi, atau ingin menambah risiko seperti banjir, tanyakan apakah keduanya bisa dicantumkan terpisah.
+Polis kebakaran standar (FLEXAS) menjamin risiko yang disebut satu per satu: kebakaran, petir, ledakan, kejatuhan pesawat, dan asap, sesuai ketentuan polis.
 
-PAR umumnya menjamin kerusakan fisik yang mendadak dan tidak terduga, selama tidak dikecualikan dan objeknya tercantum di polis. Cakupannya lebih luas, tapi bukan berarti semuanya masuk. Banjir, gempa, pencurian, dan tanggung jawab terhadap pihak ketiga perlu ditanyakan satu per satu, karena sebagian bisa punya limit, syarat khusus, atau harus dengan polis terpisah.
+Kalau Anda ingin isi rumah ikut terlindungi, atau ingin menambah risiko seperti banjir, tanyakan apakah keduanya bisa dicantumkan terpisah.
 
-Kalau nanti Anda membandingkan dua premi, pastikan dulu keduanya menjamin hal yang sama: bangunan saja, atau termasuk isi rumah. Premi yang lebih murah bisa jadi hanya karena cakupannya lebih sempit. Minta ringkasan manfaat, limit, pengecualian, dan biaya sendiri untuk risiko yang paling Anda khawatirkan.
+PAR umumnya menjamin kerusakan fisik yang mendadak dan tidak terduga, selama tidak dikecualikan dan objeknya tercantum di polis. Cakupannya lebih luas, tapi bukan berarti semuanya masuk.
+
+Banjir, gempa, pencurian, dan tanggung jawab terhadap pihak ketiga perlu ditanyakan satu per satu, karena sebagian bisa punya limit, syarat khusus, atau harus dengan polis terpisah.
+
+Kalau nanti Anda membandingkan dua premi, pastikan dulu keduanya menjamin hal yang sama: bangunan saja, atau termasuk isi rumah. Premi yang lebih murah bisa jadi hanya karena cakupannya lebih sempit.
+
+Minta ringkasan manfaat, limit, pengecualian, dan biaya sendiri untuk risiko yang paling Anda khawatirkan.
 
 ## Tiga hal yang sebaiknya disiapkan sebelum minta simulasi
 
@@ -45,10 +59,16 @@ Kalau nanti Anda membandingkan dua premi, pastikan dulu keduanya menjamin hal ya
 
 ### Apakah penyewa bisa mengasuransikan isi rumah saja?
 
-Beberapa produk memungkinkan penyewa mengasuransikan perabot dan barang miliknya tanpa ikut menjamin bangunan. Tanyakan dokumen yang diminta, barang apa saja yang bisa dicantumkan, dan batas pertanggungannya.
+Beberapa produk memungkinkan penyewa mengasuransikan perabot dan barang miliknya tanpa ikut menjamin bangunan.
+
+Tanyakan dokumen yang diminta, barang apa saja yang bisa dicantumkan, dan batas pertanggungannya.
 
 ### Apa yang perlu dicek kalau rumah ditinggal beberapa minggu?
 
-Cek bagaimana polis mendefinisikan rumah kosong, berapa lama batasnya, dan apakah Anda harus memberi tahu perusahaan asuransi sebelum pergi. Aturannya bisa berbeda antarproduk, jadi cek polis Anda sendiri.
+Cek bagaimana polis mendefinisikan rumah kosong, berapa lama batasnya, dan apakah Anda harus memberi tahu perusahaan asuransi sebelum pergi.
 
-[Diskusikan perlindungan bangunan dan isi rumah dengan Aditya](https://wa.me/628170826886?text=Halo%20Aditya%2C%20KPR%20rumah%20saya%20sudah%20lunas%20dan%20saya%20mau%20tanya%20opsi%20perlindungan%20bangunan%20dan%20isi%20rumah%20di%20BSD%2FSerpong.) Untuk estimasi awal, cukup siapkan area, perkiraan luas bangunan, dan apa yang ingin dilindungi. Detail lainnya bisa menyusul kalau diperlukan untuk [pengajuan asuransi properti](/asuransi-properti/).
+Aturannya bisa berbeda antarproduk, jadi cek polis Anda sendiri.
+
+[Diskusikan perlindungan bangunan dan isi rumah dengan Aditya](https://wa.me/628170826886?text=Halo%20Aditya%2C%20KPR%20rumah%20saya%20sudah%20lunas%20dan%20saya%20mau%20tanya%20opsi%20perlindungan%20bangunan%20dan%20isi%20rumah%20di%20BSD%2FSerpong.)
+
+Untuk estimasi awal, cukup siapkan area, perkiraan luas bangunan, dan apa yang ingin dilindungi. Detail lainnya bisa menyusul kalau diperlukan untuk [pengajuan asuransi properti](/asuransi-properti/).

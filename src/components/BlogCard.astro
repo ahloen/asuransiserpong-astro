@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { post, featured = false } = Astro.props;
-const { title, excerpt, category, topic, readTime } = post.data;
+const { title, excerpt, category, topic, readTime, imagePosition } = post.data;
 const label = blogCategories.find(({ id }) => id === category)!.label;
 ---
 
@@ -27,10 +27,11 @@ const label = blogCategories.find(({ id }) => id === category)!.label;
       featured ? "lg:grid-cols-[1.05fr_1fr]" : "grid-rows-[auto_1fr]",
     ]}
   >
-    <div class:list={["relative", featured ? "h-44 sm:h-56 lg:h-auto lg:min-h-70" : "h-40"]}>
+    <div class:list={["relative overflow-hidden", featured ? "aspect-video sm:aspect-auto sm:h-56 lg:h-auto lg:min-h-70" : "aspect-video"]}>
       <BlogArt
         category={category}
         postId={post.id}
+        position={imagePosition ?? "center"}
         sizes={
           featured ? "(min-width: 1024px) 480px, 100vw" : "(min-width: 640px) 384px, 100vw"
         }

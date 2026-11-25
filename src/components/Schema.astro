@@ -77,6 +77,7 @@ if (type === "home") {
     url,
     headline: article.headline,
     description: article.description ?? description,
+    image: [new URL("/avatar-aditya.jpg", siteUrl).href],
     datePublished,
     dateModified: parseDate(article.dateModified ?? article.datePublished),
     author: { "@id": personId },

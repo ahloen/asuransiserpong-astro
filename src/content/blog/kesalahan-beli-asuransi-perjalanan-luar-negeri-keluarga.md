@@ -15,7 +15,9 @@ bullets:
 order: 4
 ---
 
-Tiket dan hotel sudah dipesan. Lalu anak harus berobat di tengah liburan, atau koper baru tiba dua hari setelah Anda mendarat. Polis yang cukup untuk satu kejadian belum tentu cukup untuk yang lain. Polis yang memenuhi syarat medis visa Schengen, misalnya, belum tentu menjamin keterlambatan bagasi atau pembatalan perjalanan.
+Tiket dan hotel sudah dipesan. Lalu anak harus berobat di tengah liburan, atau koper baru tiba dua hari setelah Anda mendarat.
+
+Polis yang cukup untuk satu kejadian belum tentu cukup untuk yang lain. Polis yang memenuhi syarat medis visa Schengen, misalnya, belum tentu menjamin keterlambatan bagasi atau pembatalan perjalanan.
 
 Kalau Anda sedang menyiapkan liburan keluarga dari BSD City, Gading Serpong, atau Alam Sutera, pakai lima poin di bawah untuk membaca penawaran sebelum membeli.
 
@@ -37,14 +39,24 @@ Untuk visa turis Schengen, bukti asuransi perjalanan medis pada umumnya harus:
 - Memiliki pertanggungan medis minimal **EUR 30.000**, termasuk perawatan darurat, rawat inap darurat, dan repatriasi, termasuk bila meninggal dunia.
 - Menunjukkan bahwa setiap pemohon yang diwajibkan, termasuk anak, tercakup. Untuk paket keluarga, pastikan nama semua yang mengajukan visa tercantum di bukti asuransi.
 
-Panduan resminya ada di [situs Komisi Eropa untuk visa Schengen](https://home-affairs.ec.europa.eu/policies/schengen/schengen-visas/applying-schengen-visa_en), dan ada [contoh checklist pengajuan visa turis Belanda dari Indonesia](https://www.netherlandsworldwide.nl/visa-the-netherlands/checklist-schengen-visa-tourism/indonesia). Tetap pakai checklist konsulat yang menangani permohonan Anda untuk memastikan format bukti asuransinya. Dan perlu diingat, memenuhi syarat asuransi tidak menjamin visa disetujui.
+Panduan resminya ada di [situs Komisi Eropa untuk visa Schengen](https://home-affairs.ec.europa.eu/policies/schengen/schengen-visas/applying-schengen-visa_en), dan ada [contoh checklist pengajuan visa turis Belanda dari Indonesia](https://www.netherlandsworldwide.nl/visa-the-netherlands/checklist-schengen-visa-tourism/indonesia).
+
+Tetap pakai checklist konsulat yang menangani permohonan Anda untuk memastikan format bukti asuransinya. Dan perlu diingat, memenuhi syarat asuransi tidak menjamin visa disetujui.
 
 ## Polis keluarga atau individual?
 
-Paket keluarga lebih praktis kalau pasangan dan anak pergi bersama dengan jadwal yang sama. Cek dulu apakah orang tua lanjut usia atau anak yang sudah dewasa masuk definisi keluarga di produk itu. Polis individual bisa lebih cocok kalau tanggal perjalanannya berbeda, atau salah satu peserta butuh manfaat yang berbeda. Yang dibandingkan sebaiknya total premi dan limit per orang, bukan harga satu paket.
+Paket keluarga lebih praktis kalau pasangan dan anak pergi bersama dengan jadwal yang sama. Cek dulu apakah orang tua lanjut usia atau anak yang sudah dewasa masuk definisi keluarga di produk itu.
+
+Polis individual bisa lebih cocok kalau tanggal perjalanannya berbeda, atau salah satu peserta butuh manfaat yang berbeda. Yang dibandingkan sebaiknya total premi dan limit per orang, bukan harga satu paket.
 
 ## Sebelum berangkat
 
-Unduh polis dan nomor bantuan darurat supaya bisa dibuka tanpa internet. Cek kapan Anda harus menghubungi layanan bantuan, lalu simpan bukti yang mungkin diperlukan: kuitansi dan laporan medis untuk biaya berobat, atau surat keterangan maskapai untuk bagasi dan penerbangan. Manfaat dan keputusan klaim tetap mengikuti ketentuan polis.
+Unduh polis dan nomor bantuan darurat supaya bisa dibuka tanpa internet. Cek kapan Anda harus menghubungi layanan bantuan, lalu simpan bukti yang mungkin diperlukan: kuitansi dan laporan medis untuk biaya berobat, atau surat keterangan maskapai untuk bagasi dan penerbangan.
 
-[Tanya Aditya soal polis untuk rute dan tanggal perjalanan Anda](https://wa.me/628170826886?text=Halo%20Aditya%2C%20boleh%20bantu%20cek%20asuransi%20perjalanan%20untuk%20rute%20dan%20tanggal%20keberangkatan%20keluarga%20kami%3F) Untuk estimasi awal, cukup siapkan negara tujuan, tanggal pergi dan pulang, jumlah peserta, dan rentang usia. Tidak perlu kirim foto paspor di pesan pertama. Lihat juga [layanan asuransi perjalanan](/asuransi-travel/).
+Manfaat dan keputusan klaim tetap mengikuti ketentuan polis.
+
+[Tanya Aditya soal polis untuk rute dan tanggal perjalanan Anda](https://wa.me/628170826886?text=Halo%20Aditya%2C%20boleh%20bantu%20cek%20asuransi%20perjalanan%20untuk%20rute%20dan%20tanggal%20keberangkatan%20keluarga%20kami%3F)
+
+Untuk estimasi awal, cukup siapkan negara tujuan, tanggal pergi dan pulang, jumlah peserta, dan rentang usia. Tidak perlu kirim foto paspor di pesan pertama.
+
+Lihat juga [layanan asuransi perjalanan](/asuransi-travel/).

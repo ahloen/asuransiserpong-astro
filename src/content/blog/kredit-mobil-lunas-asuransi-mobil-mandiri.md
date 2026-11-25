@@ -15,7 +15,9 @@ bullets:
 order: 1
 ---
 
-Angsuran terakhir sudah dibayar dan BPKB siap diambil. Tapi sebelum urusan dengan leasing atau bank ditutup, ada satu dokumen lagi yang perlu Anda buka: ikhtisar polis mobil. Tanggal pelunasan, tanggal BPKB bisa diambil, dan tanggal berakhirnya pertanggungan belum tentu jatuh di hari yang sama.
+Angsuran terakhir sudah dibayar dan BPKB siap diambil. Tapi sebelum urusan dengan leasing atau bank ditutup, ada satu dokumen lagi yang perlu Anda buka: ikhtisar polis mobil.
+
+Tanggal pelunasan, tanggal BPKB bisa diambil, dan tanggal berakhirnya pertanggungan belum tentu jatuh di hari yang sama.
 
 Kalau mobil Anda masih dipakai setiap hari di BSD City, Gading Serpong, atau Alam Sutera, jangan langsung beli polis baru. Pastikan dulu perlindungan yang sudah Anda bayar masih aktif, baru tentukan kapan polis pengganti harus mulai berlaku.
 
@@ -29,24 +31,40 @@ Kalau mobil Anda masih dipakai setiap hari di BSD City, Gading Serpong, atau Ala
 
 ## Setelah lunas, pilih All Risk atau TLO?
 
-**Comprehensive (All Risk)** bisa menjamin kerusakan sebagian maupun kerugian total akibat risiko yang tercantum di polis. Opsi ini masuk akal kalau mobil Anda dipakai sering, nilainya masih cukup tinggi, atau biaya memperbaiki penyok dan kerusakan akibat benturan akan memberatkan anggaran Anda.
+**Comprehensive (All Risk)** bisa menjamin kerusakan sebagian maupun kerugian total akibat risiko yang tercantum di polis.
 
-**Total Loss Only (TLO)** berfokus pada kerugian total. Di polis standar, kerusakan baru dianggap kerugian total kalau biaya perbaikan mencapai sedikitnya 75% dari harga sebenarnya kendaraan sesaat sebelum kejadian. Sebagai ilustrasi, mobil yang nilainya Rp200 juta baru masuk kategori itu kalau biaya perbaikannya sekitar Rp150 juta atau lebih. Kehilangan karena pencurian juga bisa dijamin sesuai syarat polis. Jadi TLO tidak dirancang untuk membayar baret atau penyok biasa.
+Opsi ini masuk akal kalau mobil Anda dipakai sering, nilainya masih cukup tinggi, atau biaya memperbaiki penyok dan kerusakan akibat benturan akan memberatkan anggaran Anda.
 
-Satu hal yang sering terlewat: All Risk bukan berarti semua risiko dijamin. Cek [jaminan banjir](/blog/asuransi-mobil-banjir-bsd-gading-serpong/) dan Tanggung Jawab Hukum Pihak Ketiga (TJH III) secara terpisah. Untuk TJH III, tanyakan batas ganti rugi dan syaratnya. Untuk klaim kerusakan mobil sendiri, lihat juga biaya sendiri yang harus Anda tanggung.
+**Total Loss Only (TLO)** berfokus pada kerugian total. Di polis standar, kerusakan baru dianggap kerugian total kalau biaya perbaikan mencapai sedikitnya 75% dari harga sebenarnya kendaraan sesaat sebelum kejadian.
+
+Sebagai ilustrasi, mobil yang nilainya Rp200 juta baru masuk kategori itu kalau biaya perbaikannya sekitar Rp150 juta atau lebih. Kehilangan karena pencurian juga bisa dijamin sesuai syarat polis. Jadi TLO tidak dirancang untuk membayar baret atau penyok biasa.
+
+Satu hal yang sering terlewat: All Risk bukan berarti semua risiko dijamin. Cek [jaminan banjir](/blog/asuransi-mobil-banjir-bsd-gading-serpong/) dan Tanggung Jawab Hukum Pihak Ketiga (TJH III) secara terpisah.
+
+Untuk TJH III, tanyakan batas ganti rugi dan syaratnya. Untuk klaim kerusakan mobil sendiri, lihat juga biaya sendiri yang harus Anda tanggung.
 
 ## Apa yang bisa Anda pilih sendiri?
 
-Selama kredit berjalan, paket asuransi biasanya mengikuti pilihan rekanan pembiayaan. Setelah polisnya Anda urus sendiri, Anda bisa membandingkan perusahaan asuransi, harga pertanggungan, perluasan jaminan, dan bengkel rekanan yang mudah dijangkau. Supaya selisih premi benar-benar bisa dibandingkan, minta penawaran dengan nilai kendaraan dan jaminan yang setara. [Panduan membandingkan asuransi mobil di Serpong](/blog/perbandingan-asuransi-mobil-terbaik-serpong/) bisa membantu mengecek rinciannya.
+Selama kredit berjalan, paket asuransi biasanya mengikuti pilihan rekanan pembiayaan. Setelah polisnya Anda urus sendiri, Anda bisa membandingkan perusahaan asuransi, harga pertanggungan, perluasan jaminan, dan bengkel rekanan yang mudah dijangkau.
+
+Supaya selisih premi benar-benar bisa dibandingkan, minta penawaran dengan nilai kendaraan dan jaminan yang setara.
+
+[Panduan membandingkan asuransi mobil di Serpong](/blog/perbandingan-asuransi-mobil-terbaik-serpong/) bisa membantu mengecek rinciannya.
 
 ## Pertanyaan yang sering muncul
 
 ### Apakah harus menunggu BPKB diambil untuk mulai cek penawaran?
 
-Tidak perlu. Simulasi bisa diminta kapan saja. Untuk penerbitan polis, tanyakan dokumen dan syarat dari perusahaan asuransi, termasuk apakah perlu foto kendaraan atau survei. Untuk obrolan awal, cukup siapkan merek, tipe, tahun kendaraan, dan wilayah pelat. Foto KTP atau STNK tidak perlu dikirim di pesan pertama.
+Tidak perlu. Simulasi bisa diminta kapan saja. Untuk penerbitan polis, tanyakan dokumen dan syarat dari perusahaan asuransi, termasuk apakah perlu foto kendaraan atau survei.
+
+Untuk obrolan awal, cukup siapkan merek, tipe, tahun kendaraan, dan wilayah pelat. Foto KTP atau STNK tidak perlu dikirim di pesan pertama.
 
 ### Bisakah ganti perusahaan asuransi setelah lunas?
 
-Bisa, dengan tetap mengikuti ketentuan polis lama dan persetujuan perusahaan yang baru. Kalau polis lama masih aktif, cek jadwalnya dulu sebelum meminta tanggal mulai yang baru. Kerusakan yang terjadi sebelum polis baru efektif tidak bisa diklaim di polis baru.
+Bisa, dengan tetap mengikuti ketentuan polis lama dan persetujuan perusahaan yang baru. Kalau polis lama masih aktif, cek jadwalnya dulu sebelum meminta tanggal mulai yang baru.
 
-[Minta simulasi All Risk dan TLO ke Aditya](https://wa.me/628170826886?text=Halo%20Aditya%2C%20saya%20mau%20bandingkan%20opsi%20All%20Risk%20dan%20TLO%20untuk%20mobil%20yang%20baru%20lunas%20kredit%20di%20area%20Serpong.) atau lihat layanan [asuransi mobil di Serpong](/asuransi-mobil/).
+Kerusakan yang terjadi sebelum polis baru efektif tidak bisa diklaim di polis baru.
+
+[Minta simulasi All Risk dan TLO ke Aditya](https://wa.me/628170826886?text=Halo%20Aditya%2C%20saya%20mau%20bandingkan%20opsi%20All%20Risk%20dan%20TLO%20untuk%20mobil%20yang%20baru%20lunas%20kredit%20di%20area%20Serpong.)
+
+Atau lihat layanan [asuransi mobil di Serpong](/asuransi-mobil/).

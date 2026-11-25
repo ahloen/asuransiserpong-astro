@@ -15,7 +15,9 @@ bullets:
 order: 2
 ---
 
-Anda menerima dua penawaran All Risk dengan premi yang hampir sama. Yang satu mencantumkan jaminan banjir, yang lain punya bengkel rekanan lebih dekat dari rumah. Mana yang lebih cocok? Jawabannya baru kelihatan kalau Anda membandingkan rincian di dalam penawaran, bukan nama paket atau merek perusahaannya.
+Anda menerima dua penawaran All Risk dengan premi yang hampir sama. Yang satu mencantumkan jaminan banjir, yang lain punya bengkel rekanan lebih dekat dari rumah. Mana yang lebih cocok?
+
+Jawabannya baru kelihatan kalau Anda membandingkan rincian di dalam penawaran, bukan nama paket atau merek perusahaannya.
 
 Di BSD City, Gading Serpong, dan Alam Sutera, bengkel yang mudah dijangkau memang layak dipertimbangkan. Tapi urutannya penting: pastikan dulu kedua penawaran menanggung risiko yang ingin Anda lindungi, baru lihat lokasi bengkel.
 
@@ -33,22 +35,32 @@ Di BSD City, Gading Serpong, dan Alam Sutera, bengkel yang mudah dijangkau meman
 
 Urutannya begini. Samakan dulu jenis jaminan, TSI, perluasan, dan limit. Setelah itu bandingkan total premi tahunan, lalu pertimbangkan biaya sendiri dan akses bengkel.
 
-Contohnya, penawaran A lebih murah karena belum mencakup banjir. Jangan langsung membandingkannya dengan penawaran B. Minta dulu versi A dengan perluasan banjir, baru selisih premi keduanya berarti sesuatu.
+Contohnya, penawaran A lebih murah karena belum mencakup banjir. Jangan langsung membandingkannya dengan penawaran B.
+
+Minta dulu versi A dengan perluasan banjir, baru selisih premi keduanya berarti sesuatu.
 
 ## Tanyakan alur klaim sebelum membayar premi
 
 Simpan nomor resmi klaim dan bantuan darurat perusahaan asuransi. Tanyakan batas waktu pelaporan, dokumen apa yang dibutuhkan, dan apakah perlu survei atau persetujuan sebelum mobil diperbaiki.
 
-Kalau terjadi insiden di jalan, utamakan keselamatan, ambil foto bila situasinya aman, dan hubungi kanal resmi perusahaan asuransi sebelum menyetujui perbaikan apa pun. Aditya bisa membantu menjelaskan langkah-langkahnya, tapi keputusan klaim tetap ada pada perusahaan asuransi sesuai polis.
+Kalau terjadi insiden di jalan, utamakan keselamatan, ambil foto bila situasinya aman, dan hubungi kanal resmi perusahaan asuransi sebelum menyetujui perbaikan apa pun.
+
+Aditya bisa membantu menjelaskan langkah-langkahnya, tapi keputusan klaim tetap ada pada perusahaan asuransi sesuai polis.
 
 ## Pertanyaan yang sering muncul
 
 ### Apakah mobil dengan merek dan tahun yang sama pasti preminya sama?
 
-Tidak. Nilai pertanggungan, wilayah registrasi, jenis jaminan, dan perluasan yang dipilih bisa berbeda. Minta rincian tertulis supaya Anda tahu apa yang menyebabkan selisih harga.
+Tidak. Nilai pertanggungan, wilayah registrasi, jenis jaminan, dan perluasan yang dipilih bisa berbeda.
+
+Minta rincian tertulis supaya Anda tahu apa yang menyebabkan selisih harga.
 
 ### Apa yang perlu dikirim untuk membandingkan opsi?
 
-Mulai dengan merek, tipe, tahun mobil, wilayah pelat, dan area bengkel yang Anda inginkan. Kalau sudah punya penawaran, kirim bagian rincian manfaat dan premi saja, dan tutupi data pribadi yang tidak diperlukan.
+Mulai dengan merek, tipe, tahun mobil, wilayah pelat, dan area bengkel yang Anda inginkan.
 
-[Cek opsi premi dan bengkel rekanan lewat WhatsApp](https://wa.me/628170826886?text=Halo%20Aditya%2C%20boleh%20bantu%20cek%20opsi%20bengkel%20rekanan%20dan%20premi%20untuk%20mobil%20saya%20di%20BSD%2FSerpong%3F) atau lihat layanan [asuransi mobil di Serpong](/asuransi-mobil/).
+Kalau sudah punya penawaran, kirim bagian rincian manfaat dan premi saja, dan tutupi data pribadi yang tidak diperlukan.
+
+[Cek opsi premi dan bengkel rekanan lewat WhatsApp](https://wa.me/628170826886?text=Halo%20Aditya%2C%20boleh%20bantu%20cek%20opsi%20bengkel%20rekanan%20dan%20premi%20untuk%20mobil%20saya%20di%20BSD%2FSerpong%3F)
+
+Atau lihat layanan [asuransi mobil di Serpong](/asuransi-mobil/).

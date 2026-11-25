@@ -8,12 +8,14 @@ import perbandinganMobil from "../assets/blog/perbandingan-asuransi-mobil-serpon
 import perjalananKeluarga from "../assets/blog/asuransi-perjalanan-keluarga.webp";
 import kreditMobilLunas from "../assets/blog/kredit-mobil-lunas-asuransi-mobil.webp";
 import mobilBanjir from "../assets/blog/asuransi-mobil-banjir-serpong.webp";
+import tloAdalah from "../assets/blog/asuransi-tlo-adalah.webp";
 
 interface Props {
   category: BlogCategory;
   postId: string;
   sizes?: string;
   priority?: boolean;
+  position?: string;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   postId,
   sizes = "(min-width: 1024px) 480px, (min-width: 640px) 50vw, 100vw",
   priority = false,
+  position = "center",
 } = Astro.props;
 const photoByPost: Record<string, ImageMetadata> = {
   "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": rumahKprLunas,
@@ -28,6 +31,7 @@ const photoByPost: Record<string, ImageMetadata> = {
   "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": perjalananKeluarga,
   "kredit-mobil-lunas-asuransi-mobil-mandiri": kreditMobilLunas,
   "asuransi-mobil-banjir-bsd-gading-serpong": mobilBanjir,
+  "asuransi-tlo-adalah": tloAdalah,
 };
 const photoAltByPost: Record<string, string> = {
   "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": "Rumah tinggal sebagai ilustrasi perlindungan asuransi bangunan dan isi rumah di Serpong",
@@ -35,6 +39,7 @@ const photoAltByPost: Record<string, string> = {
   "kesalahan-beli-asuransi-perjalanan-luar-negeri-keluarga": "Koper dan perlengkapan perjalanan keluarga untuk ilustrasi asuransi perjalanan",
   "kredit-mobil-lunas-asuransi-mobil-mandiri": "Mobil untuk ilustrasi mengurus asuransi setelah kredit lunas",
   "asuransi-mobil-banjir-bsd-gading-serpong": "Mobil di jalan tergenang sebagai ilustrasi risiko banjir pada asuransi mobil",
+  "asuransi-tlo-adalah": "Mobil untuk ilustrasi pengertian asuransi TLO Total Loss Only",
 };
 const photo = photoByPost[postId];
 const categoryArt = {
@@ -55,9 +60,10 @@ const [Icon, tone] = topicArt[postId] ?? categoryArt[category];
     class="blog-photo"
     src={photo}
     alt={photoAltByPost[postId]}
-    widths={[336, 480, 672, 840, 960]}
+    widths={[480, 672, 840, 960, 1200]}
     sizes={sizes}
-    quality={priority ? 84 : 80}
+    quality={priority ? 88 : 85}
+    style={`object-position: ${position}`}
     loading={priority ? "eager" : "lazy"}
     fetchpriority={priority ? "high" : "auto"}
     decoding="async"
