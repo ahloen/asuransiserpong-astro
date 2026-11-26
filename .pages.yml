@@ -1,0 +1,107 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: blog
+    label: Artikel Blog
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename:
+      template: "{title}.md"
+      field: create
+    view:
+      fields: [title, category, date]
+      primary: title
+      sort: [date, title]
+      search: [title, excerpt, topic]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Judul
+        type: string
+        required: true
+        description: Judul artikel yang tampil di halaman blog.
+      - name: excerpt
+        label: Ringkasan (Excerpt)
+        type: text
+        required: true
+        description: 1-2 kalimat ringkasan untuk kartu blog & SEO.
+      - name: tldr
+        label: TL;DR
+        type: text
+        required: true
+        description: Ringkasan cepat 2-3 kalimat di atas isi artikel.
+      - name: metaTitle
+        label: Meta Title (SEO)
+        type: string
+        required: false
+        description: Kosongkan = pakai Judul. Ideal 50-60 karakter.
+      - name: metaDescription
+        label: Meta Description (SEO)
+        type: text
+        required: false
+        description: Kosongkan = pakai Excerpt. Ideal 150-160 karakter.
+      - name: category
+        label: Kategori
+        type: select
+        required: true
+        options:
+          values:
+            - name: mobil
+              label: Mobil
+            - name: travel
+              label: Travel
+            - name: properti
+              label: Properti
+            - name: bisnis
+              label: Bisnis
+      - name: topic
+        label: Topik
+        type: string
+        required: false
+        description: "cth: Perbandingan Polis, Panduan Klaim"
+      - name: date
+        label: Tanggal Terbit
+        type: string
+        required: true
+        description: "Format: 20 Nov 2026 (tgl spasi bulan Indonesia/SIngkat spasi tahun)"
+      - name: dateModified
+        label: Tanggal Update
+        type: string
+        required: false
+        description: "Format sama seperti Tanggal Terbit. Isi saat artikel diperbarui."
+      - name: readTime
+        label: Waktu Baca
+        type: string
+        required: true
+        description: 'cth: 4 menit'
+      - name: bullets
+        label: Poin Ringkas
+        type: string
+        list: true
+        required: false
+        description: 2-4 bullet utama artikel.
+      - name: order
+        label: Urutan Seri
+        type: number
+        required: false
+        description: Opsional, hanya untuk seri bersambung.
+      - name: featured
+        label: Featured
+        type: boolean
+        required: false
+      - name: imagePosition
+        label: Posisi Gambar
+        type: string
+        required: false
+      - name: body
+        label: Isi Artikel
+        type: rich-text
+        required: true
+        description: Tulis dengan heading, list, dan link WA seperti artikel lain.
+        options:
+          format: markdown
