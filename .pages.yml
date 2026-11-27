@@ -78,7 +78,7 @@ content:
         label: Waktu Baca
         type: string
         required: true
-        description: 'cth: 4 menit'
+        description: "Wajib format 'X menit', cth: 5 menit (jangan isi angka saja)."
       - name: bullets
         label: Poin Ringkas
         type: string
@@ -94,10 +94,32 @@ content:
         label: Featured
         type: boolean
         required: false
-      - name: imagePosition
-        label: Posisi Gambar
+      - name: cover
+        label: Gambar Cover
+        type: image
+        required: false
+        description: "Upload atau pilih gambar cover di sini (tersimpan di /uploads). Kalau dikosongkan, dipakai ilustrasi bawaan sesuai kategori."
+        options:
+          path: public/uploads
+          extensions: [jpg, jpeg, png, webp]
+      - name: coverAlt
+        label: Alt Text Cover (SEO)
         type: string
         required: false
+        description: "Deskripsi gambar untuk SEO & aksesibilitas. Kosongkan = dibuat otomatis dari judul."
+      - name: imagePosition
+        label: Posisi Gambar Cover
+        type: select
+        required: false
+        description: "Posisi crop cover: tengah (default), atas, atau bawah."
+        options:
+          values:
+            - name: center
+              label: Tengah (default)
+            - name: top
+              label: Atas
+            - name: bottom
+              label: Bawah
       - name: body
         label: Isi Artikel
         type: rich-text

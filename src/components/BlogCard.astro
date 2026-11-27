@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { post, featured = false } = Astro.props;
-const { title, excerpt, category, topic, readTime, imagePosition } = post.data;
+const { title, excerpt, category, topic, readTime, imagePosition, cover, coverAlt } = post.data;
 const label = blogCategories.find(({ id }) => id === category)!.label;
 ---
 
@@ -32,6 +32,8 @@ const label = blogCategories.find(({ id }) => id === category)!.label;
         category={category}
         postId={post.id}
         position={imagePosition ?? "center"}
+        cover={cover}
+        alt={coverAlt}
         sizes={
           featured ? "(min-width: 1024px) 480px, 100vw" : "(min-width: 640px) 384px, 100vw"
         }

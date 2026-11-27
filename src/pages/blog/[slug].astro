@@ -18,7 +18,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
-const { title, excerpt, tldr, metaTitle, metaDescription, category, topic, date, dateModified, readTime, bullets } = post.data;
+const { title, excerpt, tldr, metaTitle, metaDescription, category, topic, date, dateModified, readTime, bullets, cover, coverAlt } = post.data;
 const currentCategory = blogCategories.find(({ id }) => id === category)!;
 const related = await getCollection("blog", ({ id, data }) => id !== post.id && data.category === category);
 related.sort(sortBlogNewest);
@@ -53,6 +53,7 @@ const shareUrl = `/blog/${post.id}`;
   title={metaTitle ?? `${title} | AsuransiSerpong`}
   description={metaDescription ?? excerpt}
   stickyMessage={message}
+  ogImage={cover ?? "/avatar-aditya.jpg"}
   schemaType="article"
   article={{ headline: title, datePublished: date, dateModified, description: excerpt }}
   faqs={articleFaqs}
@@ -117,6 +118,8 @@ const shareUrl = `/blog/${post.id}`;
               sizes="(min-width: 1024px) 960px, 100vw"
               priority
               position={post.data.imagePosition ?? "center"}
+              cover={cover}
+              alt={coverAlt}
             />
           </div>
           <figcaption class="type-fine mt-3 text-center font-medium text-muted">

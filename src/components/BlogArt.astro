@@ -16,6 +16,8 @@ interface Props {
   sizes?: string;
   priority?: boolean;
   position?: string;
+  cover?: string;
+  alt?: string;
 }
 
 const {
@@ -24,6 +26,8 @@ const {
   sizes = "(min-width: 1024px) 480px, (min-width: 640px) 50vw, 100vw",
   priority = false,
   position = "center",
+  cover,
+  alt,
 } = Astro.props;
 const photoByPost: Record<string, ImageMetadata> = {
   "panduan-asuransi-rumah-tinggal-bsd-alam-sutera": rumahKprLunas,
@@ -40,6 +44,7 @@ const photoAltByPost: Record<string, string> = {
   "kredit-mobil-lunas-asuransi-mobil-mandiri": "Mobil untuk ilustrasi mengurus asuransi setelah kredit lunas",
   "asuransi-mobil-banjir-bsd-gading-serpong": "Mobil di jalan tergenang sebagai ilustrasi risiko banjir pada asuransi mobil",
   "asuransi-tlo-adalah": "Mobil untuk ilustrasi pengertian asuransi TLO Total Loss Only",
+  "klaim-asuransi-mobil-ditolak-atau-dipotong": "Ilustrasi penolakan atau pemotongan klaim asuransi mobil",
 };
 const photo = photoByPost[postId];
 const categoryArt = {
@@ -55,11 +60,22 @@ const topicArt: Record<string, (typeof categoryArt)[BlogCategory] | readonly [ty
 const [Icon, tone] = topicArt[postId] ?? categoryArt[category];
 ---
 
-{photo ? (
+{cover ? (
+  <img
+    class="blog-photo"
+    src={cover}
+    alt={alt ?? photoAltByPost[postId] ?? `Ilustrasi artikel ${postId}`}
+    sizes={sizes}
+    style={`object-position: ${position}`}
+    loading={priority ? "eager" : "lazy"}
+    fetchpriority={priority ? "high" : "auto"}
+    decoding="async"
+  />
+) : photo ? (
   <Image
     class="blog-photo"
     src={photo}
-    alt={photoAltByPost[postId]}
+    alt={alt ?? photoAltByPost[postId]}
     widths={[480, 672, 840, 960, 1200]}
     sizes={sizes}
     quality={priority ? 88 : 85}

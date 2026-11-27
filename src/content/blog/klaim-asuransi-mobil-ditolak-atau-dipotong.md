@@ -15,7 +15,7 @@ metaDescription: Klaim ditolak dan klaim dipotong itu dua hal berbeda. Ini
 category: mobil
 topic: Klaim
 date: 27 Nov 2026
-readTime: "5"
+readTime: "5 menit"
 bullets:
   - Bedakan klaim ditolak (tidak dijamin) dari klaim dipotong (dijamin, tapi
     nominalnya berkurang).
@@ -24,7 +24,9 @@ bullets:
   - Lapor ke kanal resmi dan tunggu persetujuan sebelum mobil diperbaiki.
 order: 5
 featured: false
-imagePosition: src/assets/blog/klaim-ditolak.webp
+cover: /uploads/klaim-ditolak.webp
+coverAlt: "Ilustrasi penolakan atau pemotongan klaim asuransi mobil"
+imagePosition: center
 ---
 Mobil Anda keserempet di parkiran. Bengkel memberi estimasi perbaikan, tapi persetujuan dari asuransi turun lebih kecil dari yang Anda kira. Atau lebih buruk lagi, klaimnya ditolak sama sekali, padahal premi sudah dibayar tiap tahun.
 
